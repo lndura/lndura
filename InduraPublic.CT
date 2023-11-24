@@ -4,7 +4,6 @@
     <CheatEntry>
       <ID>0</ID>
       <Description>"Open Indura's Table v2.0.1"</Description>
-      <Options moAlwaysHideChildren="1"/>
       <Color>FF8080</Color>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>//Table Created By DiamondEnderman
@@ -784,8 +783,7 @@ local dependencyList = {
 1337287211, --Param Patcher Initializer
 1337287212, --Param Patcher
 1337263895, --Better ItemGib
-1337291711, --Custom Restock
-1337305259  -- Private Functions
+1337291711 --Custom Restock
 }
 
 local dependencyDelay = createTimer(getMainForm())
