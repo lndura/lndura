@@ -1612,7 +1612,7 @@ end
 </AssemblerScript>
               <CheatEntries>
                 <CheatEntry>
-                  <ID>1337291383</ID>
+                  <ID>1337305314</ID>
                   <Description>"Tearcycle"</Description>
                   <Color>FF80BF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
@@ -1635,7 +1635,6 @@ local CharacterReset = {
 }
 
 local Recovery = SpEffectParam:new("TearCycleParamPatch",103520100)
-      Recovery:changeHpRate(-100)                   -- Restores HP to 100%.
       Recovery:changeMpRate(-100)                   -- Restores FP to 100%.
       Recovery:effectEndurance(0.1)
       Recovery:stateInfo(13)
@@ -1644,19 +1643,22 @@ local Recovery = SpEffectParam:new("TearCycleParamPatch",103520100)
 
 
 AutoReviveTimer = createTimer(getMainForm())
-AutoReviveTimer.Interval = 250
+AutoReviveTimer.Interval = 1
 AutoReviveTimer.OnTimer = function()
 
-   if readBit(noDeadPtr, 2) == 0 then
-      writeBit(noDeadPtr, 2, 1)
-      writeBit(noGoodsUsePtr, 3, 1)
+   if readInteger(noDeadPtr) ~= nil then
+      if readBit(noDeadPtr, 2) == 0 then
+         writeBit(noDeadPtr, 2, 1)
+         writeBit(noGoodsUsePtr, 3, 1)
+      end
    end
 
    if readInteger(player0HealthPtr) == 1 or readInteger(player0HealthPtr) == 0 then
-      applyEffect(CharacterReset)                        -- Resets Character to Neutral
-      playAnimation('W_BackStepNomal')                   -- Escapes Throw State
-      writeInteger(idleAnimPtr,60390)                    -- Resets Player to Idle Animation
-      writeFloat(playerPoisePtr,.01)                     -- Reset Poise Health
+      writeInteger(player0HealthPtr, readInteger(player0MaxHealthPtr)) -- prevents calling timer twice for one instance
+      applyEffect(CharacterReset)                                      -- Resets Character to Neutral
+      playAnimation('W_BackStepOverweight')                            -- Escapes Throw State
+      writeInteger(idleAnimPtr,60390)                                  -- Resets Player to Idle Animation
+      writeFloat(playerPoisePtr,.01)                                   -- Reset Poise Health
    end
 end
 
@@ -1675,13 +1677,16 @@ end
 </AssemblerScript>
                 </CheatEntry>
                 <CheatEntry>
-                  <ID>1337286733</ID>
+                  <ID>1337305315</ID>
                   <Description>"Cleansing Blessing"</Description>
                   <Color>FF80BF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
-                  <AssemblerScript>[ENABLE]
+                  <AssemblerScript>// Made by Indura
+// Improves blessing by using a function from Wex Dust
 {$lua}
 if syntaxcheck then return end
+
+[ENABLE]
 
    local DivineItem = 0x400000F0
 
@@ -1705,30 +1710,39 @@ if syntaxcheck then return end
          DivineEffect:changeMpRate(-100)                   --Restores FP to 100%.
          DivineEffect:stateInfo(13)
          DivineEffect:spCategory(0)
+         DivineEffect:effectEndurance(10)
 
 
-local EffectID = 3000
-local TimerInterval = 1000
+local DivineEffectId = 3000
 
-local effectLinkedList = "[[[[WorldChrMan]+80]+18]+18]+8"
-local effectOffsetToNextPtr = "78"
-local effectIdOffset = "60"
+local DivineTimerInterval = 1
+local DivineEffectsToRead = 200
+
+local DivineEffectLinkedList = "[[[[WorldChrMan]+80]+18]+18]+8"
+local DivineEffectOffsetToNextPtr = "78"
+local DivineEffectIdOffset = "60"
+local DivineEffectDurationOffset = "4"
 
 
-BlessingDetected = false
-BlessingDetected = createTimer(getMainForm())
-BlessingDetected.Interval = TimerInterval
-BlessingDetected.OnTimer = function()
+IsDivineEffectDetected = false
+DivineEffectTimer = createTimer(getMainForm())
+DivineEffectTimer.Interval = DivineTimerInterval
+DivineEffectTimer.OnTimer = function(t)
+    if not memrec.active or t.Enabled == false or readQword("WorldChrMan") == nil then
+        t.destroy()
+        return
+    end
 
-    local hasHealedThisTick = false
+    local hasDetectedThisTick = false
+
     local effectCount = 0
 
-    for i = 0, 100, 1 do
-        local ptrString = effectLinkedList
+    for i = 0, DivineEffectsToRead, 1 do
+        local ptrString = DivineEffectLinkedList
         local effectN = 1
 
         while effectN &lt;= effectCount do
-            ptrString = "[" .. ptrString .. "]+" .. effectOffsetToNextPtr
+            ptrString = "[" .. ptrString .. "]+" .. DivineEffectOffsetToNextPtr
             effectN = effectN + 1
         end
 
@@ -1736,69 +1750,86 @@ BlessingDetected.OnTimer = function()
             break
         end
 
-        local isEffect = readInteger("[" .. ptrString .. "]+" .. effectIdOffset) == EffectID
-        hasDetectedThisTick = isEffect or hasDetectedThisTick
+        local isExecutingEffect = readInteger("[" .. ptrString .. "]+" .. DivineEffectIdOffset) == DivineEffectId
+        hasDetectedThisTick = isExecutingEffect or hasDetectedThisTick
 
-        if hasDetectedThisTick and not EffectDetected then
-            EffectDetected = true
+        if hasDetectedThisTick and not IsDivineEffectDetected then
+            IsDivineEffectDetected = true
+            removeEffect(DivineEffectId)
+
             --[[
-            Code upon detecting effect here
+            Code upon detecting Divine effect here
             --]]
-            playAnimation('W_BackStepNomal')                   -- Escapes Throw State
-            writeInteger(idleAnimPtr,60390)                    -- Resets Player to Idle Animation
-            writeFloat(playerPoisePtr,.01)                     -- Reset Poise Health
+            writeInteger(idleAnimPtr, 60390)                  -- Resets Player to Idle Animation
+            writeFloat(playerPoisePtr, .01)                   -- Reset Poise Health
+
         end
+
         effectCount = effectCount + 1
     end
-    if not hasDetectedThisTick and EffectDetected then
-        EffectDetected = false
+
+    if not hasDetectedThisTick and IsDivineEffectDetected then
+        IsDivineEffectDetected = false
     end
 end
---]]
-[DISABLE]
-BlessingDetected.destroy()
-paramUtils:restore("DivineBlessing")
 
+[disable]
 
+DivineEffectTimer.destroy()
+paramUtils:restore("Divine")
 </AssemblerScript>
                 </CheatEntry>
                 <CheatEntry>
-                  <ID>1337305258</ID>
-                  <Description>"AutoSummon Signs"</Description>
+                  <ID>1337305316</ID>
+                  <Description>"Host Fightclub"</Description>
                   <Color>FF80BF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
+if syntaxcheck then return end
+
 [ENABLE]
-AutoSummonTimer = createTimer(getMainForm())
-AutoSummonTimer.Interval = 1000
-AutoSummonTimer.OnTimer = function()
 
+autoAssemble([[
+alloc(AutoSummonPhantoms,$128,"DarkSoulsIII.exe"+853707)
+registersymbol(AutoSummonPhantoms)
+define(AutoSummonReturn,"DarkSoulsIII.exe"+85370c)
+
+AutoSummonPhantoms:
+ db    90
+ jmp   AutoSummonReturn
+
+"DarkSoulsIII.exe"+853707:
+ jmp   AutoSummonPhantoms
+]])
+
+
+UnlockSummonLimitTimer = createTimer(getMainForm())
+UnlockSummonLimitTimer.Interval = 5000
+UnlockSummonLimitTimer.OnTimer = function()
    if readInteger(autoSummonPtr) ~= nil then
-
-      if readInteger(autoSummonPtr) ~= 1 then
-
-         writeInteger(autoSummonPtr, 1)
-
-      end
+      writeInteger(playerCountPtr, 0)
    end
 end
+
+UnEmberTimer = createTimer(getMainForm())
+UnEmberTimer.Interval = 500
+UnEmberTimer.OnTimer = function()
+if readInteger(emberPtr) ~= nil then
+   writeByte(emberPtr, 0)
+end end
+
 [DISABLE]
-AutoSummonTimer.destroy()
 
-TurnOffAutoSummonTimer = createTimer(getMainForm())
-TurnOffAutoSummonTimer.Interval = 1000
-TurnOffAutoSummonTimer.OnTimer = function()
+UnlockSummonLimitTimer.destroy()
+UnEmberTimer.destroy()
 
-   if readInteger(autoSummonPtr) ~= nil then
+autoAssemble([[
+"DarkSoulsIII.exe"+853707:
+ call  DarkSoulsIII.exe+78bf10
 
-      if readInteger(autoSummonPtr) ~= 0 then
-         writeInteger(autoSummonPtr, 0)
-      else
-         TurnOffAutoSummonTimer.destroy()
-      end
-   end
-end
-
+dealloc(AutoSummonPhantoms)
+unregistersymbol(AutoSummonPhantoms)
+]])
 </AssemblerScript>
                 </CheatEntry>
               </CheatEntries>
