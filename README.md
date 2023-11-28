@@ -5,6 +5,13 @@ I made an easy to use Cheat Table for Dark Souls III.
 It's designed to be easy to use, very new user friendly and has no malicious items.
 I am not responsible for how you use cheatengine or if you get banned for using it.
 
+People that contributed to table stuff:
+- everyone from TGA
+- DiamondEnderman
+- Falco
+- Deivid
+- Kujo 
+
 You can reach me on these platforms:
 Twitch.tv: InduraBeast
 Discord:   _Indura
