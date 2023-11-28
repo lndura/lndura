@@ -4,6 +4,7 @@
     <CheatEntry>
       <ID>0</ID>
       <Description>"Open Indura's Table v2.0.1"</Description>
+      <Options moHideChildren="1"/>
       <Color>FF8080</Color>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>//Table Created By DiamondEnderman
@@ -1191,6 +1192,23 @@ end
 end end
 </AssemblerScript>
                 </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305324</ID>
+                  <Description>"Ember Health"</Description>
+                  <Color>FF80BF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+{$lua}
+if syntaxcheck then return end
+autoDisable(memrec)
+
+if(ember == 0) then
+  applyEffect(490)
+end
+
+[disable]
+</AssemblerScript>
+                </CheatEntry>
               </CheatEntries>
             </CheatEntry>
             <CheatEntry>
@@ -1234,7 +1252,6 @@ UnEmber.destroy()
                 <CheatEntry>
                   <ID>1337292103</ID>
                   <Description>"WexDust"</Description>
-                  <Options moHideChildren="1"/>
                   <Color>FF80BF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//  Wex Dust Invader
@@ -1561,7 +1578,7 @@ wexInvasionTimer.Interval = 1000
 wexInvasionTimer.OnTimer = function()
 if readInteger(lvlPtr) ~= nil then                    -- Prevents Loading screen crash
 
-   if readInteger(player0CharacterTypePtr) == 0 then   -- Prevents Activating if not host
+   if readByte("[FrpgNetMan]+A28") == 0 and readInteger(playerCountPtr) == 1 and readInteger(player0CharacterTypePtr) == 0 and readInteger(player0TeamTypePtr) == 1 then
 
       if currentPlace &lt;= #wexDustInvasionPlaces then
       applyEffect(11)
@@ -1588,6 +1605,147 @@ if readInteger(lvlPtr) ~= nil then
 writeInteger(areaForOnlinePlayPtr, readInteger("StoreInitialArea"))
 end
 
+</AssemblerScript>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305323</ID>
+                      <Description>"Add WexDust Item"</Description>
+                      <Color>FF8080</Color>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>{$lua}
+[enable]
+
+local WexDustItem = 0x40000118
+local WexDustEffectId = 3100
+local WexFunctions = getAddressList()
+
+IsWexItemNeeded = false
+WexItemTimer = createTimer(getMainForm())
+WexItemTimer.Interval = 1000
+WexItemTimer.OnTimer = function()
+   if readInteger(lvlPtr) ~= nil then
+      if readByte("[FrpgNetMan]+A28") == 0 and readInteger(playerCountPtr) == 1 and readInteger(player0CharacterTypePtr) == 0 and readInteger(player0TeamTypePtr) == 1 then
+
+         local WexItem = EquipParamGoods:new("WexDust", WexDustItem)
+               WexItem:refId(WexDustEffectId)
+               WexItem:iconId(151)
+               WexItem:goodsUseAnim(9)
+               WexItem:isConsume(0)
+
+         local WexEffect = SpEffectParam:new("WexDust",WexDustEffectId)
+               WexEffect:effectEndurance(10)
+
+            WexItemState = "Active"
+
+        else
+
+         local WexItem = EquipParamGoods:new("WexDust", WexDustItem)
+               WexItem:refId(WexDustEffectId)
+               WexItem:iconId(103)
+               WexItem:goodsUseAnim(5)
+               WexItem:isConsume(1)
+
+         local WexEffect = SpEffectParam:new("WexDust",WexDustEffectId)
+               WexEffect:effectEndurance(0)
+
+            WexItemState = "Inactive"
+        end
+
+        --[[ Debug
+        if WexItemState ~= IsWexItemNeeded then
+            IsWexItemNeeded = WexItemState
+            print('Wex Item ' .. WexItemState)
+        end
+        --]]
+   end
+end
+
+
+local WexDustTimerInterval = 100
+local WexDustEffectsToRead = 200
+
+local WexDustEffectLinkedList = "[[[[WorldChrMan]+80]+18]+18]+8"
+local WexDustEffectOffsetToNextPtr = "78"
+local WexDustEffectIdOffset = "60"
+local WexDustEffectDurationOffset = "4"
+
+
+local WexDustEffectToggle = true
+
+IsWexDustEffectDetected = false
+WexDustEffectTimer = createTimer(getMainForm())
+WexDustEffectTimer.Interval = WexDustTimerInterval
+WexDustEffectTimer.OnTimer = function(t)
+    if not memrec.active or t.Enabled == false or readQword("WorldChrMan") == nil then
+        t.destroy()
+        return
+    end
+
+    local hasDetectedThisTick = false
+
+    local effectCount = 0
+
+    for i = 0, WexDustEffectsToRead, 1 do
+        local ptrString = WexDustEffectLinkedList
+        local effectN = 1
+
+        while effectN &lt;= effectCount do
+            ptrString = "[" .. ptrString .. "]+" .. WexDustEffectOffsetToNextPtr
+            effectN = effectN + 1
+        end
+
+        if readQword(ptrString) == nil or readQword(ptrString) == 0 then
+            break
+        end
+
+        local isExecutingEffect = readInteger("[" .. ptrString .. "]+" .. WexDustEffectIdOffset) == WexDustEffectId
+        hasDetectedThisTick = isExecutingEffect or hasDetectedThisTick
+
+        if hasDetectedThisTick and not IsWexDustEffectDetected then
+            IsWexDustEffectDetected = true
+            removeEffect(WexDustEffectId)
+
+            --[[
+            Code upon detecting WexDust effect here
+            --]]
+
+
+            -- Execute code based on the toggle state
+            if WexDustEffectToggle then
+                -- Code to execute when state is ON
+                --print('WexDust Effect: ON') -- Debug
+                -- Add your ON code here
+
+                WexFunctions.getMemoryRecordByDescription("Wex Dust Invade").Active=true
+
+            else
+                -- Code to execute when state is OFF
+                --print('WexDust Effect: OFF') -- Debug
+                -- Add your OFF code here
+
+                WexFunctions.getMemoryRecordByDescription("Wex Dust Invade").Active=false
+
+            end
+
+            -- Toggle the state
+            WexDustEffectToggle = not WexDustEffectToggle
+
+        end
+
+        effectCount = effectCount + 1
+    end
+
+    if not hasDetectedThisTick and IsWexDustEffectDetected then
+        IsWexDustEffectDetected = false
+    end
+end
+
+[disable]
+
+WexItemTimer.destroy()
+WexDustEffectTimer.destroy()
+
+paramUtils:restore("WexDust")
 </AssemblerScript>
                     </CheatEntry>
                   </CheatEntries>
@@ -28628,7 +28786,10 @@ bonfireWarp(5102953)
                   <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{?Pyre? - AutoSummons phantoms and possibly stops steamblocking}
+{$lua}
 [ENABLE]
+if readInteger(lvlPtr) ~= nil then end
+autoAssemble([[
 alloc(AutoSummonPhantoms,$128,"DarkSoulsIII.exe"+853707)
 registersymbol(AutoSummonPhantoms)
 define(AutoSummonReturn,"DarkSoulsIII.exe"+85370c)
@@ -28639,14 +28800,16 @@ AutoSummonPhantoms:
 
 "DarkSoulsIII.exe"+853707:
  jmp   AutoSummonPhantoms
+]])
 
 [DISABLE]
-
+autoAssemble([[
 "DarkSoulsIII.exe"+853707:
  call  DarkSoulsIII.exe+78bf10
 
 dealloc(AutoSummonPhantoms)
 unregistersymbol(AutoSummonPhantoms)
+]])
 </AssemblerScript>
                 </CheatEntry>
                 <CheatEntry>
