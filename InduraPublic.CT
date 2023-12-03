@@ -4,7 +4,6 @@
     <CheatEntry>
       <ID>0</ID>
       <Description>"Open Indura's Table v2.0.1"</Description>
-      <Options moHideChildren="1"/>
       <Color>FF8080</Color>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>//Table Created By DiamondEnderman
@@ -780,11 +779,9 @@ end
 
 --Enable Dependencies
 local dependencyList = {
-1337273494, --Gaming Mode + Ctrl F
-1337287211, --Param Patcher Initializer
-1337287212, --Param Patcher
-1337263895, --Better ItemGib
-1337291711 --Custom Restock
+1337305355, --Param Patcher Initializer
+1337305356, --Param Patcher
+1337305397
 }
 
 local dependencyDelay = createTimer(getMainForm())
@@ -1070,6 +1067,23 @@ killAllMobs()
 </AssemblerScript>
                 </CheatEntry>
                 <CheatEntry>
+                  <ID>1337305324</ID>
+                  <Description>"Ember Health"</Description>
+                  <Color>FF80BF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+{$lua}
+if syntaxcheck then return end
+autoDisable(memrec)
+
+if(ember == 0) then
+  applyEffect(490)
+end
+
+[disable]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
                   <ID>1337292100</ID>
                   <Description>"Host At Pontiff"</Description>
                   <Color>FF80BF</Color>
@@ -1090,23 +1104,16 @@ ItemGib:new()
 ItemGib:spawnMultiItems(customRestockedItems)
 
 --Kills all non-unique enemies
-local HostingAtPontiffScripts = getAddressList()
-HostingAtPontiffScripts.getMemoryRecordByDescription("Kill all regular enemies").Active=true
-
+killAllMobs()
 
 --Teleports Player
-writeBit(noDeadPtr, 2, 1)
-teleportSelf(557, -183.2, -1115)
-writeBit(noDeadPtr, 2, 0)
-writeInteger(allDeathCamPtr, 0)
+
+teleportPlayer(557, -183.2, -1115)
 
 --Turns on Ember etc on spawning in
 writeByte(emberPtr, 1) -- Enable Ember
-AddEffect(490)         -- Ember Health
-AddEffect(560)         -- Tears
-AddEffect(28)          -- Dried Finger
+applyEffect({490, 560, 28})
 
-HostingAtPontiffScripts.getMemoryRecordByDescription("Kill all regular enemies").Active=false
 end end
 
 --=================================================================================================
@@ -1126,24 +1133,14 @@ if readInteger(lvlPtr) ~= nil then -- Prevents crashing during loading screen
    ItemGib:spawnMultiItems(customRestockedItems)
 
    --Kills all non-unique enemies
-   local HostingAtPontiffScripts = getAddressList()
-   HostingAtPontiffScripts.getMemoryRecordByDescription("Kill all regular enemies").Active=true
+   killAllMobs()
 
    --Teleports Player
-   writeBit(noGravityPtr, 6, 1)
-   writeBit(noDeadPtr, 2, 1)
-   teleportSelf(557, -183.2, -1115)
-   writeBit(noDeadPtr, 2, 0)
-   writeBit(noGravityPtr, 6, 0)
-   writeInteger(allDeathCamPtr, 0)
+   teleportPlayer(557, -183.2, -1115)
 
    --Turns on Ember etc on spawning in
    writeByte(emberPtr, 1) -- Enable Ember
-   AddEffect(490)         -- Ember Health
-   AddEffect(560)         -- Tears
-   AddEffect(28)          -- Dried Finger
-
-   HostingAtPontiffScripts.getMemoryRecordByDescription("Kill all regular enemies").Active=false
+   applyEffect({490, 560, 28})
 
    end
 
@@ -1153,60 +1150,7 @@ end end
 
 HostingPontiffTimer.destroy()
 
-{$asm}
-{Store temporary unneeded code lines here:
-blah blah blah
 
-HostingPontiffTimer = createTimer(getMainForm())
-HostingPontiffTimer.Interval = 1000
-HostingPontiffTimer.OnTimer = function()
-if readInteger(lvlPtr) ~= nil then -- Prevents crashing during loading screen
-
---Checks if youre at pontiff
-if readInteger(areaForOnlinePlayPtr) ~= 370006 and readInteger(areaForOnlinePlayPtr) ~= 370010 then
-bonfireWarp(3702951)
-elseif readInteger(player0AnimPtr) == 63000 then
-sleep(100)
---Resets Items on spawning in
-ItemGib:new()
-ItemGib:spawnMultiItems(customRestockedItems)
-
---Kills all non-unique enemies
-local HostingAtPontiffScripts = getAddressList()
-HostingAtPontiffScripts.getMemoryRecordByDescription("Kill all regular enemies").Active=true
---HostingAtPontiffScripts.getMemoryRecordByDescription("Kill all regular enemies").Active=false
-
---Teleports Player on spawning in
-writeBit(noDeadPtr, 2, 1)
-teleportSelf(557, -183.2, -1115)
-writeBit(noDeadPtr, 2, 0)
-writeInteger(allDeathCamPtr, 0)
-
---Turns on Ember etc on spawning in
-writeByte(emberPtr, 1) -- Enable Ember
-AddEffect(490)         -- Ember Health
-AddEffect(560)         -- Tears
-AddEffect(28)          -- Dried Finger
-end
-
-end end
-</AssemblerScript>
-                </CheatEntry>
-                <CheatEntry>
-                  <ID>1337305324</ID>
-                  <Description>"Ember Health"</Description>
-                  <Color>FF80BF</Color>
-                  <VariableType>Auto Assembler Script</VariableType>
-                  <AssemblerScript>[enable]
-{$lua}
-if syntaxcheck then return end
-autoDisable(memrec)
-
-if(ember == 0) then
-  applyEffect(490)
-end
-
-[disable]
 </AssemblerScript>
                 </CheatEntry>
               </CheatEntries>
@@ -1252,6 +1196,7 @@ UnEmber.destroy()
                 <CheatEntry>
                   <ID>1337292103</ID>
                   <Description>"WexDust"</Description>
+                  <Options moHideChildren="1"/>
                   <Color>FF80BF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//  Wex Dust Invader
@@ -1268,6 +1213,7 @@ local WexDustScripts = getAddressList()
 createThread(function()
 WexDustScripts.getMemoryRecordByDescription("WexDust Locations").Active=true
 WexDustScripts.getMemoryRecordByDescription("WexDust Dependencies").Active=true
+WexDustScripts.getMemoryRecordByDescription("Add WexDust Item").Active=true
 sleep(50)
 WexDustScripts.getMemoryRecordByDescription("DLC Check").Active=true
 end)
@@ -1276,6 +1222,7 @@ end)
 WexDustScripts.getMemoryRecordByDescription("Wex Dust Invade").Active=false
 WexDustScripts.getMemoryRecordByDescription("WexDust Locations").Active=false
 WexDustScripts.getMemoryRecordByDescription("DLC Check").Active=false
+WexDustScripts.getMemoryRecordByDescription("Add WexDust Item").Active=false
 </AssemblerScript>
                   <CheatEntries>
                     <CheatEntry>
@@ -15768,375 +15715,21 @@ A000276A:Spears of the Church
           </CheatEntries>
         </CheatEntry>
         <CheatEntry>
-          <ID>1337258586</ID>
+          <ID>1337305420</ID>
           <Description>"Build Creation"</Description>
           <Options moHideChildren="1"/>
           <Color>0080FF</Color>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
-              <ID>1337305262</ID>
+              <ID>1337305421</ID>
               <Description>"ItemGib"</Description>
               <Options moHideChildren="1"/>
               <Color>0080FF</Color>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{
-Adds item to inventory
-Authors: Coinsworth, inuNorii and ametalon
-}
-[ENABLE]
-aobscanmodule(ItemGib_Main_AOB,$process,8B 02 83 F8 06)
-aobscanmodule(WeaponLookup_AOB,$process,8B EA 48 8B F1 33 DB 41 83 CE FF 85 D2)
-aobscanmodule(AddableQuantity_AOB,$process,48 89 44 24 ?? 48 8D 44 24 ?? 48 89 44 24 ?? 8B 01)
-define(ItemGib_Main_Call,ItemGib_Main_AOB-2F)
-define(WeaponLookup_Call,WeaponLookup_AOB-22)
-define(AddableQuantity_Call,AddableQuantity_AOB-18)
-alloc(Code,$500,DarkSoulsIII.exe)
-alloc(Data,$100,DarkSoulsIII.exe)
-
-Data:
-
-ItemGibData:
-registerSymbol(ItemGibData)
-dd #-1      // quantity
-dd 400001F4 // id
-dd #-1      // durability
-dd 0        // infusion
-dd #-1      // upgrade level
-align 10 0
-
-ItemToSpawn:
-dd 1 // counter
-dd 0 // id
-dd 0 // quantity
-dd 0 // durability
-
-
-Code:
-
-label(tga.GetHeroLevel)
-tga.GetHeroLevel:
-mov rax,[GameDataMan]
-mov rcx,[rax+10]
-movsx eax,byte ptr [rcx+000000B3]
-ret
-int 3
-int 3
-
-label(tga.GetUninfusedWeapon)
-tga.GetUninfusedWeapon:
-mov eax,68DB8BAD
-imul ecx
-sar edx,0C
-mov eax,edx
-shr eax,1F
-add edx,eax
-imul eax,edx,00002710
-ret
-
-label(tga.GetBaseWeapon)
-tga.GetBaseWeapon:
-mov eax,51EB851F
-imul ecx
-sar edx,05
-mov eax,edx
-shr eax,1F
-add edx,eax
-imul eax,edx,64
-ret
-int 3
-int 3
-int 3
-
-label(tga.GetWeaponLevel)
-tga.GetWeaponLevel:
-mov eax,51EB851F
-imul ecx
-sar edx,05
-mov eax,edx
-shr eax,1F
-add edx,eax
-imul eax,edx,64
-sub ecx,eax
-mov eax,ecx
-ret
-int 3
-int 3
-int 3
-
-label(tga.IsSpecialWeapon)
-tga.IsSpecialWeapon:
-sub rsp,58
-mov edx,ecx
-mov rax,WeaponLookup_Call
-lea rcx,[rsp+20]
-call rax
-mov rcx,[rsp+28]
-xor eax,eax
-test rcx,rcx
-je tga.IsSpecialWeapon+2B
-cmp dword ptr [rcx+74],-01
-jne tga.IsSpecialWeapon+2B
-mov al,01
-add rsp,58
-ret
-
-label(tga.IsInfusableWeapon)
-tga.IsInfusableWeapon:
-sub rsp,58
-call tga.GetUninfusedWeapon
-lea rcx,[rsp+20]
-lea edx,[rax+64]
-mov rax,WeaponLookup_Call
-call rax
-cmp qword ptr [rsp+28],00
-setne al
-add rsp,58
-ret
-int 3
-
-label(tga.IsWeapon)
-tga.IsWeapon:
-lea eax,[rcx-00070001]
-cmp eax,0FF8FFFE
-setbe al
-ret
-int 3
-
-label(tga.IsAmmo)
-tga.IsAmmo:
-cmp ecx,00070000
-setl al
-ret
-int 3
-int 3
-
-label(tga.IsConsumable)
-tga.IsConsumable:
-lea eax,[rcx-40000001]
-cmp eax,000FFFFE
-setbe al
-ret
-int 3
-
-label(tga.AddableQuantity)
-tga.AddableQuantity:
-mov [rsp+08],ecx
-sub rsp,28
-lea rcx,[rsp+30]
-mov rax,AddableQuantity_Call
-call rax
-add rsp,28
-ret
-int 3
-int 3
-
-label(tga.AdjustWeaponInfusion)
-tga.AdjustWeaponInfusion:
-db 40 53 // push rbx
-sub rsp,20
-mov ebx,ecx
-call tga.IsInfusableWeapon
-test al,al
-je tga.AdjustWeaponInfusion+15
-mov eax,ebx
-jmp tga.AdjustWeaponInfusion+27
-mov ecx,ebx
-call tga.GetUninfusedWeapon
-mov r8d,eax
-call tga.GetWeaponLevel
-add eax,r8d
-add rsp,20
-pop rbx
-ret
-int 3
-int 3
-int 3
-
-label(tga.AdjustWeaponUpgrade)
-tga.AdjustWeaponUpgrade:
-mov [rsp+08],rbx
-mov [rsp+10],rsi
-push rdi
-sub rsp,20
-mov esi,ecx
-call tga.GetHeroLevel
-mov ecx,esi
-mov ebx,eax
-call tga.GetWeaponLevel
-mov ecx,esi
-mov edi,eax
-call tga.IsSpecialWeapon
-test al,al
-je tga.AdjustWeaponUpgrade+35
-mov eax,ebx
-cdq
-sub eax,edx
-sar eax,1
-mov ebx,eax
-cmp ebx,edi
-mov ecx,esi
-cmovl edi,ebx
-call tga.GetBaseWeapon
-mov rbx,[rsp+30]
-add eax,edi
-mov rsi,[rsp+38]
-add rsp,20
-pop rdi
-ret
-int 3
-
-label(tga.AdjustQuantity)
-tga.AdjustQuantity:
-db 40 53 // push rbx
-sub rsp,20
-mov ebx,edx
-call tga.IsAmmo
-test al,al
-jne tga.AdjustQuantity+21
-call tga.IsConsumable
-test al,al
-jne tga.AdjustQuantity+21
-mov eax,00000001
-jmp tga.AdjustQuantity+32
-call tga.AddableQuantity
-cmp ebx,-01
-je tga.AdjustQuantity+32
-cmp eax,ebx
-cmovl ebx,eax
-mov eax,ebx
-add rsp,20
-pop rbx
-ret
-
-label(tga.SpawnItems)
-label(tga.SpawnItems_CreateItemBatch)
-label(tga.SpawnItems_SetBatchItemCount)
-label(tga.SpawnItems_REP_MOVSB64)
-label(tga.SpawnItems_AdjustItemData)
-label(tga.SpawnItems_AdjustQuantity)
-label(tga.SpawnItems_Call)
-label(tga.SpawnItems_Done)
-tga.SpawnItems:
-registerSymbol(tga.SpawnItems)
-push rbx
-push rsi
-push rdi
-push r14
-push r15
-sub rsp,30
-movsxd r15,dword ptr [rcx]
-lea rsi,[rcx+04]
-tga.SpawnItems_CreateItemBatch:
-mov rax,r15
-mov cl,06
-movsx rcx,cl
-xor rdx,rdx
-div rcx
-test rdx,rdx
-jne tga.SpawnItems_SetBatchItemCount
-mov dl,06
-movsx rdx,dl
-test rax,rax
-je tga.SpawnItems_Done
-tga.SpawnItems_SetBatchItemCount:
-mov r14,rdx
-sub r15,r14
-lea rdi,[ItemToSpawn+04]
-mov [rdi-04],r14d
-mov rax,r14
-mov cl,0C
-movsx rcx,cl
-xor rdx,rdx
-mul rcx
-mov rcx,rax
-tga.SpawnItems_REP_MOVSB64:
-db F3 48 A4
-lea rbx,[ItemToSpawn+04]
-tga.SpawnItems_AdjustItemData:
-mov ecx,[rbx]
-call tga.IsWeapon
-test al,al
-je tga.SpawnItems_AdjustQuantity
-call tga.AdjustWeaponInfusion
-mov ecx,eax
-call tga.AdjustWeaponUpgrade
-mov [rbx],eax
-mov ecx,eax
-tga.SpawnItems_AdjustQuantity:
-mov edx,[rbx+04]
-call tga.AdjustQuantity
-mov [rbx+04],eax
-add rbx,0C
-sub r14,01
-jne tga.SpawnItems_AdjustItemData
-tga.SpawnItems_Call:
-mov rcx,MapItemMan
-lea r8,[rsp+20]
-lea rdx,[ItemToSpawn]
-mov rax,ItemGib_Main_Call
-mov rcx,[rcx]
-call rax
-test r15,r15
-jne tga.SpawnItems_CreateItemBatch
-tga.SpawnItems_Done:
-xor rax,rax
-mov cl,12
-movsx rcx,cl
-lea rdi,[ItemToSpawn]
-rep stosq
-mov dword ptr [ItemToSpawn],01
-add rsp,30
-pop r15
-pop r14
-pop rdi
-pop rsi
-pop rbx
-ret
-int 3
-
-
-// void ItemGib()
-ItemGib:
-registersymbol(ItemGib)
-sub rsp, 28
-mov ecx, dword ptr [ItemGibData+4]
-call tga.IsWeapon
-test al, al
-mov eax, dword ptr [ItemGibData+4]
-jz short ItemGib_not_weapon
-ItemGib_weapon:
-// if "Hero level" selected, use max upgrade level, it will be adjusted
-mov eax, dword ptr [ItemGibData+10]
-mov ecx, #10
-cmp eax, #-1
-cmove eax, ecx
-add eax, dword ptr [ItemGibData+4]
-add eax, dword ptr [ItemGibData+C]
-ItemGib_not_weapon:
-mov dword ptr [ItemToSpawn+4], eax
-mov eax, dword ptr [ItemGibData]
-mov dword ptr [ItemToSpawn+8], eax
-mov eax, dword ptr [ItemGibData+8]
-mov dword ptr [ItemToSpawn+C], eax
-lea rcx, [ItemToSpawn]
-call tga.SpawnItems
-add rsp, 28
-ret
-align 10 CC
-
-
-[DISABLE]
-unregistersymbol(ItemGib)
-unregistersymbol(ItemGibData)
-unregisterSymbol(tga.SpawnItems)
-dealloc(Code)
-dealloc(Data)
-
-</AssemblerScript>
+              <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
-                  <ID>1337305263</ID>
+                  <ID>1337258593</ID>
                   <Description>"← Spawn Item"</Description>
                   <Color>55AAFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
@@ -16153,7 +15746,7 @@ CREATETHREAD(ItemGib)
 </AssemblerScript>
                   <CheatEntries>
                     <CheatEntry>
-                      <ID>1337305264</ID>
+                      <ID>1337258594</ID>
                       <Description>"Item Name"</Description>
                       <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">00A87500:Dark Hand
 0001ADB0:Fists
@@ -17373,7 +16966,7 @@ CREATETHREAD(ItemGib)
                       <Address>ItemGibData+04</Address>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>1337305265</ID>
+                      <ID>1337258595</ID>
                       <Description>"Infusion"</Description>
                       <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Normal
 100:Heavy
@@ -17397,7 +16990,7 @@ CREATETHREAD(ItemGib)
                       <Address>ItemGibData+0C</Address>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>1337305266</ID>
+                      <ID>1337258596</ID>
                       <Description>"Upgrade Level"</Description>
                       <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">-1:Hero level
 0:+0
@@ -17418,7 +17011,7 @@ CREATETHREAD(ItemGib)
                       <Address>ItemGibData+10</Address>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>1337305267</ID>
+                      <ID>1337258597</ID>
                       <Description>"Quantity"</Description>
                       <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">-1:Max
 </DropDownList>
@@ -17428,7 +17021,7 @@ CREATETHREAD(ItemGib)
                       <Address>ItemGibData</Address>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>1337305268</ID>
+                      <ID>1337258598</ID>
                       <Description>"Durability"</Description>
                       <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">-1:Normal
 0:Broken
@@ -17440,202 +17033,21 @@ CREATETHREAD(ItemGib)
                     </CheatEntry>
                   </CheatEntries>
                 </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337305422</ID>
+              <Description>"Mass ItemGib"</Description>
+              <Options moHideChildren="1"/>
+              <Color>0080FF</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
                 <CheatEntry>
-                  <ID>1337305269</ID>
-                  <Description>"Mass ItemGib"</Description>
-                  <Color>55AAFF</Color>
+                  <ID>1337258600</ID>
+                  <Description>"Weapons"</Description>
+                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
-                  <AssemblerScript>[ENABLE]
-alloc(MassItemGib,128,DarkSoulsIII.exe)
-registersymbol(MassItemGib)
-
-alloc(ItemArray,$1000)
-registersymbol(ItemArray)
-
-registersymbol(MassGibDone)
-
-MassItemGib:
-sub rsp,28
-mov [MassGibDone], 0
-lea rcx,[ItemArray]
-call tga.SpawnItems
-mov [MassGibDone], 1
-add rsp,28
-ret
-
-MassGibDone:
-dd 00
-
-{$lua}
-if syntaxcheck then return end
-dlc1Owned = (readBytes(GetAddress('[CsDlc]+11')) == 1) or false
-dlc2Owned = (readBytes(GetAddress('[CsDlc]+12')) == 1) or false
-
-Item = {id, typ, quantity, dlc, isCutContent}
-
-function Item:new (id, typ, quantity, dlc, isCutContent)
-  o = {
-    id = id,
-    typ = typ or "item",
-    quantity = quantity or 0xFFFFFFFF,
-    dlc = dlc or 0,
-    isCutContent = isCutContent or false,
-  }
-  setmetatable(o, self)
-  self.__index = self
-  return o
-end
-
-function Item:spawn(baseAddress, offset)
-  offset = offset or 0
-  baseAddress = baseAddress + 4
-  WriteInteger(baseAddress,self.id + offset)
-  baseAddress = baseAddress + 4
-  WriteInteger(baseAddress,self.quantity)
-  baseAddress = baseAddress + 4
-  WriteInteger(baseAddress,0xFFFFFFFF)
-  return baseAddress
-end
-
-function Item:checkType(checkBox)
-  if(self.typ == "item") then return true end
-  return checkBox[self.typ].Checked
-end
-
-function Item:checkCutContent(checkBox)
-  if(self.isCutContent) then
-    return checkBox["CutContent"].Checked
-  end
-  return checkBox["GameContent"].Checked
-end
-
-function Item:checkDlc(checkBox)
-  if(self.dlc == 0) then
-    return checkBox["BaseGame"].Checked
-  elseif(self.dlc == 1) then
-    return checkBox["AshesofAriandel"].Checked
-  else
-    return checkBox["RingedCity"].Checked
-  end
-end
-
-function Item:checkAll(checkboxes)
-  if(not self:checkType(checkboxes)) then return false end
-  if(not self:checkDlc(checkboxes)) then return false end
-  if(not self:checkCutContent(checkboxes)) then return false end
-  return true
-end
-
-MIGForm = {ctrl}
-function MIGForm:new()
-  o = {
-    ctrl = {}
-  }
-  setmetatable(o, self)
-  self.__index = self
-  return o
-end
-
-function MIGForm:create(typ, parent, properties, customName)
-  parent = self.ctrl[parent]
-  local control = createComponentClass(typ, parent)
-  control.Parent = parent
-  self:initialize(control, properties)
-  control['x'] = control.Left + control.Width
-  control['y'] = control.Top + control.Height
-  local name = customName or properties.Caption
-  name = string.gsub(name, "%s", "")
-  self.ctrl[name] = control
-end
-
-function MIGForm:initialize(control, properties)
-  if(type(control) == 'string') then control = self.ctrl[control] end
-  for propertyName, property in pairs(properties) do
-    if (type(property) == 'table') then
-      for subPropertyName, subProperty in pairs(property) do
-        control[propertyName][subPropertyName] = subProperty
-      end
-    else
-    control[propertyName] = property
-    end
-  end
-end
-
-function MIGForm:initDefaultForm(formName)
-  self.ctrl[formName].BorderStyle = bsDialog
-  self.ctrl[formName].show()
-  self.ctrl[formName].centerScreen()
-  self.ctrl[formName].BorderStyle = bsDialog
-  self.ctrl[formName].OnClose = function (sender)
-    return caFree
-  end
-end
-
-function MIGForm:addItems(control, items, checked)
-  checked = checked or false
-  control = self.ctrl[control]
-  for _, item in pairs(items) do
-    control.items.add(item)
-  end
-  control.setItemIndex(0)
-end
-
-function MIGForm:fixSize(parentName, x, y)
-  x = x or 0
-  y = y or 0
-  local parent = self.ctrl[parentName]
-  local width, height = 0,0
-  local tempWidth, tempHeight
-  for i = 0, parent.ComponentCount - 1 do
-    tempWidth = parent.Component[i].Left +  parent.Component[i].Width
-    if (tempWidth &gt; width) then
-        width = tempWidth
-    end
-    tempHeight =  parent.Component[i].Top +  parent.Component[i].Height
-    if (tempHeight &gt; height) then
-       height = tempHeight
-    end
-  end
-  parent.Width = width + x
-  parent.x = parent.Width + parent.Left
-  parent.Height = height + y
-  parent.y = parent.Height + parent.Top
-end
-
-function MIGForm:fillGap(controlName, targetName)
-  local control = self.ctrl[controlName]
-  local target = {
-    x = self.ctrl[targetName.x] or nil,
-    y = self.ctrl[targetName.y] or nil
-  }
-  if(target.x) then control.Width = control.Width + target.x.Width + target.x.Left - control.Width - control.Left end
-  if(target.y) then control.Height = control.Height + target.y.Height + target.y.Top - control.Height - control.Top end
-end
-
-function MIGForm:changeCheckBoxes(parent)
-  parent = self.ctrl[parent]
-  for i = 1, parent.ComponentCount - 1 do
-    parent.Component[i].Checked = parent.Component[0].Checked
-  end
-end
-
-[DISABLE]
-{$asm}
-dealloc(MassItemGib)
-unregistersymbol(MassItemGib)
-
-dealloc(ItemArray)
-unregistersymbol(ItemArray)
-
-unregistersymbol(MassGibDone)
-</AssemblerScript>
-                  <CheatEntries>
-                    <CheatEntry>
-                      <ID>1337305270</ID>
-                      <Description>"Weapons"</Description>
-                      <Color>80FFFF</Color>
-                      <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>{$lua}
+                  <AssemblerScript>{$lua}
 if not syntaxcheck then autoDisable(memrec) end
 local win = MIGForm:new()
 
@@ -18091,13 +17503,13 @@ createWindow()
 [DISABLE]
 
 </AssemblerScript>
-                    </CheatEntry>
-                    <CheatEntry>
-                      <ID>1337305271</ID>
-                      <Description>"Armors"</Description>
-                      <Color>80FFFF</Color>
-                      <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>{$lua}
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337258601</ID>
+                  <Description>"Armors"</Description>
+                  <Color>80FFFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
 if not syntaxcheck then autoDisable(memrec) end
 local win = MIGForm:new()
 
@@ -18561,13 +17973,13 @@ createWindow()
 [DISABLE]
 
 </AssemblerScript>
-                    </CheatEntry>
-                    <CheatEntry>
-                      <ID>1337305272</ID>
-                      <Description>"Rings"</Description>
-                      <Color>80FFFF</Color>
-                      <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>{$lua}
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337258602</ID>
+                  <Description>"Rings"</Description>
+                  <Color>80FFFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
 if not syntaxcheck then autoDisable(memrec) end
 local win = MIGForm:new()
 Ring = Item:new()
@@ -18741,13 +18153,13 @@ createWindow()
 
 [DISABLE]
 </AssemblerScript>
-                    </CheatEntry>
-                    <CheatEntry>
-                      <ID>1337305273</ID>
-                      <Description>"Magic"</Description>
-                      <Color>80FFFF</Color>
-                      <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>{$lua}
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337258603</ID>
+                  <Description>"Magic"</Description>
+                  <Color>80FFFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
 if not syntaxcheck then autoDisable(memrec) end
 local win = MIGForm:new()
 
@@ -18934,13 +18346,13 @@ createWindow()
 [DISABLE]
 
 </AssemblerScript>
-                    </CheatEntry>
-                    <CheatEntry>
-                      <ID>1337305274</ID>
-                      <Description>"Consumables"</Description>
-                      <Color>80FFFF</Color>
-                      <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>{$lua}
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337258604</ID>
+                  <Description>"Consumables"</Description>
+                  <Color>80FFFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
 if not syntaxcheck then autoDisable(memrec) end
 local win = MIGForm:new()
 
@@ -19286,13 +18698,13 @@ createWindow()
 [DISABLE]
 
 </AssemblerScript>
-                    </CheatEntry>
-                    <CheatEntry>
-                      <ID>1337305275</ID>
-                      <Description>"Select weapons"</Description>
-                      <Color>80FFFF</Color>
-                      <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>{$lua}
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337258605</ID>
+                  <Description>"Select weapons"</Description>
+                  <Color>80FFFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
 function InitializeForm()
   --form
   form = createForm(true)
@@ -19695,34 +19107,32 @@ InitializeForm()
 spawnB.onClick = Spawn
 [DISABLE]
 </AssemblerScript>
-                    </CheatEntry>
-                  </CheatEntries>
                 </CheatEntry>
               </CheatEntries>
             </CheatEntry>
             <CheatEntry>
-              <ID>1337305285</ID>
+              <ID>1337305423</ID>
               <Description>"Custom ItemGib"</Description>
               <Options moHideChildren="1"/>
               <Color>0080FF</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
-                  <ID>1337305286</ID>
+                  <ID>1337291743</ID>
                   <Description>"armour spawner"</Description>
                   <Options moHideChildren="1"/>
                   <Color>0080FF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
-                      <ID>1337305287</ID>
+                      <ID>1337291719</ID>
                       <Description>"meta"</Description>
                       <Options moHideChildren="1"/>
                       <Color>00FFFF</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
-                          <ID>1337305288</ID>
+                          <ID>1337291731</ID>
                           <Description>"Standart Abs Low Poise (38.79)"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -19745,7 +19155,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305289</ID>
+                          <ID>1337291730</ID>
                           <Description>"Standart Abs High Poise (42.37)"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -19768,7 +19178,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305290</ID>
+                          <ID>1337291724</ID>
                           <Description>"Slash Abs"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -19791,7 +19201,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305291</ID>
+                          <ID>1337291728</ID>
                           <Description>"Strike Abs"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -19814,7 +19224,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305292</ID>
+                          <ID>1337291729</ID>
                           <Description>"Thrust Abs"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -19837,7 +19247,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305293</ID>
+                          <ID>1337291723</ID>
                           <Description>"Dark Abs"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -19860,7 +19270,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305294</ID>
+                          <ID>1337291727</ID>
                           <Description>"Lightning Abs"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -19883,7 +19293,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305295</ID>
+                          <ID>1337291726</ID>
                           <Description>"Magic Abs"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -19906,7 +19316,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305296</ID>
+                          <ID>1337291725</ID>
                           <Description>"Fire Abs"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -19931,14 +19341,14 @@ ItemGib:spawnMultiItems(ArmourSet)
                       </CheatEntries>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>1337305297</ID>
+                      <ID>1337291732</ID>
                       <Description>"regular"</Description>
                       <Options moHideChildren="1"/>
                       <Color>00FFFF</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
-                          <ID>1337305298</ID>
+                          <ID>1337291740</ID>
                           <Description>"Brazil Net LightRoll"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -19961,7 +19371,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305299</ID>
+                          <ID>1337291733</ID>
                           <Description>"RollPoise (34.04+)"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -19984,7 +19394,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305300</ID>
+                          <ID>1337291734</ID>
                           <Description>"Millwood Lappa"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -20007,7 +19417,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305301</ID>
+                          <ID>1337291736</ID>
                           <Description>"Nameless Knight Reg Poise (40.01)"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -20030,7 +19440,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305302</ID>
+                          <ID>1337291735</ID>
                           <Description>"Exile Gundyr Regular (41.07)"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -20053,7 +19463,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305303</ID>
+                          <ID>1337291739</ID>
                           <Description>"Cathedral Lapp (42.35)"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -20076,7 +19486,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305304</ID>
+                          <ID>1337291738</ID>
                           <Description>"Exile Gundyr Lightest High Poise (44.87)"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -20101,14 +19511,14 @@ ItemGib:spawnMultiItems(ArmourSet)
                       </CheatEntries>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>1337305305</ID>
+                      <ID>1337291720</ID>
                       <Description>"fisher"</Description>
                       <Options moHideChildren="1"/>
                       <Color>00FFFF</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
-                          <ID>1337305306</ID>
+                          <ID>1337291741</ID>
                           <Description>"Karla Hat"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -20131,7 +19541,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305307</ID>
+                          <ID>1337291744</ID>
                           <Description>"Demnon Fish"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -20154,7 +19564,7 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305308</ID>
+                          <ID>1337291742</ID>
                           <Description>"Firelink Ringed Knight"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -20179,14 +19589,14 @@ ItemGib:spawnMultiItems(ArmourSet)
                       </CheatEntries>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>1337305309</ID>
+                      <ID>1337291722</ID>
                       <Description>"advanced"</Description>
                       <Options moHideChildren="1"/>
                       <Color>00FFFF</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
-                          <ID>1337305310</ID>
+                          <ID>1337287175</ID>
                           <Description>"Complete Armour List in Script"</Description>
                           <Options moHideChildren="1"/>
                           <Color>80FFFF</Color>
@@ -20790,7 +20200,7 @@ temp:
 </AssemblerScript>
                           <CheatEntries>
                             <CheatEntry>
-                              <ID>1337305277</ID>
+                              <ID>1337305424</ID>
                               <Description>"Copy to Clipboard"</Description>
                               <Color>80FFFF</Color>
                               <VariableType>Auto Assembler Script</VariableType>
@@ -21388,7 +20798,7 @@ writeToClipboard([[
                           </CheatEntries>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305311</ID>
+                          <ID>1337291718</ID>
                           <Description>"Armour Set Spawn Template"</Description>
                           <Options moHideChildren="1"/>
                           <Color>80FFFF</Color>
@@ -21418,12 +20828,12 @@ ItemGib:spawnMultiItems(ArmourSet)
 </AssemblerScript>
                           <CheatEntries>
                             <CheatEntry>
-                              <ID>1337305280</ID>
+                              <ID>1337305425</ID>
                               <Description>"Just ctrl + v to paste it. Don't forget to att the [ENABLE] and [DISABLE] sections in the script itself."</Description>
                               <GroupHeader>1</GroupHeader>
                             </CheatEntry>
                             <CheatEntry>
-                              <ID>1337305279</ID>
+                              <ID>1337305426</ID>
                               <Description>"Copy to Clipboard"</Description>
                               <Color>80FFFF</Color>
                               <VariableType>Auto Assembler Script</VariableType>
@@ -21469,7 +20879,7 @@ ItemGib:spawnMultiItems(ArmourSet)
                           </CheatEntries>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337305312</ID>
+                          <ID>1337291737</ID>
                           <Description>"DEMONMODE"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -21480,7 +20890,8 @@ ItemGib:spawnMultiItems(ArmourSet)
 {$lua}
 autoDisable(memrec)
 local ArmourSet = {
-0x1337F980, -- Black Knight Helm
+--0x1337F980, -- Black Knight Helm
+0x40000178
 }
 ItemGib:new()
 ItemGib:spawnMultiItems(ArmourSet)
@@ -21493,15 +20904,15 @@ ItemGib:spawnMultiItems(ArmourSet)
                   </CheatEntries>
                 </CheatEntry>
                 <CheatEntry>
-                  <ID>1337305281</ID>
-                  <Description>"Weapon list"</Description>
+                  <ID>1337305427</ID>
+                  <Description>"Weapon For Build Storage"</Description>
                   <Options moHideChildren="1"/>
                   <Color>0080FF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
-                      <ID>1337305282</ID>
-                      <Description>"Copy Dark Build Weapon List"</Description>
+                      <ID>1337305428</ID>
+                      <Description>"Copy Dark Build"</Description>
                       <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>[ENABLE]
@@ -21552,7 +20963,7 @@ CCECF0,0,10
 </AssemblerScript>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>1337305283</ID>
+                      <ID>1337305429</ID>
                       <Description>"Spawn Select weapons"</Description>
                       <Color>55AAFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
@@ -21963,9 +21374,9 @@ spawnB.onClick = Spawn
                   </CheatEntries>
                 </CheatEntry>
                 <CheatEntry>
-                  <ID>1337305313</ID>
-                  <Description>"Spawn Custom Rings"</Description>
-                  <Color>0080FF</Color>
+                  <ID>1337287176</ID>
+                  <Description>"Custom Rings"</Description>
+                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -22008,9 +21419,9 @@ autoDisable(memrec)
 </AssemblerScript>
                 </CheatEntry>
                 <CheatEntry>
-                  <ID>1337305284</ID>
-                  <Description>"Spawn Custom Consumables"</Description>
-                  <Color>0080FF</Color>
+                  <ID>1337305430</ID>
+                  <Description>"Custom Consumables"</Description>
+                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Restocks All Goods/Arrows
 //Made by DiamondEnderman
@@ -22036,11 +21447,18 @@ ItemGib:spawnMultiItems(customRestockedItems)
               </CheatEntries>
             </CheatEntry>
             <CheatEntry>
-              <ID>1337291264</ID>
-              <Description>"Add Souls"</Description>
-              <Color>55AAFF</Color>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>//Add Souls Directly to Player
+              <ID>1337305431</ID>
+              <Description>"Other"</Description>
+              <Options moHideChildren="1"/>
+              <Color>0080FF</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1337305432</ID>
+                  <Description>"Add Souls"</Description>
+                  <Color>55AAFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>//Add Souls Directly to Player
 //Made By DiamondEnderman
 {$lua}
 if syntaxcheck then return end
@@ -22055,13 +21473,13 @@ end
 autoDisable(memrec)
 [disable]
 </AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1337258609</ID>
-              <Description>"Unlock All Gestures"</Description>
-              <Color>55AAFF</Color>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305433</ID>
+                  <Description>"Unlock All Gestures"</Description>
+                  <Color>55AAFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
 [[[GameDataMan]+10]+7B8]+10:
 dw 0003 0000//Point Forward
 dw 0005 0001 //Point Up
@@ -22112,13 +21530,13 @@ autoDisable(memrec)
 
 [DISABLE]
 </AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1337271245</ID>
-              <Description>"Max Estus"</Description>
-              <Color>55AAFF</Color>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>//Maxes Out Estus
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305434</ID>
+                  <Description>"Max Estus"</Description>
+                  <Color>55AAFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>//Maxes Out Estus
 //Uses Set Estus Level from TGA
 //Made by DiamondEnderman
 
@@ -22221,13 +21639,13 @@ autoDisable(memrec)
 
 [DISABLE]
 </AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1337258587</ID>
-              <Description>"No cost level up (via add souls)"</Description>
-              <Color>55AAFF</Color>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305435</ID>
+                  <Description>"No cost level up (via add souls)"</Description>
+                  <Color>55AAFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
 Dynamically adds souls required for leveling up while you are doing it.
 If you start leveling up having 42 souls this script should make so
 that when you end leveling up and exit the menu you still have 42 souls.
@@ -22343,13 +21761,13 @@ NoCostLevelup:start()
 [DISABLE]
 NoCostLevelup:stop()
 </AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1337258610</ID>
-              <Description>"Upgrades Need No Materials"</Description>
-              <Color>55AAFF</Color>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305436</ID>
+                  <Description>"Upgrades Need No Materials"</Description>
+                  <Color>55AAFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
 	Author: Gáté
 }
 {$lua}
@@ -22362,13 +21780,13 @@ NoCost:patchAllByte(0x14,255)
 [DISABLE]
 paramUtils:restore("UpgradeCost")
 </AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1337258612</ID>
-              <Description>"Access All Bonfires"</Description>
-              <Color>55AAFF</Color>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>//Author: inuNorii
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305437</ID>
+                  <Description>"Access All Bonfires"</Description>
+                  <Color>55AAFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>//Author: inuNorii
 {$lua}
 if syntaxcheck then return end
 [ENABLE]
@@ -22378,6 +21796,8 @@ bonfire:patchAll4Byte(0x00,14000000)
 [DISABLE]
 paramUtils:restore("UnlockAllBonfires")
 </AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
             </CheatEntry>
           </CheatEntries>
         </CheatEntry>
@@ -22385,7 +21805,7 @@ paramUtils:restore("UnlockAllBonfires")
           <ID>1337291885</ID>
           <Description>"Cosmetics"</Description>
           <Options moHideChildren="1"/>
-          <Color>00FF00</Color>
+          <Color>00AA00</Color>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 [DISABLE]
@@ -22401,7 +21821,7 @@ paramUtils:restore("UnlockAllBonfires")
               <ID>1337291886</ID>
               <Description>"Camera "</Description>
               <Options moHideChildren="1"/>
-              <Color>55FF55</Color>
+              <Color>00D500</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>[ENABLE]
 [DISABLE]
@@ -22569,7 +21989,7 @@ dealloc(newmem)
               <ID>1337103743</ID>
               <Description>"Honest Helmet Stack"</Description>
               <Options moHideChildren="1"/>
-              <Color>55FF55</Color>
+              <Color>00D500</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>[ENABLE]
 {$asm}
@@ -22678,9 +22098,9 @@ paramUtils:restore("Helmet")
             </CheatEntry>
             <CheatEntry>
               <ID>1337305088</ID>
-              <Description>"Clientside Player Colors  ↓"</Description>
+              <Description>"PhantomParam Player Colors"</Description>
               <Options moHideChildren="1"/>
-              <Color>55FF55</Color>
+              <Color>00D500</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>[ENABLE]
 [DISABLE]
@@ -22877,10 +22297,416 @@ paramUtils:restore("Helmet")
               </CheatEntries>
             </CheatEntry>
             <CheatEntry>
+              <ID>1337305333</ID>
+              <Description>"Better Player Color Changer"</Description>
+              <Options moHideChildren="1"/>
+              <Color>00D500</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$lua}
+[ENABLE]
+
+RedColourAddr = allocateMemory(4)
+GreenColourAddr = allocateMemory(4)
+BlueColourAddr = allocateMemory(4)
+
+RedShadeAddr = allocateMemory(4)
+GreenShadeAddr = allocateMemory(4)
+BlueShadeAddr = allocateMemory(4)
+
+CharOpacity = allocateMemory(4)
+CharBrightness = allocateMemory(4)
+
+writeInteger(RedColourAddr, 1)
+writeInteger(GreenColourAddr, 1)
+writeInteger(BlueColourAddr, 1)
+
+writeInteger(RedShadeAddr, 1)
+writeInteger(GreenShadeAddr, 1)
+writeInteger(BlueShadeAddr, 1)
+
+writeFloat(CharOpacity, 1.0)
+writeFloat(CharBrightness, 0.5)
+
+[DISABLE]
+
+disableRecord(1337305338)
+
+deAlloc(RedColourAddr)
+deAlloc(GreenColourAddr)
+deAlloc(BlueColourAddr)
+
+deAlloc(RedShadeAddr)
+deAlloc(GreenShadeAddr)
+deAlloc(BlueShadeAddr)
+
+deAlloc(CharOpacity)
+deAlloc(CharBrightness)
+
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1337305332</ID>
+                  <Description>"Presets"</Description>
+                  <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">-1:No Clientside Color Edit
+0:Host Colour
+1:White w/Less glow (Changed by script)
+2:White w/More glow
+3:Faded brown with slight blue glow
+4:Same as above
+5:Faded brown with pink glow
+6:Bright blue with pink shade
+7:Brighter blue with pink shade
+8:Aqua Blue w/White tint
+9:Aqua Blue w/Slightly darker white tint
+10:Bright Aqua w/bright white tint
+11:Bright Aqua
+12:Glowing Grey
+13:Grey w/Dark purple shade
+14:White w/slight glow
+15:Translucent w/Grey shade
+16:Chalk White/Faded White
+17:Invisibility with dark green color
+18:Marine blue
+19:Brighter Marine
+20:Bright Yellow
+21:Light Orange
+22:Light Purple
+23:Light Green/Yellow
+24:Light Orange w/Less glow
+25:Darker Marine
+26:Same as above
+27:White Phantom with more shine
+28:Similar to 16 but w/light purple shade
+29:Similar to 16 but w/Glow
+30:Like darkmoon blue w/fade
+31:Translucent Grey
+32:"Transparent Grey: like ghost color"
+33:Transparent w/Purple glow
+35:Normal colors w/Orange shade
+36:Like 35 but with peach glow
+40:Transparent teal color
+41:Completely Invisible
+42:Completely White
+43:Grey shade
+50:Bright Sky Blue shade
+51:Cyan glow
+52:Yellow glow
+53:Orange glow
+54:Purple glow
+55:Green/yellow glow
+56:Similar to 53 w/less glow
+57:Similar to 25
+58:Similar to 25
+59:Similar to 25 with brighter edges
+60:Similar to normal dark spirit
+61:Similar to White Phantom
+62:Like 32 with more white glow
+63:Bright white color w/slight peach shade
+64:Bright gold glow
+65:Bright gold glow with red shade
+66:Purple glow
+67:Purple glow with red shade
+68:Turquoise glow
+69:Green glow with red shade
+70:Blue glow
+71:Darkmoon spirit color with bright white glow
+72:Darkmoon color with yellow glow
+73:Darkmoon color with green/yellow glow
+74:"Transparent: ghost color"
+75:Transparent with no glow
+76:Transparent with less glow
+80:White phantom color
+81:Dark spirit color w/Small normal colors
+82:Blue sentinel color
+83:Darkmoon spirit color
+84:Same as above
+85:Sunbro color
+86:Dark sunbro color
+87:Mound maker color
+88:Actual Moundmaker Color Game Uses
+89:Dark spirit color
+90:Dark blue glow with purple shade
+91:Aldrich faithful color
+92:Brown glow
+101:Like 1 with less glow
+102:More Washed out White Phantom
+103:Blue with orange shade
+104:Bright blue with orange shade
+105:"Very bright cyan: brown shade"
+106:"Very bright cyan: more brown shade"
+107:"Very bright cyan: white shade"
+108:"Very bright cyan: more white shade"
+109:Very bright cyan only
+170:White Phantom with more shine and blue edges
+181:Transparent with red shade
+185:Transparent with sunbro shade
+186:Transparent with dark sunbro shade
+187:Transparent with mound maker shade
+201:Black phantom
+202:Like 201 with white glow
+203:Like 201 with brown shade
+204:Bright blue with pink shade
+205:"Bright cyan: slight darker shade"
+206:"97:Bright cyan: with lighter shades"
+207:Similar to Above
+208:Similar to Above with much brighter white edges
+209:Translucent white
+255:No Clientside colout edit
+</DropDownList>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <Color>80FF00</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>WorldChrMan</Address>
+                  <Offsets>
+                    <Offset>1F38</Offset>
+                    <Offset>0</Offset>
+                    <Offset>40</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305349</ID>
+                  <Description>"Rainbow Colour"</Description>
+                  <Color>80FF00</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+[ENABLE]
+
+disableRecord(1337305338)
+
+local ParamColorEdit = 2
+
+writeBytes("[[[WorldChrMan]+40]+0]+1F38", ParamColorEdit)
+
+-- Set up the initial color values
+local ColorEdit = PhantomParam:new("PhantomParamRainbowEdit", ParamColorEdit)
+      ColorEdit:Red3(0)
+      ColorEdit:Red4(0)
+      ColorEdit:Green3(0)
+      ColorEdit:Green4(0)
+      ColorEdit:Blue3(0)
+      ColorEdit:Blue4(0)
+
+enableRecord(1337305332)
+
+-- Function to generate a rainbow color array
+function generateRainbowColors(steps)
+    local rainbowColors = {}
+
+    for i = 1, steps do
+        local hue = (i - 1) / steps
+        local r, g, b = HSVtoRGB(hue, 1, 1)
+        table.insert(rainbowColors, {math.floor(r * 255), math.floor(g * 255), math.floor(b * 255)})
+    end
+
+    return rainbowColors
+end
+
+-- Function to convert HSV to RGB
+function HSVtoRGB(h, s, v)
+    local r, g, b
+
+    local i = math.floor(h * 6)
+    local f = h * 6 - i
+    local p = v * (1 - s)
+    local q = v * (1 - f * s)
+    local t = v * (1 - (1 - f) * s)
+
+    i = i % 6
+
+    if i == 0 then r, g, b = v, t, p
+    elseif i == 1 then r, g, b = q, v, p
+    elseif i == 2 then r, g, b = p, v, t
+    elseif i == 3 then r, g, b = p, q, v
+    elseif i == 4 then r, g, b = t, p, v
+    elseif i == 5 then r, g, b = v, p, q
+    end
+
+    return r, g, b
+end
+
+-- PhantomParam configuration
+local ColorEdit = PhantomParam:new("PhantomParamRainbowEdit", ParamColorEdit)
+
+-- Generate rainbow colors
+local rainbowColors = generateRainbowColors(360)
+
+local currentColorIndex = 1 -- Index to keep track of the current color
+
+-- Timer setup
+rainbowTimer = createTimer(getMainForm())
+rainbowTimer.Interval = 100 -- Set the interval in milliseconds
+rainbowTimer.OnTimer = function()
+    -- Update PhantomParam with the current color values
+    local currentColor = rainbowColors[currentColorIndex]
+    ColorEdit:Red1(currentColor[1])
+    ColorEdit:Red2(currentColor[1])
+    ColorEdit:Green1(currentColor[2])
+    ColorEdit:Green2(currentColor[2])
+    ColorEdit:Blue1(currentColor[3])
+    ColorEdit:Blue2(currentColor[3])
+
+    -- Increment the color index
+    currentColorIndex = currentColorIndex % #rainbowColors + 1
+end
+
+[DISABLE]
+rainbowTimer.destroy()
+
+paramUtils:restore("PhantomParamRainbowEdit")
+
+disableRecord(1337305332)
+
+writeBytes("[[[WorldChrMan]+40]+0]+1F38", -1)
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305346</ID>
+                  <Description>"Customize RGB Color"</Description>
+                  <Options moHideChildren="1"/>
+                  <Color>80FF00</Color>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>1337305338</ID>
+                      <Description>"← Apply RGB Color"</Description>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[ENABLE]
+
+disableRecord(1337305349)
+
+local ParamColorEdit = 1
+
+writeBytes("[[[WorldChrMan]+40]+0]+1F38", ParamColorEdit)
+
+enableRecord(1337305332)
+
+local ColorEdit = PhantomParam:new("PhantomParamEdit",ParamColorEdit)
+
+      ColorEdit:Red(0)
+      ColorEdit:Red3(0)
+      ColorEdit:Red4(0)
+
+      ColorEdit:Green(0)
+      ColorEdit:Green3(0)
+      ColorEdit:Green4(0)
+
+      ColorEdit:Blue(0)
+      ColorEdit:Blue3(0)
+      ColorEdit:Blue4(0)
+
+      ColorEdit:Red2(readInteger(RedColourAddr))
+      ColorEdit:Green2(readInteger(GreenColourAddr))
+      ColorEdit:Blue2(readInteger(BlueColourAddr))
+
+      ColorEdit:Red1(readInteger(RedShadeAddr))
+      ColorEdit:Green1(readInteger(GreenShadeAddr))
+      ColorEdit:Blue1(readInteger(BlueShadeAddr))
+
+      ColorEdit:Fade(readFloat(CharOpacity))
+
+      ColorEdit:Brightness1(readFloat(CharBrightness))
+
+[DISABLE]
+paramUtils:restore("PhantomParamEdit")
+
+disableRecord(1337305332)
+
+writeBytes("[[[WorldChrMan]+40]+0]+1F38", -1)
+</AssemblerScript>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305352</ID>
+                      <Description>""</Description>
+                      <GroupHeader>1</GroupHeader>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305341</ID>
+                      <Description>"Opacity"</Description>
+                      <ShowAsSigned>1</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>CharOpacity</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305340</ID>
+                      <Description>"Brightness"</Description>
+                      <ShowAsSigned>1</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>CharBrightness</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305347</ID>
+                      <Description>""</Description>
+                      <GroupHeader>1</GroupHeader>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305336</ID>
+                      <Description>"Red Color"</Description>
+                      <ShowAsSigned>1</ShowAsSigned>
+                      <Color>0000FF</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>RedColourAddr</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305335</ID>
+                      <Description>"Green Color"</Description>
+                      <ShowAsSigned>1</ShowAsSigned>
+                      <Color>00FF00</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>GreenColourAddr</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305345</ID>
+                      <Description>""</Description>
+                      <GroupHeader>1</GroupHeader>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305334</ID>
+                      <Description>"Blue Color"</Description>
+                      <ShowAsSigned>1</ShowAsSigned>
+                      <Color>EAEA00</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>BlueColourAddr</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305344</ID>
+                      <Description>"Red Shade"</Description>
+                      <ShowAsSigned>1</ShowAsSigned>
+                      <Color>0000FF</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>RedShadeAddr</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305343</ID>
+                      <Description>"Green Shade"</Description>
+                      <ShowAsSigned>1</ShowAsSigned>
+                      <Color>00FF00</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>GreenShadeAddr</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305342</ID>
+                      <Description>"Blue Shade"</Description>
+                      <ShowAsSigned>1</ShowAsSigned>
+                      <Color>EAEA00</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>BlueShadeAddr</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305351</ID>
+                      <Description>""</Description>
+                      <GroupHeader>1</GroupHeader>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
               <ID>1337305090</ID>
               <Description>"Clientside Infusion Visuals"</Description>
               <Options moActivateChildrenAsWell="1"/>
-              <Color>55FF55</Color>
+              <Color>80FF00</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{
     Autor: Jackydima
@@ -23203,7 +23029,7 @@ unregisterSymbol(EffectID_Dima)
               <ID>1337305091</ID>
               <Description>"Lighting Mod AKA Reshader - Updated "</Description>
               <Options moAlwaysHideChildren="1" moManualExpandCollapse="1"/>
-              <Color>55FF55</Color>
+              <Color>00D500</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>//Author: inuNorii, original findings by Zullie the Witch
 //Lets you mess with the lighting
@@ -29181,21 +29007,127 @@ print('All Hotkeys Removed')
                   </CheatEntries>
                 </CheatEntry>
                 <CheatEntry>
-                  <ID>2</ID>
+                  <ID>1337291569</ID>
+                  <Description>"Record ID viewer menu"</Description>
+                  <Color>FFFF00</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[enable]
+{$lua}
+local mf = getMainForm()
+local al = getAddressList()
+
+local function tohexwithsign(a)
+  if type(a)=='number' then
+    return (a&gt;=0 and string.format('+%X',a) or string.format('-%X',-a))
+  else
+    return a:sub(1,1)=='-' and a or ('+'..a)
+  end
+end
+
+--panel
+local panelFromExtraMemRecInfo = createPanel(mf)
+panelFromExtraMemRecInfo.BevelOuter = 'bvNone'
+panelFromExtraMemRecInfo.Name = 'pnlExtraMemRecInfo'
+panelFromExtraMemRecInfo.Caption = ''
+panelFromExtraMemRecInfo.Align = alBottom
+panelFromExtraMemRecInfo.Height = 1
+
+--splitter
+local splitterFromExtraMemRecInfo = createSplitter(mf)
+splitterFromExtraMemRecInfo.Align = alBottom
+splitterFromExtraMemRecInfo.Height = 5
+
+--label
+local labelFromExtraMemRecInfo = createLabel(panelFromExtraMemRecInfo)
+labelFromExtraMemRecInfo.Align = alClient
+labelFromExtraMemRecInfo.BorderSpacing.Around = 5
+
+--set proper minimal size
+splitterFromExtraMemRecInfo.MinSize = labelFromExtraMemRecInfo.Canvas.getTextHeight('DdGgJjQqWwXxYy')+10
+
+--pop-up menu
+labelFromExtraMemRecInfo.PopupMenu=createPopupMenu(labelFromExtraMemRecInfo)
+local pm=labelFromExtraMemRecInfo.PopupMenu
+local pmi=pm.Items
+local mi1=createMenuItem(pmi); pmi.add(mi1); mi1.Caption = 'Copy ID'
+local mi2=createMenuItem(pmi); pmi.add(mi2); mi2.Caption = 'Copy pointer string'
+
+mi1.OnClick = function () writeToClipboard(al.SelectedRecord.ID) end
+mi2.OnClick = function ()
+                local mr=al.SelectedRecord
+                local pointerStr = mr.Address
+                  for i=mr.OffsetCount-1,0,-1 do
+                    pointerStr = '['..pointerStr..']'..tohexwithsign(mr.Offset[i])
+                  end
+                writeToClipboard(pointerStr)
+              end
+
+pm.OnPopup = function ()
+               if al.SelectedRecord==nil then
+                 mi1.Enabled=false
+                 mi2.Enabled=false
+               else
+                 mi1.Enabled=true
+                 mi2.Enabled=(al.SelectedRecord.Address~='')
+               end
+             end
+
+-- timer
+local function timerFuncFromExtraMemRecInfo(t)
+  local mr,str = al.SelectedRecord,''
+  if mr~=nil then
+    str = str..'index: '..mr.Index
+    str = str..'    id: '..mr.ID
+    str = str..'    childrens: '..mr.Count
+   if not mr.IsGroupHeader then
+    str = str..'    hotkeys: '..mr.HotkeyCount
+   end
+
+    local pointerStr = mr.Address
+    if pointerStr~='' and not (mr.Type==vtAutoAssembler) then
+      for i=mr.OffsetCount-1,0,-1 do
+        pointerStr = '['..pointerStr..']'..tohexwithsign(mr.Offset[i])
+      end
+      str = str..'    address: '..pointerStr
+    end
+
+    if mr.Type==vtAutoAssembler then
+      if mr.Async then str = str..'\r\nasynchronous: true'
+      else             str = str..'\r\nasynchronous: false' end
+    elseif not mr.IsGroupHeader then
+      if mr.DropDownCount&gt;0 then str = str..'\r\ndropdown list: true'
+      else                       str = str..'\r\ndropdown list: false' end
+    end
+
+  end
+  labelFromExtraMemRecInfo.Caption=str
+end
+
+timerFromExtraMemRecInfo = createTimer(panelFromExtraMemRecInfo)
+timerFromExtraMemRecInfo.OnTimer = timerFuncFromExtraMemRecInfo
+timerFromExtraMemRecInfo.Interval = 100
+
+createTimer(nil).OnTimer = function (t) if mf.Visible then t.destroy() splitterFromExtraMemRecInfo.Top = 0 end end
+
+{$asm}
+[disable]
+DontDisableMeYouIdiot
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305353</ID>
                   <Description>"Dependencies"</Description>
                   <Options moHideChildren="1"/>
                   <Color>FFFF00</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
-                      <ID>1337099162</ID>
+                      <ID>1337305354</ID>
                       <Description>"Param Patchers"</Description>
                       <Options moHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
                       <Color>808080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>// Hey you, you're finally awake?
-
-{$lua}
+                      <AssemblerScript>{$lua}
 if syntaxcheck then return end
 
 [ENABLE]
@@ -29204,7 +29136,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                       <CheatEntries>
                         <CheatEntry>
-                          <ID>1337287211</ID>
+                          <ID>1337305355</ID>
                           <Description>"Param Patcher Initializer"</Description>
                           <Options moHideChildren="1"/>
                           <Color>808080</Color>
@@ -29414,7 +29346,7 @@ unregistersymbol(ParamPatchAOB)
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
-                          <ID>1337287212</ID>
+                          <ID>1337305356</ID>
                           <Description>"Param Patcher"</Description>
                           <Color>808080</Color>
                           <VariableType>Auto Assembler Script</VariableType>
@@ -29969,7 +29901,7 @@ local function enableRecord(thread, id)
     print("Record with ID "..id.." doesn't exists")
   end
 end
-createNativeThread(enableRecord, 1337287215) --Enable PP classes
+createNativeThread(enableRecord, 1337305359) --Enable PP classes
 [DISABLE]
 {$lua}
 if syntaxcheck then return end
@@ -29985,24 +29917,24 @@ local function disableRecord(thread, id)
     print("Record with ID "..id.." doesn't exists")
   end
 end
-createNativeThread(disableRecord, 1337287215) --Disable PP classes
+createNativeThread(disableRecord, 1337305359) --Disable PP classes
 </AssemblerScript>
                           <CheatEntries>
                             <CheatEntry>
-                              <ID>1337287213</ID>
+                              <ID>1337305357</ID>
                               <Description>"Classes"</Description>
                               <Options moHideChildren="1"/>
                               <Color>808080</Color>
                               <GroupHeader>1</GroupHeader>
                               <CheatEntries>
                                 <CheatEntry>
-                                  <ID>1337287214</ID>
+                                  <ID>1337305358</ID>
                                   <Description>"Don't disable Param Patcher classes"</Description>
                                   <Color>FF0000</Color>
                                   <GroupHeader>1</GroupHeader>
                                 </CheatEntry>
                                 <CheatEntry>
-                                  <ID>1337287215</ID>
+                                  <ID>1337305359</ID>
                                   <Description>"BaseParamClass"</Description>
                                   <Options moHideChildren="1" moActivateChildrenAsWell="1"/>
                                   <VariableType>Auto Assembler Script</VariableType>
@@ -30165,7 +30097,7 @@ end
 </AssemblerScript>
                                   <CheatEntries>
                                     <CheatEntry>
-                                      <ID>1337080397</ID>
+                                      <ID>1337305360</ID>
                                       <Description>"ActionButtonParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>{$lua}
@@ -30261,7 +30193,7 @@ end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287216</ID>
+                                      <ID>1337305361</ID>
                                       <Description>"AiSoundParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>{$lua}
@@ -30313,7 +30245,7 @@ end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287217</ID>
+                                      <ID>1337305362</ID>
                                       <Description>"AtkParam_Npc"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -30615,7 +30547,7 @@ end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287218</ID>
+                                      <ID>1337305363</ID>
                                       <Description>"AtkParam_Pc"</Description>
                                       <Options moHideChildren="1"/>
                                       <VariableType>Auto Assembler Script</VariableType>
@@ -30921,7 +30853,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287219</ID>
+                                      <ID>1337305364</ID>
                                       <Description>"BehaviorParam_PC"</Description>
                                       <Options moHideChildren="1"/>
                                       <VariableType>Auto Assembler Script</VariableType>
@@ -30996,7 +30928,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287220</ID>
+                                      <ID>1337305365</ID>
                                       <Description>"BonfireWarpParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -31076,7 +31008,7 @@ end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287221</ID>
+                                      <ID>1337305366</ID>
                                       <Description>"Bullet"</Description>
                                       <Options moHideChildren="1"/>
                                       <VariableType>Auto Assembler Script</VariableType>
@@ -31465,7 +31397,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287222</ID>
+                                      <ID>1337305367</ID>
                                       <Description>"CalcCorrectGraph"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -31565,7 +31497,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287223</ID>
+                                      <ID>1337305368</ID>
                                       <Description>"Ceremony"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -31623,7 +31555,7 @@ end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287224</ID>
+                                      <ID>1337305369</ID>
                                       <Description>"CharaInitParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -32300,7 +32232,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287225</ID>
+                                      <ID>1337305370</ID>
                                       <Description>"ClearCountCorrectParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -32408,7 +32340,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287226</ID>
+                                      <ID>1337305371</ID>
                                       <Description>"EquipMtrlSetParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>{$lua}
@@ -32490,7 +32422,7 @@ end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287227</ID>
+                                      <ID>1337305372</ID>
                                       <Description>"EquipParamAccessory"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -32615,7 +32547,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287228</ID>
+                                      <ID>1337305373</ID>
                                       <Description>"EquipParamGoods"</Description>
                                       <Options moHideChildren="1"/>
                                       <VariableType>Auto Assembler Script</VariableType>
@@ -32980,7 +32912,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287229</ID>
+                                      <ID>1337305374</ID>
                                       <Description>"EquipParamProtector"</Description>
                                       <Options moHideChildren="1"/>
                                       <VariableType>Auto Assembler Script</VariableType>
@@ -33369,7 +33301,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287230</ID>
+                                      <ID>1337305375</ID>
                                       <Description>"EquipParamWeapon"</Description>
                                       <Options moHideChildren="1"/>
                                       <VariableType>Auto Assembler Script</VariableType>
@@ -34055,7 +33987,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287231</ID>
+                                      <ID>1337305376</ID>
                                       <Description>"HitSfxClass"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -34139,7 +34071,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287232</ID>
+                                      <ID>1337305377</ID>
                                       <Description>"ItemLotParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -34259,7 +34191,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287233</ID>
+                                      <ID>1337305378</ID>
                                       <Description>"LodParam Class"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>{$lua}
@@ -34334,7 +34266,7 @@ end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287234</ID>
+                                      <ID>1337305379</ID>
                                       <Description>"LockCamParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>{$lua}
@@ -34393,7 +34325,7 @@ end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287235</ID>
+                                      <ID>1337305380</ID>
                                       <Description>"Magic"</Description>
                                       <Options moHideChildren="1"/>
                                       <VariableType>Auto Assembler Script</VariableType>
@@ -34828,7 +34760,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287236</ID>
+                                      <ID>1337305381</ID>
                                       <Description>"MapMimicryEstablishmentParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -34898,7 +34830,7 @@ end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287237</ID>
+                                      <ID>1337305382</ID>
                                       <Description>"NpcParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -35953,7 +35885,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337305243</ID>
+                                      <ID>1337305383</ID>
                                       <Description>"NetworkParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>{$lua}
@@ -36513,7 +36445,7 @@ end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287238</ID>
+                                      <ID>1337305384</ID>
                                       <Description>"ObjActParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -36609,7 +36541,7 @@ end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287239</ID>
+                                      <ID>1337305385</ID>
                                       <Description>"ObjectParamClass"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -36643,7 +36575,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287240</ID>
+                                      <ID>1337305386</ID>
                                       <Description>"PhantomParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -36767,7 +36699,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287241</ID>
+                                      <ID>1337305387</ID>
                                       <Description>"PlayRegionParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -36887,7 +36819,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287242</ID>
+                                      <ID>1337305388</ID>
                                       <Description>"RoleParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -37019,7 +36951,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287243</ID>
+                                      <ID>1337305389</ID>
                                       <Description>"ShopLineupParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -37113,7 +37045,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287244</ID>
+                                      <ID>1337305390</ID>
                                       <Description>"SpEffectParam"</Description>
                                       <Options moHideChildren="1"/>
                                       <VariableType>Auto Assembler Script</VariableType>
@@ -38121,7 +38053,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287245</ID>
+                                      <ID>1337305391</ID>
                                       <Description>"SpEffectVFXClass"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -38250,7 +38182,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287246</ID>
+                                      <ID>1337305392</ID>
                                       <Description>"SwordArtsParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -38292,7 +38224,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287247</ID>
+                                      <ID>1337305393</ID>
                                       <Description>"ThrowParam"</Description>
                                       <Options moHideChildren="1"/>
                                       <VariableType>Auto Assembler Script</VariableType>
@@ -38411,7 +38343,7 @@ if syntaxcheck then return end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287248</ID>
+                                      <ID>1337305394</ID>
                                       <Description>"UpperArmParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -38513,7 +38445,7 @@ end
 </AssemblerScript>
                                     </CheatEntry>
                                     <CheatEntry>
-                                      <ID>1337287249</ID>
+                                      <ID>1337305395</ID>
                                       <Description>"WetAspectParam"</Description>
                                       <VariableType>Auto Assembler Script</VariableType>
                                       <AssemblerScript>[ENABLE]
@@ -38583,11 +38515,25 @@ end
                       </CheatEntries>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>1337273494</ID>
-                      <Description>"Gaming Mode + Ctrl F"</Description>
+                      <ID>1337305396</ID>
+                      <Description>"Function List"</Description>
+                      <Options moHideChildren="1"/>
                       <Color>808080</Color>
-                      <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>[ENABLE]
+                      <GroupHeader>1</GroupHeader>
+                      <CheatEntries>
+                        <CheatEntry>
+                          <ID>1337305397</ID>
+                          <Description>"Don't Disable Any Of These"</Description>
+                          <Options moHideChildren="1" moActivateChildrenAsWell="1"/>
+                          <Color>808080</Color>
+                          <GroupHeader>1</GroupHeader>
+                          <CheatEntries>
+                            <CheatEntry>
+                              <ID>1337305398</ID>
+                              <Description>"Gaming Mode + Ctrl F"</Description>
+                              <Color>808080</Color>
+                              <VariableType>Auto Assembler Script</VariableType>
+                              <AssemblerScript>[ENABLE]
 {$lua}
 if not syntaxcheck then autoDisable(memrec) end
 
@@ -38779,14 +38725,14 @@ autoDisable(memrec, 500)
 [DISABLE]
 
 </AssemblerScript>
-                    </CheatEntry>
-                    <CheatEntry>
-                      <ID>1337263895</ID>
-                      <Description>"Improved ItemGib"</Description>
-                      <Options moHideChildren="1"/>
-                      <Color>808080</Color>
-                      <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>{
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337305399</ID>
+                              <Description>"Improved ItemGib"</Description>
+                              <Options moHideChildren="1"/>
+                              <Color>808080</Color>
+                              <VariableType>Auto Assembler Script</VariableType>
+                              <AssemblerScript>{
 Adds item to inventory
 Authors: Coinsworth, inuNorii and ametalon
 }
@@ -39187,13 +39133,564 @@ dealloc(Code)
 dealloc(Data)
 
 </AssemblerScript>
-                    </CheatEntry>
-                    <CheatEntry>
-                      <ID>1337291711</ID>
-                      <Description>"Custom Restock"</Description>
-                      <Color>808080</Color>
-                      <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>//Items To Restock
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337258591</ID>
+                              <Description>"ItemGib"</Description>
+                              <Options moHideChildren="1"/>
+                              <Color>808080</Color>
+                              <VariableType>Auto Assembler Script</VariableType>
+                              <AssemblerScript>{
+Adds item to inventory
+Authors: Coinsworth, inuNorii and ametalon
+}
+[ENABLE]
+aobscanmodule(ItemGib_Main_AOB,$process,8B 02 83 F8 06)
+aobscanmodule(WeaponLookup_AOB,$process,8B EA 48 8B F1 33 DB 41 83 CE FF 85 D2)
+aobscanmodule(AddableQuantity_AOB,$process,48 89 44 24 ?? 48 8D 44 24 ?? 48 89 44 24 ?? 8B 01)
+define(ItemGib_Main_Call,ItemGib_Main_AOB-2F)
+define(WeaponLookup_Call,WeaponLookup_AOB-22)
+define(AddableQuantity_Call,AddableQuantity_AOB-18)
+alloc(Code,$500,DarkSoulsIII.exe)
+alloc(Data,$100,DarkSoulsIII.exe)
+
+Data:
+
+ItemGibData:
+registerSymbol(ItemGibData)
+dd #-1      // quantity
+dd 400001F4 // id
+dd #-1      // durability
+dd 0        // infusion
+dd #-1      // upgrade level
+align 10 0
+
+ItemToSpawn:
+dd 1 // counter
+dd 0 // id
+dd 0 // quantity
+dd 0 // durability
+
+
+Code:
+
+label(tga.GetHeroLevel)
+tga.GetHeroLevel:
+mov rax,[GameDataMan]
+mov rcx,[rax+10]
+movsx eax,byte ptr [rcx+000000B3]
+ret
+int 3
+int 3
+
+label(tga.GetUninfusedWeapon)
+tga.GetUninfusedWeapon:
+mov eax,68DB8BAD
+imul ecx
+sar edx,0C
+mov eax,edx
+shr eax,1F
+add edx,eax
+imul eax,edx,00002710
+ret
+
+label(tga.GetBaseWeapon)
+tga.GetBaseWeapon:
+mov eax,51EB851F
+imul ecx
+sar edx,05
+mov eax,edx
+shr eax,1F
+add edx,eax
+imul eax,edx,64
+ret
+int 3
+int 3
+int 3
+
+label(tga.GetWeaponLevel)
+tga.GetWeaponLevel:
+mov eax,51EB851F
+imul ecx
+sar edx,05
+mov eax,edx
+shr eax,1F
+add edx,eax
+imul eax,edx,64
+sub ecx,eax
+mov eax,ecx
+ret
+int 3
+int 3
+int 3
+
+label(tga.IsSpecialWeapon)
+tga.IsSpecialWeapon:
+sub rsp,58
+mov edx,ecx
+mov rax,WeaponLookup_Call
+lea rcx,[rsp+20]
+call rax
+mov rcx,[rsp+28]
+xor eax,eax
+test rcx,rcx
+je tga.IsSpecialWeapon+2B
+cmp dword ptr [rcx+74],-01
+jne tga.IsSpecialWeapon+2B
+mov al,01
+add rsp,58
+ret
+
+label(tga.IsInfusableWeapon)
+tga.IsInfusableWeapon:
+sub rsp,58
+call tga.GetUninfusedWeapon
+lea rcx,[rsp+20]
+lea edx,[rax+64]
+mov rax,WeaponLookup_Call
+call rax
+cmp qword ptr [rsp+28],00
+setne al
+add rsp,58
+ret
+int 3
+
+label(tga.IsWeapon)
+tga.IsWeapon:
+lea eax,[rcx-00070001]
+cmp eax,0FF8FFFE
+setbe al
+ret
+int 3
+
+label(tga.IsAmmo)
+tga.IsAmmo:
+cmp ecx,00070000
+setl al
+ret
+int 3
+int 3
+
+label(tga.IsConsumable)
+tga.IsConsumable:
+lea eax,[rcx-40000001]
+cmp eax,000FFFFE
+setbe al
+ret
+int 3
+
+label(tga.AddableQuantity)
+tga.AddableQuantity:
+mov [rsp+08],ecx
+sub rsp,28
+lea rcx,[rsp+30]
+mov rax,AddableQuantity_Call
+call rax
+add rsp,28
+ret
+int 3
+int 3
+
+label(tga.AdjustWeaponInfusion)
+tga.AdjustWeaponInfusion:
+db 40 53 // push rbx
+sub rsp,20
+mov ebx,ecx
+call tga.IsInfusableWeapon
+test al,al
+je tga.AdjustWeaponInfusion+15
+mov eax,ebx
+jmp tga.AdjustWeaponInfusion+27
+mov ecx,ebx
+call tga.GetUninfusedWeapon
+mov r8d,eax
+call tga.GetWeaponLevel
+add eax,r8d
+add rsp,20
+pop rbx
+ret
+int 3
+int 3
+int 3
+
+label(tga.AdjustWeaponUpgrade)
+tga.AdjustWeaponUpgrade:
+mov [rsp+08],rbx
+mov [rsp+10],rsi
+push rdi
+sub rsp,20
+mov esi,ecx
+call tga.GetHeroLevel
+mov ecx,esi
+mov ebx,eax
+call tga.GetWeaponLevel
+mov ecx,esi
+mov edi,eax
+call tga.IsSpecialWeapon
+test al,al
+je tga.AdjustWeaponUpgrade+35
+mov eax,ebx
+cdq
+sub eax,edx
+sar eax,1
+mov ebx,eax
+cmp ebx,edi
+mov ecx,esi
+cmovl edi,ebx
+call tga.GetBaseWeapon
+mov rbx,[rsp+30]
+add eax,edi
+mov rsi,[rsp+38]
+add rsp,20
+pop rdi
+ret
+int 3
+
+label(tga.AdjustQuantity)
+tga.AdjustQuantity:
+db 40 53 // push rbx
+sub rsp,20
+mov ebx,edx
+call tga.IsAmmo
+test al,al
+jne tga.AdjustQuantity+21
+call tga.IsConsumable
+test al,al
+jne tga.AdjustQuantity+21
+mov eax,00000001
+jmp tga.AdjustQuantity+32
+call tga.AddableQuantity
+cmp ebx,-01
+je tga.AdjustQuantity+32
+cmp eax,ebx
+cmovl ebx,eax
+mov eax,ebx
+add rsp,20
+pop rbx
+ret
+
+label(tga.SpawnItems)
+label(tga.SpawnItems_CreateItemBatch)
+label(tga.SpawnItems_SetBatchItemCount)
+label(tga.SpawnItems_REP_MOVSB64)
+label(tga.SpawnItems_AdjustItemData)
+label(tga.SpawnItems_AdjustQuantity)
+label(tga.SpawnItems_Call)
+label(tga.SpawnItems_Done)
+tga.SpawnItems:
+registerSymbol(tga.SpawnItems)
+push rbx
+push rsi
+push rdi
+push r14
+push r15
+sub rsp,30
+movsxd r15,dword ptr [rcx]
+lea rsi,[rcx+04]
+tga.SpawnItems_CreateItemBatch:
+mov rax,r15
+mov cl,06
+movsx rcx,cl
+xor rdx,rdx
+div rcx
+test rdx,rdx
+jne tga.SpawnItems_SetBatchItemCount
+mov dl,06
+movsx rdx,dl
+test rax,rax
+je tga.SpawnItems_Done
+tga.SpawnItems_SetBatchItemCount:
+mov r14,rdx
+sub r15,r14
+lea rdi,[ItemToSpawn+04]
+mov [rdi-04],r14d
+mov rax,r14
+mov cl,0C
+movsx rcx,cl
+xor rdx,rdx
+mul rcx
+mov rcx,rax
+tga.SpawnItems_REP_MOVSB64:
+db F3 48 A4
+lea rbx,[ItemToSpawn+04]
+tga.SpawnItems_AdjustItemData:
+mov ecx,[rbx]
+call tga.IsWeapon
+test al,al
+je tga.SpawnItems_AdjustQuantity
+call tga.AdjustWeaponInfusion
+mov ecx,eax
+call tga.AdjustWeaponUpgrade
+mov [rbx],eax
+mov ecx,eax
+tga.SpawnItems_AdjustQuantity:
+mov edx,[rbx+04]
+call tga.AdjustQuantity
+mov [rbx+04],eax
+add rbx,0C
+sub r14,01
+jne tga.SpawnItems_AdjustItemData
+tga.SpawnItems_Call:
+mov rcx,MapItemMan
+lea r8,[rsp+20]
+lea rdx,[ItemToSpawn]
+mov rax,ItemGib_Main_Call
+mov rcx,[rcx]
+call rax
+test r15,r15
+jne tga.SpawnItems_CreateItemBatch
+tga.SpawnItems_Done:
+xor rax,rax
+mov cl,12
+movsx rcx,cl
+lea rdi,[ItemToSpawn]
+rep stosq
+mov dword ptr [ItemToSpawn],01
+add rsp,30
+pop r15
+pop r14
+pop rdi
+pop rsi
+pop rbx
+ret
+int 3
+
+
+// void ItemGib()
+ItemGib:
+registersymbol(ItemGib)
+sub rsp, 28
+mov ecx, dword ptr [ItemGibData+4]
+call tga.IsWeapon
+test al, al
+mov eax, dword ptr [ItemGibData+4]
+jz short ItemGib_not_weapon
+ItemGib_weapon:
+// if "Hero level" selected, use max upgrade level, it will be adjusted
+mov eax, dword ptr [ItemGibData+10]
+mov ecx, #10
+cmp eax, #-1
+cmove eax, ecx
+add eax, dword ptr [ItemGibData+4]
+add eax, dword ptr [ItemGibData+C]
+ItemGib_not_weapon:
+mov dword ptr [ItemToSpawn+4], eax
+mov eax, dword ptr [ItemGibData]
+mov dword ptr [ItemToSpawn+8], eax
+mov eax, dword ptr [ItemGibData+8]
+mov dword ptr [ItemToSpawn+C], eax
+lea rcx, [ItemToSpawn]
+call tga.SpawnItems
+add rsp, 28
+ret
+align 10 CC
+
+
+[DISABLE]
+unregistersymbol(ItemGib)
+unregistersymbol(ItemGibData)
+unregisterSymbol(tga.SpawnItems)
+dealloc(Code)
+dealloc(Data)
+
+</AssemblerScript>
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337258599</ID>
+                              <Description>"Mass ItemGib"</Description>
+                              <Color>808080</Color>
+                              <VariableType>Auto Assembler Script</VariableType>
+                              <AssemblerScript>[ENABLE]
+alloc(MassItemGib,128,DarkSoulsIII.exe)
+registersymbol(MassItemGib)
+
+alloc(ItemArray,$1000)
+registersymbol(ItemArray)
+
+registersymbol(MassGibDone)
+
+MassItemGib:
+sub rsp,28
+mov [MassGibDone], 0
+lea rcx,[ItemArray]
+call tga.SpawnItems
+mov [MassGibDone], 1
+add rsp,28
+ret
+
+MassGibDone:
+dd 00
+
+{$lua}
+if syntaxcheck then return end
+dlc1Owned = (readBytes(GetAddress('[CsDlc]+11')) == 1) or false
+dlc2Owned = (readBytes(GetAddress('[CsDlc]+12')) == 1) or false
+
+Item = {id, typ, quantity, dlc, isCutContent}
+
+function Item:new (id, typ, quantity, dlc, isCutContent)
+  o = {
+    id = id,
+    typ = typ or "item",
+    quantity = quantity or 0xFFFFFFFF,
+    dlc = dlc or 0,
+    isCutContent = isCutContent or false,
+  }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+function Item:spawn(baseAddress, offset)
+  offset = offset or 0
+  baseAddress = baseAddress + 4
+  WriteInteger(baseAddress,self.id + offset)
+  baseAddress = baseAddress + 4
+  WriteInteger(baseAddress,self.quantity)
+  baseAddress = baseAddress + 4
+  WriteInteger(baseAddress,0xFFFFFFFF)
+  return baseAddress
+end
+
+function Item:checkType(checkBox)
+  if(self.typ == "item") then return true end
+  return checkBox[self.typ].Checked
+end
+
+function Item:checkCutContent(checkBox)
+  if(self.isCutContent) then
+    return checkBox["CutContent"].Checked
+  end
+  return checkBox["GameContent"].Checked
+end
+
+function Item:checkDlc(checkBox)
+  if(self.dlc == 0) then
+    return checkBox["BaseGame"].Checked
+  elseif(self.dlc == 1) then
+    return checkBox["AshesofAriandel"].Checked
+  else
+    return checkBox["RingedCity"].Checked
+  end
+end
+
+function Item:checkAll(checkboxes)
+  if(not self:checkType(checkboxes)) then return false end
+  if(not self:checkDlc(checkboxes)) then return false end
+  if(not self:checkCutContent(checkboxes)) then return false end
+  return true
+end
+
+MIGForm = {ctrl}
+function MIGForm:new()
+  o = {
+    ctrl = {}
+  }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+function MIGForm:create(typ, parent, properties, customName)
+  parent = self.ctrl[parent]
+  local control = createComponentClass(typ, parent)
+  control.Parent = parent
+  self:initialize(control, properties)
+  control['x'] = control.Left + control.Width
+  control['y'] = control.Top + control.Height
+  local name = customName or properties.Caption
+  name = string.gsub(name, "%s", "")
+  self.ctrl[name] = control
+end
+
+function MIGForm:initialize(control, properties)
+  if(type(control) == 'string') then control = self.ctrl[control] end
+  for propertyName, property in pairs(properties) do
+    if (type(property) == 'table') then
+      for subPropertyName, subProperty in pairs(property) do
+        control[propertyName][subPropertyName] = subProperty
+      end
+    else
+    control[propertyName] = property
+    end
+  end
+end
+
+function MIGForm:initDefaultForm(formName)
+  self.ctrl[formName].BorderStyle = bsDialog
+  self.ctrl[formName].show()
+  self.ctrl[formName].centerScreen()
+  self.ctrl[formName].BorderStyle = bsDialog
+  self.ctrl[formName].OnClose = function (sender)
+    return caFree
+  end
+end
+
+function MIGForm:addItems(control, items, checked)
+  checked = checked or false
+  control = self.ctrl[control]
+  for _, item in pairs(items) do
+    control.items.add(item)
+  end
+  control.setItemIndex(0)
+end
+
+function MIGForm:fixSize(parentName, x, y)
+  x = x or 0
+  y = y or 0
+  local parent = self.ctrl[parentName]
+  local width, height = 0,0
+  local tempWidth, tempHeight
+  for i = 0, parent.ComponentCount - 1 do
+    tempWidth = parent.Component[i].Left +  parent.Component[i].Width
+    if (tempWidth &gt; width) then
+        width = tempWidth
+    end
+    tempHeight =  parent.Component[i].Top +  parent.Component[i].Height
+    if (tempHeight &gt; height) then
+       height = tempHeight
+    end
+  end
+  parent.Width = width + x
+  parent.x = parent.Width + parent.Left
+  parent.Height = height + y
+  parent.y = parent.Height + parent.Top
+end
+
+function MIGForm:fillGap(controlName, targetName)
+  local control = self.ctrl[controlName]
+  local target = {
+    x = self.ctrl[targetName.x] or nil,
+    y = self.ctrl[targetName.y] or nil
+  }
+  if(target.x) then control.Width = control.Width + target.x.Width + target.x.Left - control.Width - control.Left end
+  if(target.y) then control.Height = control.Height + target.y.Height + target.y.Top - control.Height - control.Top end
+end
+
+function MIGForm:changeCheckBoxes(parent)
+  parent = self.ctrl[parent]
+  for i = 1, parent.ComponentCount - 1 do
+    parent.Component[i].Checked = parent.Component[0].Checked
+  end
+end
+
+[DISABLE]
+{$asm}
+dealloc(MassItemGib)
+unregistersymbol(MassItemGib)
+
+dealloc(ItemArray)
+unregistersymbol(ItemArray)
+
+unregistersymbol(MassGibDone)
+</AssemblerScript>
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337305400</ID>
+                              <Description>"Custom Restock"</Description>
+                              <Color>808080</Color>
+                              <VariableType>Auto Assembler Script</VariableType>
+                              <AssemblerScript>//Items To Restock
 //Change, Remove, or add IDS to Change what is restocked
 {$lua}
 if syntaxcheck then return end
@@ -39272,41 +39769,426 @@ customRestockedItems = {
 [disable]
 
 </AssemblerScript>
+                            </CheatEntry>
+                          </CheatEntries>
+                        </CheatEntry>
+                      </CheatEntries>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>1337305257</ID>
+                      <ID>1337305401</ID>
+                      <Description>"Storage"</Description>
+                      <Options moHideChildren="1"/>
+                      <Color>808080</Color>
+                      <GroupHeader>1</GroupHeader>
+                      <CheatEntries>
+                        <CheatEntry>
+                          <ID>1337305402</ID>
+                          <Description>"Heal Others"</Description>
+                          <Color>000080</Color>
+                          <VariableType>Auto Assembler Script</VariableType>
+                          <AssemblerScript>// Script for Player 0
+
+{$lua}
+if syntaxcheck then return end
+
+[enable]
+createThread(function()
+if readInteger(player0TeamTypePtr) ~= nil then
+   writeBytes("StoreCharacterType0", readInteger(player0CharacterTypePtr))
+   writeBytes("StoreTeamType0", readInteger(player0TeamTypePtr))
+end
+sleep(100)
+end)
+
+TeamChangeTimer0 = createTimer(getMainForm())
+TeamChangeTimer0.Interval = 200
+TeamChangeTimer0.OnTimer = function(timer)
+    if readInteger(player0TeamTypePtr) ~= nil then
+       writeInteger(player0TeamTypePtr, 2)
+       writeInteger(player0CharacterTypePtr, 1)
+    end
+end
+
+TeamChangeTimer0.setEnabled(true)
+
+[disable]
+
+TeamChangeTimer0.destroy()
+
+createThread(function()
+sleep(100)
+if readInteger(player0TeamTypePtr) ~= nil then
+   writeInteger(player0CharacterTypePtr, readBytes("StoreCharacterType0"))
+   writeInteger(player0TeamTypePtr, readBytes("StoreTeamType0"))
+end end)
+
+</AssemblerScript>
+                        </CheatEntry>
+                        <CheatEntry>
+                          <ID>1337305403</ID>
+                          <Description>"Kick Others"</Description>
+                          <Color>0000FF</Color>
+                          <VariableType>Auto Assembler Script</VariableType>
+                          <AssemblerScript>{$lua}
+[ENABLE]
+
+
+[DISABLE]
+
+
+</AssemblerScript>
+                        </CheatEntry>
+                        <CheatEntry>
+                          <ID>1337305404</ID>
+                          <Description>"Store TeamType"</Description>
+                          <Options moHideChildren="1"/>
+                          <GroupHeader>1</GroupHeader>
+                          <CheatEntries>
+                            <CheatEntry>
+                              <ID>1337305405</ID>
+                              <Description>"StoreTeamType0"</Description>
+                              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:Host
+2:Phantom
+3:Black Phantom
+4:Hollow
+6:Enemy
+7:Boss (giants, big lizard)
+8:Friend
+9:AngryFriend
+10:DecoyEnemy
+11:BloodChild
+12:BattleFriend
+13:Dragon
+16:Dark Spirit
+17:Watchdog of Farron
+18:Aldrich Faithful
+24:Darkwraiths
+26:NPC
+27:Hostile NPC
+29:Arena
+31:Mad Phantom
+32:Mad Spirit
+33:Giant crabs,Dragons from Lothric castle
+0:None
+</DropDownList>
+                              <ShowAsSigned>0</ShowAsSigned>
+                              <VariableType>Byte</VariableType>
+                              <Address>StoreTeamType0</Address>
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337305406</ID>
+                              <Description>"StoreTeamType1"</Description>
+                              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:Host
+2:Phantom
+3:Black Phantom
+4:Hollow
+6:Enemy
+7:Boss (giants, big lizard)
+8:Friend
+9:AngryFriend
+10:DecoyEnemy
+11:BloodChild
+12:BattleFriend
+13:Dragon
+16:Dark Spirit
+17:Watchdog of Farron
+18:Aldrich Faithful
+24:Darkwraiths
+26:NPC
+27:Hostile NPC
+29:Arena
+31:Mad Phantom
+32:Mad Spirit
+33:Giant crabs,Dragons from Lothric castle
+0:None
+</DropDownList>
+                              <ShowAsSigned>0</ShowAsSigned>
+                              <VariableType>Byte</VariableType>
+                              <Address>StoreTeamType1</Address>
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337305407</ID>
+                              <Description>"StoreTeamType2"</Description>
+                              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:Host
+2:Phantom
+3:Black Phantom
+4:Hollow
+6:Enemy
+7:Boss (giants, big lizard)
+8:Friend
+9:AngryFriend
+10:DecoyEnemy
+11:BloodChild
+12:BattleFriend
+13:Dragon
+16:Dark Spirit
+17:Watchdog of Farron
+18:Aldrich Faithful
+24:Darkwraiths
+26:NPC
+27:Hostile NPC
+29:Arena
+31:Mad Phantom
+32:Mad Spirit
+33:Giant crabs,Dragons from Lothric castle
+0:None
+</DropDownList>
+                              <ShowAsSigned>0</ShowAsSigned>
+                              <VariableType>Byte</VariableType>
+                              <Address>StoreTeamType2</Address>
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337305408</ID>
+                              <Description>"StoreTeamType3"</Description>
+                              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:Host
+2:Phantom
+3:Black Phantom
+4:Hollow
+6:Enemy
+7:Boss (giants, big lizard)
+8:Friend
+9:AngryFriend
+10:DecoyEnemy
+11:BloodChild
+12:BattleFriend
+13:Dragon
+16:Dark Spirit
+17:Watchdog of Farron
+18:Aldrich Faithful
+24:Darkwraiths
+26:NPC
+27:Hostile NPC
+29:Arena
+31:Mad Phantom
+32:Mad Spirit
+33:Giant crabs,Dragons from Lothric castle
+0:None
+</DropDownList>
+                              <ShowAsSigned>0</ShowAsSigned>
+                              <VariableType>Byte</VariableType>
+                              <Address>StoreTeamType3</Address>
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337305409</ID>
+                              <Description>"StoreTeamType4"</Description>
+                              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:Host
+2:Phantom
+3:Black Phantom
+4:Hollow
+6:Enemy
+7:Boss (giants, big lizard)
+8:Friend
+9:AngryFriend
+10:DecoyEnemy
+11:BloodChild
+12:BattleFriend
+13:Dragon
+16:Dark Spirit
+17:Watchdog of Farron
+18:Aldrich Faithful
+24:Darkwraiths
+26:NPC
+27:Hostile NPC
+29:Arena
+31:Mad Phantom
+32:Mad Spirit
+33:Giant crabs,Dragons from Lothric castle
+0:None
+</DropDownList>
+                              <ShowAsSigned>0</ShowAsSigned>
+                              <VariableType>Byte</VariableType>
+                              <Address>StoreTeamType4</Address>
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337305410</ID>
+                              <Description>"StoreTeamType5"</Description>
+                              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:Host
+2:Phantom
+3:Black Phantom
+4:Hollow
+6:Enemy
+7:Boss (giants, big lizard)
+8:Friend
+9:AngryFriend
+10:DecoyEnemy
+11:BloodChild
+12:BattleFriend
+13:Dragon
+16:Dark Spirit
+17:Watchdog of Farron
+18:Aldrich Faithful
+24:Darkwraiths
+26:NPC
+27:Hostile NPC
+29:Arena
+31:Mad Phantom
+32:Mad Spirit
+33:Giant crabs,Dragons from Lothric castle
+0:None
+</DropDownList>
+                              <ShowAsSigned>0</ShowAsSigned>
+                              <VariableType>Byte</VariableType>
+                              <Address>StoreTeamType5</Address>
+                            </CheatEntry>
+                          </CheatEntries>
+                        </CheatEntry>
+                        <CheatEntry>
+                          <ID>1337305411</ID>
+                          <Description>"Store CharType"</Description>
+                          <Options moHideChildren="1"/>
+                          <GroupHeader>1</GroupHeader>
+                          <CheatEntries>
+                            <CheatEntry>
+                              <ID>1337305412</ID>
+                              <Description>"StoreCharacterType0"</Description>
+                              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Host
+1:White Phantom
+2:Dark Spirit
+3:Ghost
+4:Ghost
+8:Hollow
+10:Transparent
+11:Invisible
+12:Dragon
+13:Arena
+</DropDownList>
+                              <ShowAsSigned>0</ShowAsSigned>
+                              <VariableType>Byte</VariableType>
+                              <Address>StoreCharacterType0</Address>
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337305413</ID>
+                              <Description>"StoreCharacterType1"</Description>
+                              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Host
+1:White Phantom
+2:Dark Spirit
+3:Ghost
+4:Ghost
+8:Hollow
+10:Transparent
+11:Invisible
+12:Dragon
+13:Arena
+</DropDownList>
+                              <ShowAsSigned>0</ShowAsSigned>
+                              <VariableType>Byte</VariableType>
+                              <Address>StoreCharacterType1</Address>
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337305414</ID>
+                              <Description>"StoreCharacterType2"</Description>
+                              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Host
+1:White Phantom
+2:Dark Spirit
+3:Ghost
+4:Ghost
+8:Hollow
+10:Transparent
+11:Invisible
+12:Dragon
+13:Arena
+</DropDownList>
+                              <ShowAsSigned>0</ShowAsSigned>
+                              <VariableType>Byte</VariableType>
+                              <Address>StoreCharacterType2</Address>
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337305415</ID>
+                              <Description>"StoreCharacterType3"</Description>
+                              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Host
+1:White Phantom
+2:Dark Spirit
+3:Ghost
+4:Ghost
+8:Hollow
+10:Transparent
+11:Invisible
+12:Dragon
+13:Arena
+</DropDownList>
+                              <ShowAsSigned>0</ShowAsSigned>
+                              <VariableType>Byte</VariableType>
+                              <Address>StoreCharacterType3</Address>
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337305416</ID>
+                              <Description>"StoreCharacterType4"</Description>
+                              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Host
+1:White Phantom
+2:Dark Spirit
+3:Ghost
+4:Ghost
+8:Hollow
+10:Transparent
+11:Invisible
+12:Dragon
+13:Arena
+</DropDownList>
+                              <ShowAsSigned>0</ShowAsSigned>
+                              <VariableType>Byte</VariableType>
+                              <Address>StoreCharacterType4</Address>
+                            </CheatEntry>
+                            <CheatEntry>
+                              <ID>1337305417</ID>
+                              <Description>"StoreCharacterType5"</Description>
+                              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Host
+1:White Phantom
+2:Dark Spirit
+3:Ghost
+4:Ghost
+8:Hollow
+10:Transparent
+11:Invisible
+12:Dragon
+13:Arena
+</DropDownList>
+                              <ShowAsSigned>0</ShowAsSigned>
+                              <VariableType>Byte</VariableType>
+                              <Address>StoreCharacterType5</Address>
+                            </CheatEntry>
+                          </CheatEntries>
+                        </CheatEntry>
+                      </CheatEntries>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305418</ID>
                       <Description>"deprecated"</Description>
                       <Options moHideChildren="1"/>
                       <Color>808080</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
-                          <ID>1337305256</ID>
+                          <ID>1337305419</ID>
                           <Description>"Effect Detect Raw Timer"</Description>
-                          <Color>FF80BF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{$lua}
-[ENABLE]
+[enable]
 
+local EffectId = 3000
 
-
-local EffectID = 3000
-local TimerInterval = 75
+local TimerInterval = 1
+local EffectsToRead = 200
 
 local effectLinkedList = "[[[[WorldChrMan]+80]+18]+18]+8"
 local effectOffsetToNextPtr = "78"
 local effectIdOffset = "60"
+local effectDurationOffset = "4"
 
 
-EffectDetected = false
+IsEffectDetected = false
 EffectDetectionTimer = createTimer(getMainForm())
 EffectDetectionTimer.Interval = TimerInterval
-EffectDetectionTimer.OnTimer = function()
+EffectDetectionTimer.OnTimer = function(t)
+    if not memrec.active or t.Enabled == false or readQword("WorldChrMan") == nil then
+        t.destroy()
+        return
+    end
 
-    local hasHealedThisTick = false
+    local hasDetectedThisTick = false
+
     local effectCount = 0
 
-    for i = 0, 100, 1 do
+    for i = 0, EffectsToRead, 1 do
         local ptrString = effectLinkedList
         local effectN = 1
 
@@ -39319,29 +40201,30 @@ EffectDetectionTimer.OnTimer = function()
             break
         end
 
-        local isHealing = readInteger("[" .. ptrString .. "]+" .. effectIdOffset) == EffectID
-        hasHealedThisTick = isHealing or hasHealedThisTick
+        local isExecutingEffect = readInteger("[" .. ptrString .. "]+" .. effectIdOffset) == EffectId
+        hasDetectedThisTick = isExecutingEffect or hasDetectedThisTick
 
-        if hasHealedThisTick and not EffectDetected then
-            EffectDetected = true
+        if hasDetectedThisTick and not IsEffectDetected then
+            IsEffectDetected = true
+            removeEffect(EffectId)
+
             --[[
-            Additionall Callback Code Here
+            Code upon detecting effect here
             --]]
-            print('heal')
-
-
+            print('Detected Effect:' .. EffectId)
 
         end
 
         effectCount = effectCount + 1
     end
 
-    if not hasHealedThisTick and EffectDetected then
-        EffectDetected = false
+    if not hasDetectedThisTick and IsEffectDetected then
+        IsEffectDetected = false
     end
 end
---]]
-[DISABLE]
+
+[disable]
+
 EffectDetectionTimer.destroy()
 
 
