@@ -4,6 +4,7 @@
     <CheatEntry>
       <ID>0</ID>
       <Description>"Open Indura's Table v2.0.1"</Description>
+      <Options moHideChildren="1"/>
       <Color>FF8080</Color>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>//Table Created By DiamondEnderman
@@ -22350,7 +22351,7 @@ deAlloc(CharBrightness)
                   <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">-1:No Clientside Color Edit
 0:Host Colour
 1:White w/Less glow (Changed by script)
-2:White w/More glow
+2:White w/More glow (Changed by script)
 3:Faded brown with slight blue glow
 4:Same as above
 5:Faded brown with pink glow
@@ -22471,7 +22472,9 @@ deAlloc(CharBrightness)
                   <AssemblerScript>{$lua}
 [ENABLE]
 
-disableRecord(1337305338)
+--disableRecord(1337305349) -- Rainbow
+disableRecord(1337305441) -- Trans
+disableRecord(1337305338) -- Custom
 
 local ParamColorEdit = 2
 
@@ -22485,6 +22488,8 @@ local ColorEdit = PhantomParam:new("PhantomParamRainbowEdit", ParamColorEdit)
       ColorEdit:Green4(0)
       ColorEdit:Blue3(0)
       ColorEdit:Blue4(0)
+      ColorEdit:Flag(0)
+      ColorEdit:Flag1(0)
 
 enableRecord(1337305332)
 
@@ -22560,6 +22565,91 @@ writeBytes("[[[WorldChrMan]+40]+0]+1F38", -1)
 </AssemblerScript>
                 </CheatEntry>
                 <CheatEntry>
+                  <ID>1337305441</ID>
+                  <Description>"Trans Flag"</Description>
+                  <Color>80FF00</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+[ENABLE]
+
+-- Disable the record if needed
+disableRecord(1337305349) -- Rainbow
+--disableRecord(1337305441) -- Trans
+disableRecord(1337305338) -- Custom
+
+local ParamColorEdit = 6
+
+writeBytes("[[[WorldChrMan]+40]+0]+1F38", ParamColorEdit)
+
+-- Set up the initial color values
+local ColorEdit = PhantomParam:new("PhantomParamTransEdit", ParamColorEdit)
+      ColorEdit:Red3(0)
+      ColorEdit:Red4(0)
+      ColorEdit:Green3(0)
+      ColorEdit:Green4(0)
+      ColorEdit:Blue3(0)
+      ColorEdit:Blue4(0)
+      ColorEdit:Flag(0)
+      ColorEdit:Flag1(0)
+
+enableRecord(1337305332)
+
+local colors = {
+    {89, 240, 225},
+    {245, 154, 242},
+    {255, 255, 255},
+    {245, 154, 242},
+    {89, 240, 225}
+}
+
+local currentColorIndex = 1
+local transitionTime = 750 -- Set the transition time in milliseconds
+
+local startTime = os.clock()
+
+-- Timer setup
+colorCycleTimer = createTimer(getMainForm())
+colorCycleTimer.Interval = 100 -- Set the interval in milliseconds
+
+colorCycleTimer.OnTimer = function()
+    local elapsedTime = os.clock() - startTime
+
+    local currentColor = colors[currentColorIndex]
+    local targetColor = colors[currentColorIndex % #colors + 1]
+
+    -- Calculate the color transition based on elapsed time
+    local progress = math.min(1, elapsedTime / (transitionTime / 1000))
+    local newRed = math.floor(currentColor[1] + (targetColor[1] - currentColor[1]) * progress)
+    local newGreen = math.floor(currentColor[2] + (targetColor[2] - currentColor[2]) * progress)
+    local newBlue = math.floor(currentColor[3] + (targetColor[3] - currentColor[3]) * progress)
+
+    -- Update the current color
+    ColorEdit:Red1(newRed)
+    ColorEdit:Red2(newRed)
+    ColorEdit:Green1(newGreen)
+    ColorEdit:Green2(newGreen)
+    ColorEdit:Blue1(newBlue)
+    ColorEdit:Blue2(newBlue)
+
+    -- Check if the transition is complete
+    if elapsedTime &gt;= transitionTime / 1000 then
+        currentColorIndex = currentColorIndex % #colors + 1
+        startTime = os.clock()
+    end
+end
+
+[DISABLE]
+colorCycleTimer.destroy()
+
+paramUtils:restore("PhantomParamTransEdit")
+
+disableRecord(1337305332)
+
+writeBytes("[[[WorldChrMan]+40]+0]+1F38", -1)
+
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
                   <ID>1337305346</ID>
                   <Description>"Customize RGB Color"</Description>
                   <Options moHideChildren="1"/>
@@ -22568,13 +22658,14 @@ writeBytes("[[[WorldChrMan]+40]+0]+1F38", -1)
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337305338</ID>
-                      <Description>"← Apply RGB Color"</Description>
+                      <Description>"← Apply RGB Color "</Description>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
 [ENABLE]
 
-disableRecord(1337305349)
+disableRecord(1337305349) -- Rainbow
+disableRecord(1337305441) -- Trans
 
 local ParamColorEdit = 1
 
@@ -22657,17 +22748,17 @@ writeBytes("[[[WorldChrMan]+40]+0]+1F38", -1)
                       <Address>GreenColourAddr</Address>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>1337305345</ID>
-                      <Description>""</Description>
-                      <GroupHeader>1</GroupHeader>
-                    </CheatEntry>
-                    <CheatEntry>
                       <ID>1337305334</ID>
                       <Description>"Blue Color"</Description>
                       <ShowAsSigned>1</ShowAsSigned>
                       <Color>EAEA00</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>BlueColourAddr</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305351</ID>
+                      <Description>""</Description>
+                      <GroupHeader>1</GroupHeader>
                     </CheatEntry>
                     <CheatEntry>
                       <ID>1337305344</ID>
@@ -22694,7 +22785,7 @@ writeBytes("[[[WorldChrMan]+40]+0]+1F38", -1)
                       <Address>BlueShadeAddr</Address>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>1337305351</ID>
+                      <ID>1337305345</ID>
                       <Description>""</Description>
                       <GroupHeader>1</GroupHeader>
                     </CheatEntry>
