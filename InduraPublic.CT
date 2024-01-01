@@ -7,7 +7,7 @@
       <Options moHideChildren="1"/>
       <Color>FF8080</Color>
       <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript><![CDATA[{
+      <AssemblerScript>
 //Base Table Created By DiamondEnderman
 //Some Ideas and Addresses Taken from AgRuN and TGA Tables
 //Master Pointer Sheet By The-Raid-Boss
@@ -40145,7 +40145,7 @@ autoDisable(memrec)
 saveTable(fileName)
 
 [DISABLE]
-]]></AssemblerScript>
+</AssemblerScript>
                 </CheatEntry>
               </CheatEntries>
             </CheatEntry>
