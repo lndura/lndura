@@ -38873,7 +38873,7 @@ end
 if not syntaxcheck then autoDisable(memrec) end
 
 controlMainForm = getMainForm()
-control_setCaption(controlMainForm , "Indura's Table v4.0.3")
+control_setCaption(controlMainForm , "Indura's Table v2.3.1")
 
 package.preload["ce.view_mode"] = function(...)
   local _m = {}
