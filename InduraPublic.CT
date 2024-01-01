@@ -345,6 +345,7 @@ doYouOwnDLC2Ptr = "[CsDlc]+12"
                       --MASTER POINTER SHEET END--
 --Attach to game
 OpenProcess("DarkSoulsIII.exe")
+speak(string.format("Table Attached To Game"))
 
 --Disable and Enable Records (By ID)
 function enableRecord(ID)
