@@ -3,7 +3,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
-      <Description>"Open Indura's Table v2.2.1"</Description>
+      <Description>"Open Indura's Table v2.3.1"</Description>
       <Options moHideChildren="1"/>
       <Color>FF8080</Color>
       <VariableType>Auto Assembler Script</VariableType>
@@ -38873,7 +38873,7 @@ end
 if not syntaxcheck then autoDisable(memrec) end
 
 controlMainForm = getMainForm()
-control_setCaption(controlMainForm , "Indura's Table v4.0.3")
+control_setCaption(controlMainForm , "Indura's Table v3.3.1")
 
 package.preload["ce.view_mode"] = function(...)
   local _m = {}
