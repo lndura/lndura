@@ -1117,7 +1117,6 @@ autoInvasionTimer.OnTimer = function()
       end
    end
 end
-speak(string.format("Invade"))
 [disable]
 autoInvasionTimer.destroy()
 if readInteger(lvlPtr) ~= nil and readByte("[SprjSessionManager]-1040") ~= 0 then -- Prevents Loading screen crash
