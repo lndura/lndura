@@ -3,7 +3,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
-      <Description>"&lt;-- Open Indura's Table v2.3.1"</Description>
+      <Description>"&lt;-- Open Indura's Table"</Description>
       <Options moHideChildren="1"/>
       <Color>FF8080</Color>
       <VariableType>Auto Assembler Script</VariableType>
@@ -306,20 +306,27 @@ doYouOwnDLC2Ptr = "[CsDlc]+12"
                       --MASTER POINTER SHEET END--
 --Attach to game
 OpenProcess("DarkSoulsIII.exe")
-local TTS = false -- Text To Speech on launch.
-local MSG = true  -- Message pop up on launch.
 
-local TableVersion = 2.031
+local TableVersion = "2.3.3"
+local VersionCode = 2.033
+
 local Repository = "https://raw.githubusercontent.com/lndura/lndura/main/getversion"
-local Outdated = [[
-Your Cheat Table is outdated.
-Check the Github for the latest version.
-Github link has been copied to clipboard.
-]]
-
 local grabLink = getInternet()
 local CurrVers =  grabLink.getURL(Repository)
-if TableVersion &lt; tonumber(CurrVers) then
+local Outdated = [[
+Your Cheat Table is outdated. (]]..TableVersion..[[)
+Check the Github for the latest version.
+
+This Table version code: ]]..VersionCode..[[
+
+Current version code is: ]]..tonumber(CurrVers)..[[
+
+
+The Github link has been copied to clipboard.
+]]
+
+-- Check for update if you have the settings for it turned on.
+if TUD and VersionCode &gt; tonumber(CurrVers) then
    showMessage(Outdated)
    writeToClipboard([[https://github.com/lndura/lndura/]])
    --Function for AutoDisabling
@@ -337,7 +344,6 @@ if TableVersion &lt; tonumber(CurrVers) then
    TTS = false
    autoDisable(memrec, 200)
 end
-
 grabLink.destroy()
 
 --Disable and Enable Records (By ID)
@@ -1117,6 +1123,7 @@ autoInvasionTimer.OnTimer = function()
       end
    end
 end
+speak(string.format("Invade"))
 [disable]
 autoInvasionTimer.destroy()
 if readInteger(lvlPtr) ~= nil and readByte("[SprjSessionManager]-1040") ~= 0 then -- Prevents Loading screen crash
@@ -39286,8 +39293,10 @@ saveTable(fileName)
       <Address>14B0B490000</Address>
     </SymbolEntry>
   </UserdefinedSymbols>
-  <LuaScript>--[[
-This is the perfect place to put a virus to hit some random with.
---]]
+  <LuaScript>
+--==]] Customize your choice for launch settings here. [[==--
+TTS = false  -- Text To Speech on launch.
+MSG = true   -- Message pop up on launch.
+TUD = true   -- Check version on launch.
 </LuaScript>
 </CheatTable>
