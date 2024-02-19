@@ -330,7 +330,7 @@ end
 --==]]  CHECK VERSION AND LAUNCH SETTINGS  [[==--
 
 TTS = false   -- Text To Speech on launch.
-MSG = false   -- Message pop up on launch.
+MSG = true   -- Message pop up on launch.
 TUD = true   -- Check version on launch.
 
 
