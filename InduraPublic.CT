@@ -3,8 +3,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
-      <Description>"&lt;-- Open Indura's Table"</Description>
-      <Options moHideChildren="1"/>
+      <Description>"&lt;-- Attach Indura's Table"</Description>
       <Color>FF8080</Color>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>//Base Table Created By DiamondEnderman
@@ -19,7 +18,7 @@
 //BASES
 define(XA,1F90)    //Incompatible with TGA
 registerSymbol(XA)
-define(XB,0x1FA0)  //Incompatible with TGA
+define(XB,1FA0)  //Incompatible with TGA
 registerSymbol(XB)
 define(GameDataMan,DarkSoulsIII.exe+47572B8)
 registerSymbol(GameDataMan)
@@ -304,15 +303,34 @@ doYouOwnDLC2Ptr = "[CsDlc]+12"
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
                       --MASTER POINTER SHEET END--
+
+
 --Attach to game
 OpenProcess("DarkSoulsIII.exe")
 
+if readQword("DarkSoulsIII.exe+47572B8") == nil then
+   showMessage("Launch Game First")
+   local function autoDisable(memrec, delay)
+      delay = math.max(delay or 100, 100)
 
+      if not memrec then end
+
+      local t = createTimer(nil)
+      t.Interval = delay
+      t.OnTimer = function()
+         memrec.active = false
+         t.destroy()
+      end
+   end
+   MSG = false
+   TTS = false
+   autoDisable(memrec, 200)
+end
 
 --==]]  CHECK VERSION AND LAUNCH SETTINGS  [[==--
 
-TTS = false  -- Text To Speech on launch.
-MSG = true   -- Message pop up on launch.
+TTS = false   -- Text To Speech on launch.
+MSG = false   -- Message pop up on launch.
 TUD = true   -- Check version on launch.
 
 
@@ -352,7 +370,7 @@ if TUD then
       showMessage(Outdated)
       writeToClipboard([[https://github.com/lndura/lndura/]])
       --Function for AutoDisabling
-      function autoDisable(memrec, delay)
+      local function autoDisable(memrec, delay)
          delay = math.max(delay or 100, 100)
 
          if not memrec then end
@@ -474,7 +492,6 @@ function validateInput(input, inputType, min, max)
     return false
   end
 end
-
 
 --ApplyEffect
 --Made by DiamondEnderman
@@ -717,7 +734,7 @@ paramUtils:restore("BetterInvasions")
               <AssemblerScript>{$lua}
 if syntaxcheck then return end
 [enable]
---   No Blue Sentinel Kick
+-- No Blue Sentinel Kick
 local Flasks = {
 0x400000F0,--Divine Blessing
 0x400000F1,--Hidden Blessing
@@ -891,7 +908,9 @@ local UnusedBullets = {
 
 for i,bullet in ipairs(UnusedBullets) do
     local bullet = Bullet:new("UUD",bullet)
-          bullet:life(0)
+          bullet:sfxId_Bullet(41)
+          bullet:sfxId_Hit(41)
+          bullet:sfxId_Flick(41)
 end
 [disable]
 paramUtils:restore("UUD")
@@ -937,7 +956,9 @@ local UnusedBullets = {
 
 for i,bullet in ipairs(UnusedBullets) do
     local bullet = Bullet:new("UMB",bullet)
-          --bullet:life(0)
+          bullet:sfxId_Bullet(41)
+          bullet:sfxId_Hit(41)
+          bullet:sfxId_Flick(41)
 end
 [disable]
 paramUtils:restore("UMB")
@@ -952,124 +973,6 @@ paramUtils:restore("UMB")
           <Color>F03EBF</Color>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
-            <CheatEntry>
-              <ID>1337305756</ID>
-              <Description>"Hosting"</Description>
-              <Options moHideChildren="1"/>
-              <Color>FF80BF</Color>
-              <GroupHeader>1</GroupHeader>
-              <CheatEntries>
-                <CheatEntry>
-                  <ID>1337305684</ID>
-                  <Description>"Ember Status"</Description>
-                  <Color>FF8080</Color>
-                  <VariableType>Auto Assembler Script</VariableType>
-                  <AssemblerScript>{$lua}
-if syntaxcheck then return end
-[enable]
-createThread(function()
-writeByte(emberPtr, 0)
-sleep(50)
-writeByte(emberPtr, 1)
-end)
-autoDisable(memrec)
-[disable]
-</AssemblerScript>
-                </CheatEntry>
-                <CheatEntry>
-                  <ID>1337291771</ID>
-                  <Description>"Allow Invaders With Dead Boss"</Description>
-                  <Options moActivateChildrenAsWell="1"/>
-                  <Color>FF8080</Color>
-                  <VariableType>Auto Assembler Script</VariableType>
-                  <AssemblerScript>{$lua}
-if syntaxcheck then return end
-[ENABLE]
-for id, _ in pairs(paramUtils:getParamIdTable("PlayRegionParam")) do
-  local play_region = PlayRegionParam:new("better_hosting", id)
-        play_region:multiPlayStartLimitEventFlagId(0)
-        play_region:multiPlayHostLimitEventFlagId(0)
-end
-[DISABLE]
-paramUtils:restore("better_hosting")
-</AssemblerScript>
-                </CheatEntry>
-                <CheatEntry>
-                  <ID>1337291772</ID>
-                  <Description>"Clear All Mobs"</Description>
-                  <Color>FF8080</Color>
-                  <VariableType>Auto Assembler Script</VariableType>
-                  <AssemblerScript>//Call Kill All Mobs
-//You can now use a function for it to call it easier,
-//Just write the function in any script that requires it for building.
-//By Indura
-//Original Kill All Mobs by Inunorri and Others.
-{$lua}
-[enable]
-autoDisable(memrec)
-killAllMobs()
-[disable]
-
-</AssemblerScript>
-                </CheatEntry>
-                <CheatEntry>
-                  <ID>1337292100</ID>
-                  <Description>"Automatically Host At Pontiff"</Description>
-                  <Color>FF8080</Color>
-                  <VariableType>Auto Assembler Script</VariableType>
-                  <AssemblerScript>{$lua}
-if syntaxcheck then return end
-[ENABLE]
-local Bonfire = 3702951  -- You can Change this to the bonfire you need
-local Areas = { -- You can Change these
-370006,
-370010
-}
-local Coords = { -- You can Change these to any other coords you need
-x = 557,
-z = -183.2,
-y = -1115
-}
-local Effects = { -- You can Change these to whatever you want
-103520000, -- Tears
-9400,      -- Moundmaker VFX
-28,        -- Dry Finger
-}
-
-
-if readInteger(areaForOnlinePlayPtr) ~= nil
--- You can loop this for any amount of areas you consider designated playing field.
-and readInteger(areaForOnlinePlayPtr) ~= Areas[1]
-and readInteger(areaForOnlinePlayPtr) ~= Areas[2] then -- Checks Area
-   bonfireWarp(Bonfire) -- if youre not at pontiff, warp there
-elseif readInteger(lvlPtr) ~= nil then
-playAnimation('W_DeathStart') -- Force a random anim
-writeInteger(idleAnimPtr,63000) -- Play Anim
-end
-
-HostingPontiffTimer = createTimer(getMainForm())
-HostingPontiffTimer.Interval = 2000
-HostingPontiffTimer.OnTimer = function()
-   if readInteger(lvlPtr) ~= nil then -- Prevents crashing during loading screen
-      if readInteger(player0AnimPtr) == 63000 then -- Checks for spawn in
-         writeInteger(idleAnimPtr,60210) -- Override Anim
-         ItemGib:new() -- Create New Itemgib Thread
-         ItemGib:spawnMultiItems(customRestockedItems) -- Spawn Said Items
-         killAllMobs() -- Kills all non-unique enemies
-         teleportPlayer(Coords.x, Coords.z, Coords.y) -- Teleports Player
-         writeByte(emberPtr, 1) -- Enable Ember
-         applyEffect(Effects)   -- Apply Effects
-      end
-   end
-end
-
-[DISABLE]
-HostingPontiffTimer.destroy()
-
-</AssemblerScript>
-                </CheatEntry>
-              </CheatEntries>
-            </CheatEntry>
             <CheatEntry>
               <ID>1337305757</ID>
               <Description>"Invading"</Description>
@@ -1092,16 +995,6 @@ end
 autoDisable(memrec)
 [DISABLE]
 </AssemblerScript>
-                  <Hotkeys>
-                    <Hotkey>
-                      <Action>Toggle Activation</Action>
-                      <Keys>
-                        <Key>16</Key>
-                        <Key>191</Key>
-                      </Keys>
-                      <ID>0</ID>
-                    </Hotkey>
-                  </Hotkeys>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337291781</ID>
@@ -1184,23 +1077,12 @@ autoInvasionTimer.OnTimer = function()
       end
    end
 end
-speak(string.format("Invade"))
 [disable]
 autoInvasionTimer.destroy()
 if readInteger(lvlPtr) ~= nil and readByte("[SprjSessionManager]-1040") ~= 0 then -- Prevents Loading screen crash
 applyEffect(11)
 end
 </AssemblerScript>
-                  <Hotkeys>
-                    <Hotkey>
-                      <Action>Activate</Action>
-                      <Keys>
-                        <Key>18</Key>
-                        <Key>73</Key>
-                      </Keys>
-                      <ID>0</ID>
-                    </Hotkey>
-                  </Hotkeys>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337305516</ID>
@@ -1698,6 +1580,123 @@ end
               </CheatEntries>
             </CheatEntry>
             <CheatEntry>
+              <ID>1337305756</ID>
+              <Description>"Hosting"</Description>
+              <Options moHideChildren="1"/>
+              <Color>FF80BF</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1337305684</ID>
+                  <Description>"Ember Status"</Description>
+                  <Color>FF8080</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[enable]
+createThread(function()
+writeByte(emberPtr, 0)
+sleep(50)
+writeByte(emberPtr, 1)
+end)
+autoDisable(memrec)
+[disable]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337291771</ID>
+                  <Description>"Allow Invaders With Dead Boss"</Description>
+                  <Options moActivateChildrenAsWell="1"/>
+                  <Color>FF8080</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[ENABLE]
+for id, _ in pairs(paramUtils:getParamIdTable("PlayRegionParam")) do
+  local play_region = PlayRegionParam:new("better_hosting", id)
+        play_region:multiPlayStartLimitEventFlagId(0)
+        play_region:multiPlayHostLimitEventFlagId(0)
+end
+[DISABLE]
+paramUtils:restore("better_hosting")
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337291772</ID>
+                  <Description>"Clear All Mobs"</Description>
+                  <Color>FF8080</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>//Call Kill All Mobs
+//You can now use a function for it to call it easier,
+//Just write the function in any script that requires it for building.
+//By Indura
+//Original Kill All Mobs by Inunorri and Others.
+{$lua}
+[enable]
+autoDisable(memrec)
+killAllMobs()
+[disable]
+
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337292100</ID>
+                  <Description>"Automatically Host At Pontiff"</Description>
+                  <Color>FF8080</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[ENABLE]
+local Bonfire = 3702951  -- You can Change this to the bonfire you need
+local Areas = { -- You can Change these
+370006,
+370010
+}
+local Coords = { -- You can Change these to any other coords you need
+x = 557,
+z = -183.2,
+y = -1115
+}
+local Effects = { -- You can Change these to whatever you want
+103520000, -- Tears ; this should be the right one.
+9400,      -- Moundmaker VFX
+28,        -- Dry Finger
+}
+
+
+if readInteger(areaForOnlinePlayPtr) ~= nil
+-- You can loop this for any amount of areas you consider designated playing field.
+and readInteger(areaForOnlinePlayPtr) ~= Areas[1]
+and readInteger(areaForOnlinePlayPtr) ~= Areas[2] then -- Checks Area
+   bonfireWarp(Bonfire) -- if youre not at pontiff, warp there
+elseif readInteger(lvlPtr) ~= nil then
+playAnimation('W_DeathStart') -- Force a random anim
+writeInteger(idleAnimPtr,63000) -- Play Anim
+end
+
+HostingPontiffTimer = createTimer(getMainForm())
+HostingPontiffTimer.Interval = 2000
+HostingPontiffTimer.OnTimer = function()
+   if readInteger(lvlPtr) ~= nil then -- Prevents crashing during loading screen
+      if readInteger(player0AnimPtr) == 63000 then -- Checks for spawn in
+         writeInteger(idleAnimPtr,60210) -- Override Anim
+         ItemGib:new() -- Create New Itemgib Thread
+         ItemGib:spawnMultiItems(customRestockedItems) -- Spawn Said Items
+         killAllMobs() -- Kills all non-unique enemies
+         teleportPlayer(Coords.x, Coords.z, Coords.y) -- Teleports Player
+         writeByte(emberPtr, 1) -- Enable Ember
+         applyEffect(Effects)   -- Apply Effects
+      end
+   end
+end
+
+[DISABLE]
+HostingPontiffTimer.destroy()
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
               <ID>1006</ID>
               <Description>"Fightclub"</Description>
               <Options moHideChildren="1"/>
@@ -2077,16 +2076,6 @@ teleportPlayer(557, -183.2, -1115)
 
 
 </AssemblerScript>
-                  <Hotkeys>
-                    <Hotkey>
-                      <Action>Toggle Activation</Action>
-                      <Keys>
-                        <Key>18</Key>
-                        <Key>84</Key>
-                      </Keys>
-                      <ID>0</ID>
-                    </Hotkey>
-                  </Hotkeys>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337291596</ID>
@@ -2122,16 +2111,6 @@ teleportPlayer(400, -221.75, -1236)
 
 
 </AssemblerScript>
-                  <Hotkeys>
-                    <Hotkey>
-                      <Action>Toggle Activation</Action>
-                      <Keys>
-                        <Key>18</Key>
-                        <Key>85</Key>
-                      </Keys>
-                      <ID>0</ID>
-                    </Hotkey>
-                  </Hotkeys>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337291598</ID>
@@ -2149,16 +2128,6 @@ teleportPlayer(127.69, -169.11, -313.54)
 [disable]
 
 </AssemblerScript>
-                  <Hotkeys>
-                    <Hotkey>
-                      <Action>Toggle Activation</Action>
-                      <Keys>
-                        <Key>18</Key>
-                        <Key>89</Key>
-                      </Keys>
-                      <ID>0</ID>
-                    </Hotkey>
-                  </Hotkeys>
                 </CheatEntry>
               </CheatEntries>
             </CheatEntry>
@@ -2219,16 +2188,6 @@ db 0F 29 86 E0 00 00 00
 unregistersymbol(camrttn)
 
 </AssemblerScript>
-                  <Hotkeys>
-                    <Hotkey OnlyWhileDown="1">
-                      <Action>Toggle Activation</Action>
-                      <Keys>
-                        <Key>18</Key>
-                        <Key>49</Key>
-                      </Keys>
-                      <ID>0</ID>
-                    </Hotkey>
-                  </Hotkeys>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337286785</ID>
@@ -2267,16 +2226,6 @@ unregistersymbol(camrttn)
 
 
 </AssemblerScript>
-                  <Hotkeys>
-                    <Hotkey OnlyWhileDown="1">
-                      <Action>Toggle Activation</Action>
-                      <Keys>
-                        <Key>18</Key>
-                        <Key>50</Key>
-                      </Keys>
-                      <ID>0</ID>
-                    </Hotkey>
-                  </Hotkeys>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337286786</ID>
@@ -2314,16 +2263,6 @@ unregistersymbol(camrttn)
 
 
 </AssemblerScript>
-                  <Hotkeys>
-                    <Hotkey OnlyWhileDown="1">
-                      <Action>Toggle Activation</Action>
-                      <Keys>
-                        <Key>18</Key>
-                        <Key>51</Key>
-                      </Keys>
-                      <ID>0</ID>
-                    </Hotkey>
-                  </Hotkeys>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337286783</ID>
@@ -2362,16 +2301,6 @@ unregistersymbol(camrttn)
 
 
 </AssemblerScript>
-                  <Hotkeys>
-                    <Hotkey OnlyWhileDown="1">
-                      <Action>Toggle Activation</Action>
-                      <Keys>
-                        <Key>18</Key>
-                        <Key>52</Key>
-                      </Keys>
-                      <ID>0</ID>
-                    </Hotkey>
-                  </Hotkeys>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337286782</ID>
@@ -2409,16 +2338,6 @@ unregistersymbol(camrttn)
 
 
 </AssemblerScript>
-                  <Hotkeys>
-                    <Hotkey OnlyWhileDown="1">
-                      <Action>Toggle Activation</Action>
-                      <Keys>
-                        <Key>18</Key>
-                        <Key>53</Key>
-                      </Keys>
-                      <ID>0</ID>
-                    </Hotkey>
-                  </Hotkeys>
                 </CheatEntry>
               </CheatEntries>
             </CheatEntry>
@@ -2447,7 +2366,7 @@ unregistersymbol(camrttn)
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337202769</ID>
-                      <Description>"Name"</Description>
+                      <Description>"Name Player 1 "</Description>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>String</VariableType>
                       <Length>32</Length>
@@ -2465,11 +2384,12 @@ unregistersymbol(camrttn)
                     <CheatEntry>
                       <ID>1337202771</ID>
                       <Description>"SteamID64 (H3x) 1"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>String</VariableType>
                       <Length>32</Length>
                       <Unicode>1</Unicode>
                       <CodePage>0</CodePage>
-                      <ZeroTerminate>0</ZeroTerminate>
+                      <ZeroTerminate>1</ZeroTerminate>
                       <Address>WorldChrMan</Address>
                       <Offsets>
                         <Offset>7D8</Offset>
@@ -4774,7 +4694,7 @@ autoDisable(memrec)
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337202825</ID>
-                      <Description>"Name"</Description>
+                      <Description>"Name Player 2 "</Description>
                       <VariableType>String</VariableType>
                       <Length>32</Length>
                       <Unicode>1</Unicode>
@@ -7098,7 +7018,7 @@ autoDisable(memrec)
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337202882</ID>
-                      <Description>"Name"</Description>
+                      <Description>"Name Player 3 "</Description>
                       <VariableType>String</VariableType>
                       <Length>32</Length>
                       <Unicode>1</Unicode>
@@ -9422,7 +9342,7 @@ autoDisable(memrec)
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337202939</ID>
-                      <Description>"Name"</Description>
+                      <Description>"Name Player 4 "</Description>
                       <VariableType>String</VariableType>
                       <Length>32</Length>
                       <Unicode>1</Unicode>
@@ -10110,7 +10030,7 @@ autoDisable(memrec)
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337202996</ID>
-                      <Description>"Name"</Description>
+                      <Description>"Name Player 5 "</Description>
                       <VariableType>String</VariableType>
                       <Length>32</Length>
                       <Unicode>1</Unicode>
@@ -13474,7 +13394,7 @@ A000276A:Spears of the Church
                 <CheatEntry>
                   <ID>1337078879</ID>
                   <Description>"Head"</Description>
-                  <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">0121EAC0:Fallen Knight Helm
+                  <DropDownList DisplayValueAsItem="1">0121EAC0:Fallen Knight Helm
 0121EEA8:Fallen Knight Armor
 0121F290:Fallen Knight Gauntlets
 0121F678:Fallen Knight Trousers
@@ -19225,7 +19145,7 @@ spawnB.onClick = Spawn
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337291743</ID>
-                  <Description>"armour spawner"</Description>
+                  <Description>"Armor Spawners"</Description>
                   <Options moHideChildren="1"/>
                   <Color>55AAFF</Color>
                   <GroupHeader>1</GroupHeader>
@@ -19628,11 +19548,12 @@ ItemGib:spawnMultiItems(ArmourSet)
                           <Description>"Karla Hat"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
-                          <AssemblerScript>//My Custom Ring Spawns
+                          <AssemblerScript>//My Custom Spawns
 //Made by Indura
 
-[ENABLE]
 {$lua}
+if syntaxcheck then return end
+[ENABLE]
 autoDisable(memrec)
 local ArmourSet = {
 0x15E69EC0, -- Karla's Pointed Hat
@@ -19642,20 +19563,19 @@ local ArmourSet = {
 }
 ItemGib:new()
 ItemGib:spawnMultiItems(ArmourSet)
-{$asm}
 [DISABLE]
 </AssemblerScript>
                         </CheatEntry>
                         <CheatEntry>
                           <ID>1337291744</ID>
-                          <Description>"Demnon Fish"</Description>
+                          <Description>"Demonmode Fish"</Description>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
-
-[ENABLE]
 {$lua}
+if syntaxcheck then return end
+[ENABLE]
 autoDisable(memrec)
 local ArmourSet = {
 0x11A39DE0, -- Billed Mask
@@ -19665,7 +19585,6 @@ local ArmourSet = {
 }
 ItemGib:new()
 ItemGib:spawnMultiItems(ArmourSet)
-{$asm}
 [DISABLE]
 </AssemblerScript>
                         </CheatEntry>
@@ -20899,13 +20818,13 @@ writeToClipboard([[
                           <Options moHideChildren="1"/>
                           <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
-                          <AssemblerScript>//My Custom shit Spawns
+                          <AssemblerScript>//My Custom Spawns
 //Made by Indura
-
-[ENABLE]
 {$lua}
+if syntaxcheck then return end
+[ENABLE]
 
---[[Remove this entire line
+--[[ REMOVE THIS LINE TO MAKE IT WORK
 
 autoDisable(memrec)
 local ArmourSet = {
@@ -20917,9 +20836,7 @@ local ArmourSet = {
 ItemGib:new()
 ItemGib:spawnMultiItems(ArmourSet)
 
---Remove this entire line]]
-
-{$asm}
+--]]
 [DISABLE]
 </AssemblerScript>
                           <CheatEntries>
@@ -21001,118 +20918,38 @@ ItemGib:spawnMultiItems(ArmourSet)
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337305427</ID>
-                  <Description>"Weapon Inventory"</Description>
+                  <Description>"Weapon Spawners"</Description>
                   <Options moHideChildren="1"/>
                   <Color>55AAFF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
-                      <ID>1337305428</ID>
-                      <Description>"&lt;-- Copy Dark Build"</Description>
-                      <Color>80FFFF</Color>
-                      <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>{$lua}
+                      <ID>1337305871</ID>
+                      <Description>"Emillia's Buildplanner Weapons"</Description>
+                      <Options moHideChildren="1"/>
+                      <Color>55AAFF</Color>
+                      <GroupHeader>1</GroupHeader>
+                      <CheatEntries>
+                        <CheatEntry>
+                          <ID>1337305869</ID>
+                          <Description>"Copy Emillia's Website Link To Clipboard"</Description>
+                          <Color>80FFFF</Color>
+                          <VariableType>Auto Assembler Script</VariableType>
+                          <AssemblerScript>{$lua}
 if syntaxcheck then return end
-[ENABLE]
+[enable]
+local link = "https://ds3-inventory.nyasu.business/"
+writeToClipboard(link)
 autoDisable(memrec)
-writeToClipboard([[
-F4240,7,10
-F4240,7,10
-F4240,7,10
-F4240,7,10
-10A1D0,10,10
-116520,0,10
-116520,0,10
-5FD340,0,10
-F53570,10,10
-5BDBA0,10,10
-222E00,0,10
-5C29C0,10,10
-5C9EF0,10,10
-5E4CA0,0,10
-5E4CA0,0,10
-3EB6B0,10,10
-3E6890,10,10
-3EDDC0,10,10
-3E8FA0,0,10
-6159E0,10,10
-2E14E0,7,10
-2DC6C0,10,10
-4C7250,10,10
-F49930,10,10
-8A8CC0,10,10
-8D24D0,7,10
-B7B740,0,10
-A7FFD0,14,10
-D5EDA0,0,10
-CF8500,0,10
-D72620,0,10
-CC9ED0,0,10
-CCECF0,0,10
-135E7F0,0,10
-135E7F0,0,10
-1409650,8,10
-141F5E0,0,10
-1450320,0,10
-]])
-{$asm}
-[DISABLE]
+[disable]
 </AssemblerScript>
-                    </CheatEntry>
-                    <CheatEntry>
-                      <ID>1337305445</ID>
-                      <Description>"&lt;-- Copy Crystal Build"</Description>
-                      <Color>80FFFF</Color>
-                      <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>{$lua}
-if syntaxcheck then return end
-[ENABLE]
-autoDisable(memrec)
-writeToClipboard([[
-F4240,5,10
-F4240,5,10
-F4240,5,10
-10A1D0,5,10
-116520,0,10
-1F6EE0,5,10
-F53570,5,10
-5BDBA0,5,10
-5E2590,0,10
-606F80,0,10
-5C9EF0,5,10
-3D7E30,5,10
-3E8FA0,0,10
-F42400,5,10
-2E14E0,5,10
-2DC6C0,5,10
-7A3910,5,10
-7DBB80,5,10
-F5AAA0,5,10
-8D24D0,5,10
-A7FFD0,14,10
-A826E0,4,10
-D7C260,0,10
-D72620,0,10
-D885B0,0,10
-CC9ED0,0,10
-C9B8A0,0,10
-13572C0,0,10
-13572C0,0,10
-13572C0,0,10
-1409650,8,10
-141F5E0,0,10
-1450320,0,10
-]])
-{$asm}
-[DISABLE]
-</AssemblerScript>
-                    </CheatEntry>
-                    <CheatEntry>
-                      <ID>1337305429</ID>
-                      <Description>"Spawn Select weapons"</Description>
-                      <Color>80FFFF</Color>
-                      <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>{$lua}
+                        </CheatEntry>
+                        <CheatEntry>
+                          <ID>1337305429</ID>
+                          <Description>"Upload Emillia's Planner Weapons"</Description>
+                          <Color>80FFFF</Color>
+                          <VariableType>Auto Assembler Script</VariableType>
+                          <AssemblerScript>{$lua}
 function InitializeForm()
   --form
   form = createForm(true)
@@ -21515,6 +21352,78 @@ InitializeForm()
 spawnB.onClick = Spawn
 [DISABLE]
 </AssemblerScript>
+                        </CheatEntry>
+                      </CheatEntries>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305870</ID>
+                      <Description>"Presets"</Description>
+                      <Options moHideChildren="1"/>
+                      <Color>55AAFF</Color>
+                      <GroupHeader>1</GroupHeader>
+                      <CheatEntries>
+                        <CheatEntry>
+                          <ID>1337305428</ID>
+                          <Description>"Spawn All Dark Build Weapons Example Script"</Description>
+                          <Color>80FFFF</Color>
+                          <VariableType>Auto Assembler Script</VariableType>
+                          <AssemblerScript>{
+    Get Weapon Hex ID's from:
+    https://docs.google.com/spreadsheets/d/1nK2g7g6XJ-qphFAk1tjP3jZtlXWDQY-ItKLa_sniawo/edit#gid=1551945791
+
+    make sure to prefix them with 0x for the hex ID's
+
+    The infusions are just base weapon ID + 100 for each infusion.
+    For weapons that don't have the infused hex displayed, convert them to decimal.
+    Then you can add the offsets for the infusions.
+
+    Example:
+
+    1000000, -- Dagger
+    1000100, -- Heavy Dagger
+    1000200, -- Sharp Dagger
+    1000300, -- Refined Dagger
+    1000400, -- Simple Dagger
+    1000500, -- Crystal Dagger
+    1000600, -- Fire Dagger
+    1000700, -- Chaos Dagger
+    1000800, -- Lightning Dagger
+    1000900, -- Deep Dagger
+    1001000, -- Dark Dagger
+    1001100, -- Poison Dagger
+    1001200, -- Blood Dagger
+    1001300, -- Raw Dagger
+    1001400, -- Blessed Dagger
+    1001500, -- Hollow Dagger
+
+    You're gonna have to convert these back to hex for DLC items.
+    (They don't have the infused hex ID's in the list.)
+
+    (More presets probably won't be made cause im lazy.)
+}
+{$lua}
+if syntaxcheck then return end
+[ENABLE]
+local weaps = {
+0x000F44FC,0x000F44FC,0x000F44FC,0x000F44FC,0x000F44FC,
+0x000FE268,0x0010A5B8,0x00119018,0x00116520,0x005FD340,
+0x00F53570,0x005BDF88,0x00222E00,0x005CA2D8,0x005CA2D8,
+0x003D8218,0x00205D28,0x003EE1A8,0x006159E0,0x002E179C,
+0x002DCAA8,0x004C7638,0x00F49D18,0x007A3CF8,0x007DBF68,
+0x00F623B8,0x008AB7B8,0x009ABD48,0x00B7B740,0x00A80160,
+0x00A803B8,0x00A80548,0x00A82AC8,0x00D5EDA0,0x00CF8500,
+0x00D63BC0,0x00D72620,0x00D885B0,0x00CC9ED0,0x00CCECF0,
+0x0133EDB0,0x0133F198,0x013572C0,0x0135E7F0,0x0135E7F0,
+0x01409970,0x0141F5E0,0x01450320
+}
+ItemGib:new()
+ItemGib:quantity(1)
+ItemGib:spawnMultiItems(weaps)
+autoDisable(memrec)
+[DISABLE]
+</AssemblerScript>
+                        </CheatEntry>
+                      </CheatEntries>
                     </CheatEntry>
                   </CheatEntries>
                 </CheatEntry>
@@ -21525,9 +21434,9 @@ spawnB.onClick = Spawn
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
-
-[ENABLE]
 {$lua}
+if syntaxcheck then return end
+[ENABLE]
 local CustomRings = {
     0x20004E23, -- Life Ring+3
     0x20004FBA, -- Sun Princess Ring
@@ -21557,6 +21466,7 @@ local CustomRings = {
     0x20004F42, -- Slumbering Dragoncrest Ring
 }
 ItemGib:new()
+ItemGib:quantity(1)
 ItemGib:spawnMultiItems(CustomRings)
 autoDisable(memrec)
 {$asm}
@@ -21734,7 +21644,7 @@ NoCostLevelup:stop()
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337305436</ID>
-                  <Description>"No Materials Consume"</Description>
+                  <Description>"No Upgrade Materials Use"</Description>
                   <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{
@@ -21744,11 +21654,65 @@ NoCostLevelup:stop()
 if syntaxcheck then return end
 [ENABLE]
 local NoCost = EquipMtrlSetParam:new("UpgradeCost")
-NoCost:patchAll4Byte(0x0,-1)
-NoCost:patchAllByte(0x14,255)
+      NoCost:patchAll4Byte(0x0,-1)
+      NoCost:patchAllByte(0x14,255)
 
 [DISABLE]
 paramUtils:restore("UpgradeCost")
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305873</ID>
+                  <Description>"Level Up Menu"</Description>
+                  <Color>80FFFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+if syntaxcheck then return end
+{$asm}
+[ENABLE]
+aobscanmodule(LU_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 0a 00 00 00)
+alloc(FirekeeperMenu,100,DarkSoulsIII.exe)
+createthread(FirekeeperMenu)
+
+FirekeeperMenu:
+sub rsp,48
+mov rcx,LU_Call_Call
+movsxd rcx,dword ptr [rcx]
+mov rax,LU_Call_Call+4
+add rax,rcx
+lea rcx,[rsp+28]
+call rax
+add rsp,48
+ret
+{$lua}
+if not syntaxcheck then autoDisable(memrec) end
+{$asm}
+[DISABLE]
+dealloc(FirekeeperMenu)
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305874</ID>
+                  <Description>"Attune Spell Menu"</Description>
+                  <Color>80FFFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+aobscanmodule(BAttune_AOB,$process,48 8D 45 0F 48 89 45 EF 48 8D 45 0F 48 89 45 F7 48 8D ?? ?? ?? ?? ?? 48 89 45 0F 48 8D ?? ?? ?? ?? ?? 48 89 45 0F 48 8D ?? ?? ?? ?? ?? 48 89 45 17)
+define(BAttune_Call,BAttune_AOB-39)
+alloc(BonfireAttuneSpell,100,DarkSoulsIII.exe)
+createthread(BonfireAttuneSpell)
+
+BonfireAttuneSpell:
+sub rsp,48
+lea rcx,[rsp+28]
+call BAttune_Call
+add rsp,48
+ret
+{$lua}
+if not syntaxcheck then autoDisable(memrec) end
+{$asm}
+[DISABLE]
+dealloc(BonfireAttuneSpell)
 </AssemblerScript>
                 </CheatEntry>
                 <CheatEntry>
@@ -21846,8 +21810,8 @@ local function SetBonfireLv(bonfireLv)
 end
 
 SetBonfireLv(11)
-writeInteger(estusMaxPtr, 10)
-writeInteger(ashenEstusMaxPtr, 5)
+writeInteger(estusMaxPtr, 12)
+writeInteger(ashenEstusMaxPtr, 3)
 
 --[[
 local bonfireLv = inputQuery("Set Flask Level","Should be between 0 and 10",GetTotalBonfireLevel()-1)
@@ -21928,9 +21892,240 @@ if syntaxcheck then return end
 [ENABLE]
 local bonfire = BonfireWarpParam:new("UnlockAllBonfires")
 bonfire:patchAll4Byte(0x00,14000000)
-
 [DISABLE]
 paramUtils:restore("UnlockAllBonfires")
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337272731</ID>
+                  <Description>"Reset Entire Inventory"</Description>
+                  <Color>80FFFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[ENABLE]
+local GameDataMan = readPointer("GameDataMan")
+local PlayerGameData = readPointer(GameDataMan + 0x10)
+local EquipInventoryData = getAddress(PlayerGameData + 0x3D0)
+local removeItemAOB = AOBScanModuleUnique(process,"?? 83 ec ?? 8b f2 ?? 8b e9 ?? 85 c0 74")-8
+local slotCount = readInteger(EquipInventoryData + 0x20)
+
+local items = {
+0x40000067,
+0x40000077,
+0x40000075,
+0x40000096,
+0x400000BE,
+}
+
+createThread(function()
+   for idx = 0,slotCount do
+      local tailDataIdx = EquipInventoryData + 0x24
+      local invSlot = idx + readInteger(tailDataIdx)
+      executeCodeEx(0, 100, removeItemAOB, EquipInventoryData, invSlot, 1)
+   end
+   sleep(5000)
+   ItemGib:new()
+   ItemGib:quantity(1)
+   ItemGib:spawnMultiItems(items)
+end)
+autoDisable(memrec)
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305864</ID>
+                  <Description>"Setup Base Meta Char"</Description>
+                  <Color>80FFFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[ENABLE]
+local GameDataMan = readPointer("GameDataMan")
+local PlayerGameData = readPointer(GameDataMan + 0x10)
+local EquipInventoryData = getAddress(PlayerGameData + 0x3D0)
+local removeItemAOB = AOBScanModuleUnique(process,"?? 83 ec ?? 8b f2 ?? 8b e9 ?? 85 c0 74")-8
+local slotCount = readInteger(EquipInventoryData + 0x20)
+
+local assembly = ([[
+[[[GameDataMan]+10]+7B8]+10:
+dw 0003 0000//Point Forward
+dw 0005 0001 //Point Up
+dw 0007 0002 //Point down
+dw 0009 0003 //Wave
+dw 000B 0004 //Beckon
+dw 000D 0005 //Call over
+dw 000F 0006 //Welcome
+dw 0011 0007 //Applause
+dw 0013 0008 //Quiet Resolve
+dw 0015 0009 //Jump For Joy
+dw 0017 000A //Joy
+dw 0019 000B //Rejoice
+dw 001B 000C //Hurrah
+dw 001D 000D //Praise the Sun
+dw 001F 000E //My Thanks
+dw 0021 000F //Bow
+dw 0023 0010 //Proper Bow
+dw 0025 0011 //Dignified Bow
+dw 0027 0012 //Duel Bow
+dw 0029 0013 //Legion Etiquette
+dw 002B 0014 //Darkmoon Loyality
+dw 002D 0015 //By my sword
+dw 002F 0016 //Prayer
+dw 0031 0017 //Silent Ally
+dw 0033 0018 //Rest
+dw 0035 0019 //Collapse
+dw 0037 001A //Patches Squat
+dw 0039 001B //Prostration
+dw 003B 001C //Toast
+dw 003D 001D //Sleep
+dw 003F 001E //Curl Up
+dw 0041 001F //Stretch out
+dw 0043 0020 //Path of the Dragon
+]])
+
+autoAssemble(assembly)
+
+local single = {
+-- Black crystal etc
+0x40000067, -- Black Crystal
+0x40000077, -- Way of White Circlet
+0x40000075, -- Dark Sign
+0x400000AB, -- Estus +10
+0x400000D3, -- Ashen +10
+-- Rings
+0x20004E23, -- Life Ring+3
+0x20004FBA, -- Sun Princess Ring
+0x20004E2D, -- Chloranthy Ring +3
+0x20004E37, -- Havel's Ring +3
+0x20004E41, -- Ring of Favor +3
+0x20005046, -- Prisoner's Chain
+0x20004E4B, -- Ring of Steel Protection +3
+0x20004E68, -- Magic Stoneplate Ring+2
+0x20004E54, -- Flame Stoneplate Ring+2
+0x20004E5E, -- Thunder Stoneplate Ring+2
+0x20004E72, -- Dark Stoneplate Ring+2
+0x20005082, -- Farron Ring
+0x20004F4C, -- Dusk Crown Ring
+0x20004EE8, -- Leo Ring
+0x20004F9C, -- Hornet Ring
+0x20005000, -- Knight Slayer's Ring
+0x20004ECA, -- Red Tearstone Ring
+0x20004ED4, -- Blue Tearstone Ring
+0x200050B4, -- Lloyd's Sword Ring
+0x200050BE, -- Lloyd's Shield Ring
+0x20004FC4, -- Silvercat Ring
+0x20004FC4, -- Silvercat Ring 2
+0x200050DC, -- Estus Ring
+0x20005064, -- Obscuring Ring
+0x20004EC0, -- Priestess Ring
+0x20004F42, -- Slumbering Dragoncrest Ring
+-- Covenants
+0x20002710, -- Blade of the Darkmoon
+0x20002724, -- Watchdogs of Farron
+0x2000272E, -- Aldrich Faithful
+0x20002738, -- Warrior of Sunlight
+0x20002742, -- Mound-makers
+0x2000274C, -- Way of Blue
+0x20002756, -- Blue Sentinels
+0x20002760, -- Rosaria's Fingers
+0x2000276A, -- Spear of the Church
+-- Other
+0x40000066, -- Red Eye Orb
+0x4000013B, -- Church Guardian Shiv
+}
+
+local multi = {
+-- consumables
+0x400000F0,--Divine Blessing
+0x400000F1,--Hidden Blessing
+0x40000104,--Green Blossom
+0x40000106,--Budding Green Blossom (Sirris Questline)
+0x40000105,--Budding Green Blossom
+0x4000010E,--Bloodred Moss Clump
+0x4000010F,--Purple Moss Clump
+0x40000110,--Blooming Purple Moss Clump
+0x40000114,--Rime-blue Moss Clump
+0x40000118,--Repair Powder
+0x40000122,--Kukri
+0x40000124,--Firebomb
+0x40000125,--Dung Pie
+0x40000128,--Undead Hunter Charm
+0x40000129,--Black Firebomb
+0x4000012B,--Rope Firebomb
+0x4000012C,--Lightning Urn
+0x4000012E,--Rope Black Firebomb
+0x4000012F,--Stalk Dung Pie
+0x40000130,--Duel Charm
+0x40000136,--Throwing Knife
+0x40000137,--Poison Throwing Knife
+0x4000014A,--Charcoal Pine Resin
+0x4000014B,--Gold Pine Resin
+0x4000014E,--Human Pine Resin
+0x4000014F,--Carthus Rouge
+0x40000150,--Pale Pine Resin
+0x40000154,--Charcoal Pine Bundle
+0x40000155,--Gold Pine Bundle
+0x40000157,--Rotten Pine Resin
+0x40000172,--Prism Stone
+0x400001A4,--Soul of a Great Champion
+0x400001C4,--Mossfruit
+0x400001CF,--Young White Branch
+0x400001C6,--Young White Branch
+0x400001C8,--Siegbräu
+0x400001CA,--Blue Bug Pellet
+0x400001CB,--Red Bug Pellet
+0x400001CC,--Yellow Bug Pellet
+0x400001CD,--Black Bug Pellet
+0x00061A80,--Standard Arrow
+0x00061AE4,--Fire Arrow
+0x00061B48,--Poison Arrow
+0x00061BAC,--Large Arrow
+0x00061C10,--Feather Arrow
+0x00061C74,--Moonlight Arrow
+0x00061CD8,--Wood Arrow
+0x00061D3C,--Dark Arrow
+0x00062250,--Dragonslayer Greatarrow
+0x00062318,--Dragonslayer Lightning Arrow
+0x0006237C,--Onislayer Greatarrow
+0x000623E0,--Millwood Greatarrow
+0x00062A20,--Standard Bolt
+0x00062A84,--Heavy Bolt
+0x00062AE8,--Sniper Bolt
+0x00062B4C,--Wood Bolt
+0x00062BB0,--Lightning Bolt
+0x00062C14,--Splintering Bolt
+0x00062C78,--Exploding Bolt
+}
+
+createThread(function()
+   playAnimation('W_BackStepNomal')
+   writeInteger(idleAnimPtr,90700)
+   executeCodeEx(0, 100, "DarkSoulsIII.exe+5A5410", readPointer("[[WorldChrMan]+80]+XB"), 999999999)
+   sleep(200)
+   autoAssemble(assembly)
+   for idx = 0,slotCount do
+      local tailDataIdx = EquipInventoryData + 0x24
+      local invSlot = idx + readInteger(tailDataIdx)
+      executeCodeEx(0, 100, removeItemAOB, EquipInventoryData, invSlot, 1)
+   end
+   sleep(5000)
+   ItemGib:new()
+   ItemGib:quantity(1)
+   ItemGib:spawnMultiItems(single)
+   sleep(200)
+   ItemGib:new()
+   ItemGib:spawnMultiItems(multi)
+   sleep(200)
+   writeInteger(estusMaxPtr, 12)
+   writeInteger(ashenEstusMaxPtr, 3)
+   sleep(200)
+   executeCode(AOBScanModuleUnique(process,"?? 89 5c ?? ?? 57 ?? 83 ec ?? ?? 8b 05 ?? ?? ?? ?? 0f b6 da 8b f9"))
+   sleep(3000)
+   bonfireWarp(4002950)
+end)
+autoDisable(memrec)
+[DISABLE]
 </AssemblerScript>
                 </CheatEntry>
               </CheatEntries>
@@ -22309,15 +22504,6 @@ INJECT:
 unregistersymbol(INJECT)
 dealloc(newmem)
 </AssemblerScript>
-                      <Hotkeys>
-                        <Hotkey>
-                          <Action>Toggle Activation</Action>
-                          <Keys>
-                            <Key>33</Key>
-                          </Keys>
-                          <ID>0</ID>
-                        </Hotkey>
-                      </Hotkeys>
                     </CheatEntry>
                     <CheatEntry>
                       <ID>1337305530</ID>
@@ -22411,7 +22597,7 @@ unregisterSymbol(helmId)
                 <CheatEntry>
                   <ID>1337305533</ID>
                   <Description>"Helmet ID"</Description>
-                  <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">287435456:Fallen Knight Helm
+                  <DropDownList DisplayValueAsItem="1">287435456:Fallen Knight Helm
 287935456:Knight Helm
 289435456:Firelink Helm
 289935456:Sellsword Helm
@@ -22449,6 +22635,7 @@ unregisterSymbol(helmId)
 361435456:Dragonslayer Helm
 362435456:Smough's Helm
 364435456:Helm of Thorns
+139B2820:Millwood Knight Helm
 </DropDownList>
                   <ShowAsSigned>0</ShowAsSigned>
                   <Color>80FF00</Color>
@@ -22508,6 +22695,7 @@ for _, Id in pairs(helmIDs) do
       Gauntlet:protectorCategory(2) -- Gauntlet Category
       Gauntlet:equipModelCategory(5) -- Equip as Helmet
       Gauntlet:iconIdF(201) -- Custom Icon
+      Gauntlet:iconIdM(201) -- Custom Icon
 
       Gauntlet:durabilityMax(Durability)
       Gauntlet:weight(Weight)
@@ -23957,17 +24145,17 @@ local ParamColorEdit = 1
 
 local ColorEdit = PhantomParam:new("PhantomParamEdit",ParamColorEdit)
 
-      ColorEdit:Red(0)
-      ColorEdit:Red3(0)
-      ColorEdit:Red4(0)
+      ColorEdit:Red(1)
+      ColorEdit:Red3(1)
+      ColorEdit:Red4(1)
 
-      ColorEdit:Green(0)
-      ColorEdit:Green3(0)
-      ColorEdit:Green4(0)
+      ColorEdit:Green(1)
+      ColorEdit:Green3(1)
+      ColorEdit:Green4(1)
 
-      ColorEdit:Blue(0)
-      ColorEdit:Blue3(0)
-      ColorEdit:Blue4(0)
+      ColorEdit:Blue(1)
+      ColorEdit:Blue3(1)
+      ColorEdit:Blue4(1)
 
       ColorEdit:Red2(readInteger(RedColourAddr))
       ColorEdit:Green2(readInteger(GreenColourAddr))
@@ -24014,7 +24202,7 @@ writeInteger(GreenShadeAddr, 1)
 writeInteger(BlueShadeAddr, 1)
 
 writeFloat(CharOpacity, 1.0)
-writeFloat(CharBrightness, 0.0)
+writeFloat(CharBrightness, 1.0)
 
 [disable]
 </AssemblerScript>
@@ -24441,7 +24629,7 @@ unregisterSymbol(The_Fire_FadesTM_Edition)
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337305633</ID>
-                  <Description>"SFX Color override rgba"</Description>
+                  <Description>"SFX Color override RGBA"</Description>
                   <Options moHideChildren="1"/>
                   <Color>00D500</Color>
                   <VariableType>Auto Assembler Script</VariableType>
@@ -24490,6 +24678,13 @@ address:
   nop
 return:
 
+{$lua}
+function RGBToFloat(arg)
+   local perc = math.max(0, math.min(255, arg))
+   local corr = perc / 255
+   return corr
+end
+{$asm}
 [DISABLE]
 
 address:
@@ -24500,649 +24695,129 @@ unregistersymbol(sfxrgba)
 </AssemblerScript>
                   <CheatEntries>
                     <CheatEntry>
-                      <ID>1337305587</ID>
-                      <Description>"rainbow sfx"</Description>
-                      <Options moManualExpandCollapse="1"/>
-                      <Color>AAFF55</Color>
+                      <ID>1337305856</ID>
+                      <Description>"Rainbow VFX"</Description>
+                      <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+                      <Color>80FF00</Color>
                       <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>{ Game   : DarkSoulsIII.exe
-  Version:
-  Date   : 2018-05-18
-  Author : Seriouz
-
-  sfx color
+                      <AssemblerScript>{
+   Made by indura.
 }
-
+{$lua}
+if syntaxcheck then return end
 [ENABLE]
+local Interval = 100
 
-aobscanmodule(TheThing,DarkSoulsIII.exe,0F 28 0D ?? ?? ?? ?? 41 0F 5E CE)
-alloc(newmem,$1000,TheThing)
-alloc(sfxdata,$100,$process)
-registersymbol(sfxdata)
+local rgb = {"sfxrgba+0","sfxrgba+4","sfxrgba+8",}
+local array = {1.00,0.01,0.01}
 
-label(sfxrgbasmbase)
-label(sfxrgbasm)
-label(sfxrgb_speed)
-label(sfxrgb_intensity)
-label(sfxaddred)
-label(sfxaddgreen)
-label(sfxaddblue)
-label(tmp_float)
-label(converted_mult)
-label(sfxcounter)
-label(sfxrgbcountermax)
-label(actual_sfxrgbcountermax)
-label(colorstateasm)
+local function getColor(arg)
+   local max = 1
+   local min = 0.01
+   local step = max/255
 
-registersymbol(sfxrgbasmbase)
-registersymbol(sfxrgbasm)
-registersymbol(sfxrgb_speed)
-registersymbol(sfxrgb_intensity)
-registersymbol(sfxaddred)
-registersymbol(sfxaddgreen)
-registersymbol(sfxaddblue)
-registersymbol(tmp_float)
-registersymbol(converted_mult)
-registersymbol(sfxcounter)
-registersymbol(sfxrgbcountermax)
-registersymbol(actual_sfxrgbcountermax)
-registersymbol(colorstateasm)
+   if arg[1] &gt; min and arg[3] &lt;= min then
+      arg[1] = arg[1] - step
+      arg[2] = arg[2] + step
+   end
 
-sfxdata:
-align 10 FF
+   if arg[2] &gt; min and arg[1] &lt;= min then
+      arg[2] = arg[2] - step
+      arg[3] = arg[3] + step
+   end
 
-sfxrgbasmbase:
-dd (float)3.0
-dd (float)0.0
-dd (float)0.0
-dd (float)3.0
+   if arg[3] &gt; min and arg[2] &lt;= min then
+      arg[3] = arg[3] - step
+      arg[1] = arg[1] + step
+   end
+   return arg
+end
 
-sfxrgbasm:
-dd (float)3.0
-dd (float)0.0
-dd (float)0.0
-dd (float)3.0
-
-sfxrgb_speed:
-dd (float)1.0
-dd (float)1.0
-dd (float)1.0
-dd (float)1.0
-
-sfxrgb_intensity:
-dd (float)1.0
-dd (float)1.0
-dd (float)1.0
-dd (float)1.0
-
-sfxaddred:
-dd (float)0.0001
-dd (float)0.0
-dd (float)0.0
-dd (float)0.0
-
-sfxaddgreen:
-dd (float)0.0
-dd (float)0.0001
-dd (float)0.0
-dd (float)0.0
-
-sfxaddblue:
-dd (float)0.0
-dd (float)0.0
-dd (float)0.0001
-dd (float)0.0
-
-tmp_float:
-dd (float)0.0
-dd (float)0.0
-dd (float)0.0
-dd (float)0.0
-
-converted_mult:
-dd (float)0.0
-
-sfxcounter:
-dd 00
-
-sfxrgbcountermax:
-dq 7530 //30000
-
-actual_sfxrgbcountermax:
-dq 493E0 //300000
-
-colorstateasm:
-dd 00
-
-label(code)
-label(advanceState)
-label(popandreturn)
-
-newmem:
-
-//changed movaps -&gt; movaps
-
-code:
-  movaps xmm1,[sfxrgbasm] //mov base //movaps
-  inc [sfxcounter]
-  pushf
-  push rax
-  push rdx
-  xor eax,eax
-  xor edx,edx
-  mov eax,[sfxrgbcountermax] //test for counter max
-  cvttss2si edx, [sfxrgb_speed]
-  mov [converted_mult],edx
-  mul rdx
-  mov [actual_sfxrgbcountermax],eax
-  pop rdx
-  cmp [sfxcounter],eax
-  jge advanceState
-  cmp [colorstateasm], 0
-  je sfxst0
-  cmp [colorstateasm], 1
-  je sfxst1
-  cmp [colorstateasm], 2
-  je sfxst2
-  cmp [colorstateasm], 3
-  je sfxst3
-  cmp [colorstateasm], 4
-  je sfxst4
-  cmp [colorstateasm], 5
-  je sfxst5
-  pop rax //default shouldnt be reached
-  popf
-  jmp return
-
-sfxst0:
-  pop rax
-  popf
-  movaps [tmp_float], xmm0 //movaps
-
-  movaps xmm0,[sfxaddgreen] //movaps
-
-  divps xmm0, [sfxrgb_speed]
-  divps xmm0,[sfxrgb_intensity]
-  addps xmm1,xmm0
-  movaps [sfxrgbasm],xmm1 //refresh //movaps
-  movaps xmm0,[tmp_float] //movaps
-  jmp return
-
-sfxst1:
-  pop rax
-  popf
-  movaps [tmp_float], xmm0 //movaps
-
-  movaps xmm0,[sfxaddred] //movaps
-
-  divps xmm0, [sfxrgb_speed]
-  divps xmm0,[sfxrgb_intensity]
-  subps xmm1,xmm0
-  movaps [sfxrgbasm],xmm1 //refresh //movaps
-  movaps xmm0,[tmp_float] //movaps
-  jmp return
-
-sfxst2:
-  pop rax
-  popf
-  movaps [tmp_float], xmm0 //movaps
-
-  movaps xmm0,[sfxaddblue] //movaps
-
-  divps xmm0, [sfxrgb_speed]
-  divps xmm0,[sfxrgb_intensity]
-  addps xmm1,xmm0
-  movaps [sfxrgbasm],xmm1 //refresh //movaps
-  movaps xmm0,[tmp_float] //movaps
-  jmp return
-
-sfxst3:
-  pop rax
-  popf
-  movaps [tmp_float], xmm0 //movaps
-
-  movaps xmm0,[sfxaddgreen] //movaps
-
-  divps xmm0, [sfxrgb_speed]
-  divps xmm0,[sfxrgb_intensity]
-  subps xmm1,xmm0
-  movaps [sfxrgbasm],xmm1 //refresh //movaps
-  movaps xmm0,[tmp_float] //movaps
-  jmp return
-
-sfxst4:
-  pop rax
-  popf
-  movaps [tmp_float], xmm0 //movaps
-
-  movaps xmm0,[sfxaddred] //movaps
-
-  divps xmm0, [sfxrgb_speed]
-  divps xmm0,[sfxrgb_intensity]
-  addps xmm1,xmm0
-  movaps [sfxrgbasm],xmm1 //refresh //movaps
-  movaps xmm0,[tmp_float] //movaps
-  jmp return
-
-sfxst5:
-  pop rax
-  popf
-  movaps [tmp_float], xmm0 //movaps
-
-  movaps xmm0,[sfxaddblue] //movaps
-
-  divps xmm0, [sfxrgb_speed]
-  divps xmm0,[sfxrgb_intensity]
-  subps xmm1,xmm0
-  movaps [sfxrgbasm],xmm1 //refresh //movaps
-  movaps xmm0,[tmp_float] //movaps
-  jmp return
-
-advanceState:
-  pop rax
-  mov [sfxcounter],0
-  inc [colorstateasm]
-  cmp [colorstateasm], 6 //maxstates
-  jl popandreturn
-  popf
-  mov [colorstateasm],0
-  movaps xmm1, [sfxrgbasmbase] //reset //movaps
-  divps xmm1,[sfxrgb_intensity]
-  movaps [sfxrgbasm],xmm1 //refresh //movaps
-  jmp return
-
-popandreturn:
-  popf
-  jmp return
-
-TheThing:
-  jmp newmem
-  nop
-  nop
-return:
+RainbowVFXTimer = createTimer(getMainForm())
+RainbowVFXTimer.Interval = Interval
+RainbowVFXTimer.OnTimer = function()
+   getColor(array)
+   for i = 1,3,1 do
+      writeFloat(rgb[i], array[i])
+   end
+end
 
 [DISABLE]
-
-TheThing:
-  db 0F 28 0D 19 BB 99 03 41 0F 5E CE
-
-dealloc(newmem)
-dealloc(sfxdata)
-
-unregistersymbol(sfxdata)
-
-unregistersymbol(sfxrgbasmbase)
-unregistersymbol(sfxrgbasm)
-unregistersymbol(sfxrgb_speed)
-unregistersymbol(sfxrgb_intensity)
-unregistersymbol(sfxaddred)
-unregistersymbol(sfxaddgreen)
-unregistersymbol(sfxaddblue)
-unregistersymbol(tmp_float)
-unregistersymbol(converted_mult)
-unregistersymbol(sfxcounter)
-unregistersymbol(sfxrgbcountermax)
-unregistersymbol(actual_sfxrgbcountermax)
-unregistersymbol(colorstateasm)
+RainbowVFXTimer.destroy()
+for i = 0,8,4 do
+   writeFloat("sfxrgba+"..tostring(i),1)
+end
 </AssemblerScript>
-                      <CheatEntries>
-                        <CheatEntry>
-                          <ID>1337305741</ID>
-                          <Description>"--Avoid Editing These unless you know what you are doing--"</Description>
-                          <GroupHeader>1</GroupHeader>
-                        </CheatEntry>
-                        <CheatEntry>
-                          <ID>1337305588</ID>
-                          <Description>"sfxrgb_speed (1/speed)"</Description>
-                          <Options moRecursiveSetValue="1" moAlwaysHideChildren="1"/>
-                          <ShowAsSigned>0</ShowAsSigned>
-                          <VariableType>Float</VariableType>
-                          <Address>sfxrgb_speed</Address>
-                          <CheatEntries>
-                            <CheatEntry>
-                              <ID>1337305589</ID>
-                              <Description>"sfxrgb_speed"</Description>
-                              <ShowAsSigned>0</ShowAsSigned>
-                              <Color>C0C0C0</Color>
-                              <VariableType>Float</VariableType>
-                              <Address>+0</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305590</ID>
-                              <Description>"sfxrgb_speed"</Description>
-                              <ShowAsSigned>0</ShowAsSigned>
-                              <Color>C0C0C0</Color>
-                              <VariableType>Float</VariableType>
-                              <Address>+4</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305591</ID>
-                              <Description>"sfxrgb_speed"</Description>
-                              <ShowAsSigned>0</ShowAsSigned>
-                              <Color>C0C0C0</Color>
-                              <VariableType>Float</VariableType>
-                              <Address>+8</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305592</ID>
-                              <Description>"sfxrgb_speed"</Description>
-                              <ShowAsSigned>0</ShowAsSigned>
-                              <Color>C0C0C0</Color>
-                              <VariableType>Float</VariableType>
-                              <Address>+c</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305593</ID>
-                              <Description>"converted_mult"</Description>
-                              <ShowAsSigned>0</ShowAsSigned>
-                              <Color>C0C0C0</Color>
-                              <VariableType>4 Bytes</VariableType>
-                              <Address>converted_mult</Address>
-                            </CheatEntry>
-                          </CheatEntries>
-                        </CheatEntry>
-                        <CheatEntry>
-                          <ID>1337305594</ID>
-                          <Description>"alpha (1/intensity)"</Description>
-                          <Options moRecursiveSetValue="1" moAlwaysHideChildren="1"/>
-                          <DropDownList DisplayValueAsItem="1">1:3x
-3:NORMAL
-</DropDownList>
-                          <ShowAsSigned>0</ShowAsSigned>
-                          <VariableType>Float</VariableType>
-                          <Address>sfxrgb_intensity</Address>
-                          <CheatEntries>
-                            <CheatEntry>
-                              <ID>1337305595</ID>
-                              <Description>"r"</Description>
-                              <ShowAsSigned>0</ShowAsSigned>
-                              <Color>C0C0C0</Color>
-                              <VariableType>Float</VariableType>
-                              <Address>+0</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305596</ID>
-                              <Description>"g"</Description>
-                              <ShowAsSigned>0</ShowAsSigned>
-                              <Color>C0C0C0</Color>
-                              <VariableType>Float</VariableType>
-                              <Address>+4</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305597</ID>
-                              <Description>"b"</Description>
-                              <ShowAsSigned>0</ShowAsSigned>
-                              <Color>C0C0C0</Color>
-                              <VariableType>Float</VariableType>
-                              <Address>+8</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305598</ID>
-                              <Description>"a"</Description>
-                              <ShowAsSigned>0</ShowAsSigned>
-                              <Color>C0C0C0</Color>
-                              <VariableType>Float</VariableType>
-                              <Address>+c</Address>
-                            </CheatEntry>
-                          </CheatEntries>
-                        </CheatEntry>
-                        <CheatEntry>
-                          <ID>1337305599</ID>
-                          <Description>"state max"</Description>
-                          <Color>757575</Color>
-                          <VariableType>4 Bytes</VariableType>
-                          <Address>sfxrgbcountermax</Address>
-                          <CheatEntries>
-                            <CheatEntry>
-                              <ID>1337305600</ID>
-                              <Description>"counter"</Description>
-                              <Color>C0C0C0</Color>
-                              <VariableType>4 Bytes</VariableType>
-                              <Address>sfxcounter</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305601</ID>
-                              <Description>"color state"</Description>
-                              <Color>C0C0C0</Color>
-                              <VariableType>4 Bytes</VariableType>
-                              <Address>colorstateasm</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305602</ID>
-                              <Description>"actual_sfxrgbcountermax"</Description>
-                              <ShowAsSigned>0</ShowAsSigned>
-                              <Color>C0C0C0</Color>
-                              <VariableType>4 Bytes</VariableType>
-                              <Address>actual_sfxrgbcountermax</Address>
-                            </CheatEntry>
-                          </CheatEntries>
-                        </CheatEntry>
-                        <CheatEntry>
-                          <ID>1337305603</ID>
-                          <Description>"base"</Description>
-                          <Options moHideChildren="1"/>
-                          <VariableType>Array of byte</VariableType>
-                          <ByteLength>0</ByteLength>
-                          <Address>sfxrgbasmbase</Address>
-                          <CheatEntries>
-                            <CheatEntry>
-                              <ID>1337305604</ID>
-                              <Description>"ALL"</Description>
-                              <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">0 0 128 63 0 0 0 0 0 0 0 0 0 0 128 63:NORMAL
-0 0 64 64 0 0 0 0 0 0 0 0 0 0 64 64:HIGH SATURATION
-0 0 192 64 0 0 0 191 205 204 204 61 0 0 64 65:HELL
-</DropDownList>
-                              <Color>C0C0C0</Color>
-                              <VariableType>Array of byte</VariableType>
-                              <ByteLength>16</ByteLength>
-                              <Address>+0</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305605</ID>
-                              <Description>"r"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+0</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305606</ID>
-                              <Description>"g"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+4</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305607</ID>
-                              <Description>"b"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+8</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305608</ID>
-                              <Description>"a"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+c</Address>
-                            </CheatEntry>
-                          </CheatEntries>
-                        </CheatEntry>
-                        <CheatEntry>
-                          <ID>1337305609</ID>
-                          <Description>"sfxrgbasm"</Description>
-                          <Options moHideChildren="1"/>
-                          <Color>800040</Color>
-                          <VariableType>Array of byte</VariableType>
-                          <ByteLength>0</ByteLength>
-                          <Address>sfxrgbasm</Address>
-                          <CheatEntries>
-                            <CheatEntry>
-                              <ID>1337305610</ID>
-                              <Description>"ALL"</Description>
-                              <Color>C0C0C0</Color>
-                              <VariableType>Array of byte</VariableType>
-                              <ByteLength>16</ByteLength>
-                              <Address>+0</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305611</ID>
-                              <Description>"RED"</Description>
-                              <Color>0000FF</Color>
-                              <VariableType>Float</VariableType>
-                              <Address>+0</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305612</ID>
-                              <Description>"GREEN"</Description>
-                              <Color>00FF00</Color>
-                              <VariableType>Float</VariableType>
-                              <Address>+4</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305613</ID>
-                              <Description>"BLUE"</Description>
-                              <Color>FF0000</Color>
-                              <VariableType>Float</VariableType>
-                              <Address>+8</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305614</ID>
-                              <Description>"ALPHA"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+c</Address>
-                            </CheatEntry>
-                          </CheatEntries>
-                        </CheatEntry>
-                        <CheatEntry>
-                          <ID>1337305615</ID>
-                          <Description>"add red"</Description>
-                          <Options moHideChildren="1"/>
-                          <ShowAsHex>1</ShowAsHex>
-                          <Color>0000B7</Color>
-                          <VariableType>Array of byte</VariableType>
-                          <ByteLength>0</ByteLength>
-                          <Address>sfxaddred</Address>
-                          <CheatEntries>
-                            <CheatEntry>
-                              <ID>1337305616</ID>
-                              <Description>"ALL"</Description>
-                              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">172 197 39 55 0 0 0 0 0 0 0 0 0 0 0 0:NORMAL
-</DropDownList>
-                              <Color>C0C0C0</Color>
-                              <VariableType>Array of byte</VariableType>
-                              <ByteLength>16</ByteLength>
-                              <Address>+0</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305617</ID>
-                              <Description>"r"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+0</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305618</ID>
-                              <Description>"g"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+4</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305619</ID>
-                              <Description>"b"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+8</Address>
-                            </CheatEntry>
-                          </CheatEntries>
-                        </CheatEntry>
-                        <CheatEntry>
-                          <ID>1337305620</ID>
-                          <Description>"add green"</Description>
-                          <Options moHideChildren="1"/>
-                          <ShowAsHex>1</ShowAsHex>
-                          <Color>009B00</Color>
-                          <VariableType>Array of byte</VariableType>
-                          <ByteLength>0</ByteLength>
-                          <Address>sfxaddgreen</Address>
-                          <CheatEntries>
-                            <CheatEntry>
-                              <ID>1337305621</ID>
-                              <Description>"ALL"</Description>
-                              <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">0 0 0 0 172 197 39 55 0 0 0 0 0 0 0 0:NORMAL
-</DropDownList>
-                              <Color>C0C0C0</Color>
-                              <VariableType>Array of byte</VariableType>
-                              <ByteLength>16</ByteLength>
-                              <Address>+0</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305622</ID>
-                              <Description>"r"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+0</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305623</ID>
-                              <Description>"g"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+4</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305624</ID>
-                              <Description>"b"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+8</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305625</ID>
-                              <Description>"a"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+c</Address>
-                            </CheatEntry>
-                          </CheatEntries>
-                        </CheatEntry>
-                        <CheatEntry>
-                          <ID>1337305626</ID>
-                          <Description>"add blue"</Description>
-                          <Options moHideChildren="1"/>
-                          <ShowAsHex>1</ShowAsHex>
-                          <Color>9B0000</Color>
-                          <VariableType>Array of byte</VariableType>
-                          <ByteLength>0</ByteLength>
-                          <Address>sfxaddblue</Address>
-                          <CheatEntries>
-                            <CheatEntry>
-                              <ID>1337305627</ID>
-                              <Description>"ALL"</Description>
-                              <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">172 197 39 55 0 0 0 0 0 0 0 0 0 0 0 0:HELL
-0 0 0 0 0 0 0 0 172 197 39 55 0 0 0 0:NORMAL
-</DropDownList>
-                              <Color>C0C0C0</Color>
-                              <VariableType>Array of byte</VariableType>
-                              <ByteLength>16</ByteLength>
-                              <Address>+0</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305628</ID>
-                              <Description>"r"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+0</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305629</ID>
-                              <Description>"g"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+4</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305630</ID>
-                              <Description>"b"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+8</Address>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>1337305631</ID>
-                              <Description>"a"</Description>
-                              <VariableType>Float</VariableType>
-                              <Address>+c</Address>
-                            </CheatEntry>
-                          </CheatEntries>
-                        </CheatEntry>
-                      </CheatEntries>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305857</ID>
+                      <Description>"Pink VFX"</Description>
+                      <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+                      <Color>80FF00</Color>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>{
+   Made by indura.
+}
+{$lua}
+if syntaxcheck then return end
+[ENABLE]
+local color = {
+255, -- RED
+105, -- GREEN
+180, -- BLUE
+}
+
+for i = 1,3,1 do
+   writeFloat("sfxrgba+"..tostring((i-1)*4),RGBToFloat(color[i]))
+end
+autoDisable(memrec)
+[DISABLE]
+</AssemblerScript>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305866</ID>
+                      <Description>"Blue VFX"</Description>
+                      <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+                      <Color>80FF00</Color>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>{
+   Made by indura.
+}
+{$lua}
+if syntaxcheck then return end
+[ENABLE]
+local color = {
+1, -- RED
+1, -- GREEN
+255, -- BLUE
+}
+
+for i = 1,3,1 do
+   writeFloat("sfxrgba+"..tostring((i-1)*4),RGBToFloat(color[i]))
+end
+autoDisable(memrec)
+[DISABLE]
+</AssemblerScript>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>1337305865</ID>
+                      <Description>"Reset"</Description>
+                      <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+                      <Color>80FF00</Color>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>{
+   Made by indura.
+}
+{$lua}
+if syntaxcheck then return end
+[ENABLE]
+for i = 1,3,1 do
+   writeFloat("sfxrgba+"..tostring((i-1)*4),1)
+end
+autoDisable(memrec)
+[DISABLE]
+
+</AssemblerScript>
                     </CheatEntry>
                     <CheatEntry>
                       <ID>1337305634</ID>
@@ -25162,28 +24837,28 @@ unregistersymbol(colorstateasm)
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337305635</ID>
-                          <Description>"r"</Description>
+                          <Description>"red"</Description>
                           <Color>0000FF</Color>
                           <VariableType>Float</VariableType>
                           <Address>+0</Address>
                         </CheatEntry>
                         <CheatEntry>
                           <ID>1337305636</ID>
-                          <Description>"g"</Description>
+                          <Description>"green"</Description>
                           <Color>00FF00</Color>
                           <VariableType>Float</VariableType>
                           <Address>+4</Address>
                         </CheatEntry>
                         <CheatEntry>
                           <ID>1337305637</ID>
-                          <Description>"b"</Description>
+                          <Description>"blue"</Description>
                           <Color>FF8000</Color>
                           <VariableType>Float</VariableType>
                           <Address>+8</Address>
                         </CheatEntry>
                         <CheatEntry>
                           <ID>1337305638</ID>
-                          <Description>"a"</Description>
+                          <Description>"opacity"</Description>
                           <VariableType>Float</VariableType>
                           <Address>+c</Address>
                         </CheatEntry>
@@ -25251,7 +24926,6 @@ dd (float)1.0
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
 [ENABLE]
-enableRecord(1337305633)
 autoDisable(memrec)
 {$asm}
 BrightnessMod: // Sets Game Brightness
@@ -25273,20 +24947,8 @@ DarkSoulsIII.exe+473E778: // VFX
 dd (float)1.75            // Normally 1.0
 
 DarkSoulsIII.exe+2124D0:  // Glow
-dd (float)1.5             // Normally 1.0
+dd (float)0.5             // Normally 1.0
 
-
-sfxrgba:                  // SFX Red
-dd (float)255.0
-
-sfxrgba+4:                // SFX Green
-dd (float)255.0
-
-sfxrgba+8:                // SFX Blue
-dd (float)255.0
-
-sfxrgba+c:                // SFX Brightness
-dd (float)1.0
 
 DarkSoulsIII.exe+3D80100: // VFX R/G/B
 dd (float)2.0 (float)2.0 (float)2.0 // Normally 1.0 | 1.0 | 1.0
@@ -25305,6 +24967,54 @@ dd (float)2.0 (float)2.0 (float)2.0 // Normally 1.0 | 1.0 | 1.0
               <Color>00D500</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
+                <CheatEntry>
+                  <ID>1337305848</ID>
+                  <Description>"Mask Current Armor"</Description>
+                  <Color>80FF00</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>// By Indura
+
+{
+If you want a list of the model ID's, you can find them here:
+
+https://gist.github.com/MaxTheMiracle/8a55333ebaf454b97195aecb0563ebd8
+
+Grab the entire string and only take the ID at the end.
+Put it in the masks array and it will be visually changed to it.
+
+ID List:
+https://gist.github.com/MaxTheMiracle/8a55333ebaf454b97195aecb0563ebd8
+}
+{$lua}
+if syntaxcheck then return end
+[ENABLE]
+--[[
+      You can change the mask here:
+--]]
+local masks = {
+2100, -- Helmet
+9300, -- Chestpiece
+8500, -- Gauntlets
+8500, -- Leggings
+}
+--[[
+      Dont touch below unless you know what you are doing.
+--]]
+local function getArmor(arg)
+   local hex = string.format("%X", arg)
+   local new = "1" .. hex
+   local dec = tonumber(new,16)
+   return dec
+end
+local offs = {"35C","360","364","368",}
+for i= 1,4,1 do
+   local protectorEdit = EquipParamProtector:new("CustomMasks",getArmor(readInteger("[[GameDataMan]+10]+"..offs[i])))
+   protectorEdit:equipModelId(masks[i])
+end
+[DISABLE]
+paramUtils:restore("CustomMasks")
+</AssemblerScript>
+                </CheatEntry>
                 <CheatEntry>
                   <ID>1337256152</ID>
                   <Description>"Everyone is Lapp"</Description>
@@ -25461,331 +25171,456 @@ end
               </CheatEntries>
             </CheatEntry>
             <CheatEntry>
-              <ID>1337305577</ID>
-              <Description>"Infusion Visuals"</Description>
-              <Options moActivateChildrenAsWell="1"/>
+              <ID>1337305794</ID>
+              <Description>"Body Visuals Mod"</Description>
+              <Options moHideChildren="1"/>
+              <Color>00D500</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[ENABLE]
+local Interval = 2000
+
+local vfxEdit1 = SpEffectParam:new("BodyVfxEdit", 42)
+      vfxEdit1:spCategory(0)
+      vfxEdit1:effectEndurance(999)
+      vfxEdit1:patchBinary(0x016C,0,0)
+      vfxEdit1:patchBinary(0x016C,0,1)
+      vfxEdit1:patchBinary(0x016C,1,2)
+      vfxEdit1:patchBinary(0x016C,0,3)
+      vfxEdit1:patchBinary(0x016C,0,4)
+      vfxEdit1:patchBinary(0x016C,0,5)
+      vfxEdit1:patchBinary(0x016C,0,6)
+      vfxEdit1:patchBinary(0x016C,0,7)
+      vfxEdit1:effectSfx(-1)
+      vfxEdit1:effectSfx1(-1)
+
+
+local vfxEdit2 = SpEffectParam:new("BodyVfxEdit", 43)
+      vfxEdit2:spCategory(0)
+      vfxEdit2:effectEndurance(999)
+      vfxEdit2:patchBinary(0x016C,0,0)
+      vfxEdit2:patchBinary(0x016C,0,1)
+      vfxEdit2:patchBinary(0x016C,1,2)
+      vfxEdit2:patchBinary(0x016C,0,3)
+      vfxEdit2:patchBinary(0x016C,0,4)
+      vfxEdit2:patchBinary(0x016C,0,5)
+      vfxEdit2:patchBinary(0x016C,0,6)
+      vfxEdit2:patchBinary(0x016C,0,7)
+      vfxEdit2:effectSfx(-1)
+      vfxEdit2:effectSfx1(-1)
+
+
+BodyVfxTimer = createTimer(getMainForm())
+BodyVfxTimer.Interval = Interval
+BodyVfxTimer.OnTimer = function()
+   if readQword("[[WorldChrMan]+40]+0*38") ~= nil and readQword("[[WorldChrMan]+40]+0*38") ~=0 then
+
+      if readInteger(getAddress("VFXID1")) ~= nil then
+         vfxEdit1:effectSfx(readInteger(getAddress("VFXID1")))
+      end
+
+      if readInteger(getAddress("VFXID2")) ~= nil then
+         vfxEdit1:effectSfx1(readInteger(getAddress("VFXID2")))
+      end
+
+      if readInteger(getAddress("VFXID3")) ~= nil then
+         vfxEdit2:effectSfx(readInteger(getAddress("VFXID3")))
+      end
+
+      if readInteger(getAddress("VFXID4")) ~= nil then
+         vfxEdit2:effectSfx1(readInteger(getAddress("VFXID4")))
+      end
+
+      if readQword("[WorldChrMan]") ~= nil and readQword("[WorldChrMan]") then
+         applyEffect({42,43})
+      end
+   end
+end
+{$asm}
+alloc(VFXID1,4)
+registerSymbol(VFXID1)
+alloc(VFXID2,4)
+registerSymbol(VFXID2)
+alloc(VFXID3,4)
+registerSymbol(VFXID3)
+alloc(VFXID4,4)
+registerSymbol(VFXID4)
+VFXID1:
+db 0
+VFXID2:
+db 0
+VFXID3:
+db 0
+VFXID4:
+db 0
+{$lua}
+[DISABLE]
+BodyVfxTimer.destroy()
+paramUtils:restore("BodyVfxEdit")
+removeEffect({42,43})
+autoAssemble([[
+dealloc(VFXID1)
+unregisterSymbol(VFXID1)
+dealloc(VFXID2)
+unregisterSymbol(VFXID2)
+dealloc(VFXID3)
+unregisterSymbol(VFXID3)
+dealloc(VFXID4)
+unregisterSymbol(VFXID4)
+]])
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1337305797</ID>
+                  <Description>"VFX 1"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:No VFX
+96000000:Humanity Head
+99000000:SoC Power Within
+91091400:Branded Symbol
+91021400:Snow between feet
+90026500:Yellow Smoke
+90024360:Red Smoke
+60005:Blue Glow on body
+90024400:Power Within
+62001:Curse Mist
+60901:Glow blink Effect
+50490:Nameless Kong Stomp
+50445:Darkness flowing out of head
+50360:Crystal Lizard Shimmer
+50355:Black Smoke On Head
+50264:Ember Sparks Wide Area
+40260:Frost effect (White Curse)
+40005:More intense darker purple smoke
+5011:Embers sparks on steroids
+200:Red Fumes
+72:Some huge purple aura
+50501:Ember On Body
+</DropDownList>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <Color>80FF00</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>VFXID1</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305798</ID>
+                  <Description>"VFX 2"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:No VFX
+96000000:Humanity Head
+99000000:SoC Power Within
+91091400:Branded Symbol
+91021400:Snow between feet
+90026500:Yellow Smoke
+90024360:Red Smoke
+60005:Blue Glow on body
+90024400:Power Within
+62001:Curse Mist
+60901:Glow blink Effect
+50490:Nameless Kong Stomp
+50445:Darkness flowing out of head
+50360:Crystal Lizard Shimmer
+50355:Black Smoke On Head
+50264:Ember Sparks Wide Area
+40260:Frost effect (White Curse)
+40005:More intense darker purple smoke
+5011:Embers sparks on steroids
+200:Red Fumes
+72:Some huge purple aura
+50501:Ember On Body
+</DropDownList>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <Color>80FF00</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>VFXID2</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305799</ID>
+                  <Description>"VFX 3"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:No VFX
+96000000:Humanity Head
+99000000:SoC Power Within
+91091400:Branded Symbol
+91021400:Snow between feet
+90026500:Yellow Smoke
+90024360:Red Smoke
+60005:Blue Glow on body
+90024400:Power Within
+62001:Curse Mist
+60901:Glow blink Effect
+50490:Nameless Kong Stomp
+50445:Darkness flowing out of head
+50360:Crystal Lizard Shimmer
+50355:Black Smoke On Head
+50264:Ember Sparks Wide Area
+40260:Frost effect (White Curse)
+40005:More intense darker purple smoke
+5011:Embers sparks on steroids
+200:Red Fumes
+72:Some huge purple aura
+50501:Ember On Body
+</DropDownList>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <Color>80FF00</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>VFXID3</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305800</ID>
+                  <Description>"VFX 4"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:No VFX
+96000000:Humanity Head
+99000000:SoC Power Within
+91091400:Branded Symbol
+91021400:Snow between feet
+90026500:Yellow Smoke
+90024360:Red Smoke
+60005:Blue Glow on body
+90024400:Power Within
+62001:Curse Mist
+60901:Glow blink Effect
+50490:Nameless Kong Stomp
+50445:Darkness flowing out of head
+50360:Crystal Lizard Shimmer
+50355:Black Smoke On Head
+50264:Ember Sparks Wide Area
+40260:Frost effect (White Curse)
+40005:More intense darker purple smoke
+5011:Embers sparks on steroids
+200:Red Fumes
+72:Some huge purple aura
+50501:Ember On Body
+</DropDownList>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <Color>80FF00</Color>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>VFXID4</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337305774</ID>
+              <Description>"Infusion Visuals Mod"</Description>
+              <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
               <Color>80FF00</Color>
               <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{
-    Autor: Jackydima
-    Describtion: Infused Weapons show their "Affinity" as the corresponding Buff" - Automatically
-                 and Added a new Feature for some Custom Items + Effect
+              <AssemblerScript>{  Credits to Jacky Dima for original script.
+   Updated by Indura.
+
+   Gives your weapon visuals based off of infusion.
+   Includes Customization per weapon.
+   No longer uses old ASM applyEffect
+   Less if statements by parsing values through tables instead.
+}
+{$lua}
+if syntaxcheck then return end
+[ENABLE]
+
+--[[
+    VISUAL ID'S SHORTCUTS:
+--]]
+
+-- MAGIC WEAPON
+local mageR = 60
+local mageL = 5840
+
+-- CRYSTAL WEAPON
+local crysR = 90013120
+local crysL = 91011261
+
+-- DARKMOON BLADE
+local moonR = 91011211
+local moonL = 91011261
+
+-- FIRE RESIN
+local fireR = 62
+local fireL = 5562
+
+-- LORIAN FIRE
+local heatR = 91069501
+local heatL = 91069551
+
+-- MAGMA WEAPON
+local lavaR = 91081900
+--local lavaL = DOESN'T EXIST
+
+-- LIGHTNING RESIN
+local thunR = 151
+local thunL = 5651
+
+-- NAMELESS KING LIGHTNING
+local kingR = 91091600
+local kingL = 91091650
+
+-- DARK BLADE
+local darkR = 5150
+local darkL = 5850
+
+-- BLACKFLAME BLADE
+local blacR = 91022401
+local blacL = 91022451
+
+-- FROST WEAPON
+local icedR = 90013130
+--local icedL = DOESN'T EXIST
+
+-- SNOW PARTICLES
+local snowR = 91100700
+local snowL = 91100750
+
+-- STORM RULER
+local windR = 91063710
+local windL = 91063711
+
+-- PACIFY
+local cursR = 91091901
+local cursL = 91091951
+
+-- POISON RESIN
+local poisR = 152
+local poisL = 5652
+
+-- BLOOD ROUGE
+local bludR = 5160
+local bludL = 5860
+
+-- BLESSED WEAPON
+local holyR = 90037600
+local holyL = 91062751
+
+--[[
+    ADD CUSTOM WEAPONS HERE:
+-]]
+
+useCustomWeapon = {}-- LEFT VFX , RIGHT VFX
+useCustomWeapon[41000] = {mageL, mageR} -- Magic on Crescent Moon Sword both lef and right.
+useCustomWeapon[63200] = {crysL, crysR} -- MLGS
+useCustomWeapon[61700] = {moonL, moonR} -- GoJ
+useCustomWeapon[11400] = {mageL, mageR} -- Aqua
+useCustomWeapon[22500] = {heatL, lavaR} -- RKSS
+useCustomWeapon[101000] = {blacL, blacR}-- Gundyr
+useCustomWeapon[83200] = {cursL, cursR} -- Ledo's
+useCustomWeapon[101701] = {cursL, cursR}-- Splitleaf
+useCustomWeapon[100500] = {kingL, kingR}-- BKGA
+useCustomWeapon[71100] = {kingL, kingR} -- DSGA
+useCustomWeapon[62600] = {heatL, heatR} -- Lorian UGS
+useCustomWeapon[61800] = {windL, icedR} -- Profaned UGS
+useCustomWeapon[21201] = {poisL, poisR} -- Ghru CS
+useCustomWeapon[10401] = {poisL, poisR} --Ghru Dagger
+useCustomWeapon[61300] = {kingL, kingR} -- Black Knight Ultra Greatsword
+useCustomWeapon[92400] = {fireL, fireR} -- Ringed Knight Spear
+useCustomWeapon[120400] = {fireL, fireR}-- Witches Locks
+useCustomWeapon[62800] = {holyL, holyR} -- Lothric's Holy Sword
+useCustomWeapon[81800] = {snowL, icedR} -- Vordt's Grea Hammer
+useCustomWeapon[30500] = {snowL, icedR} -- Irithyll Rapier
+useCustomWeapon[21400] = {snowL, icedR} -- Irithyll Straight Sword
+useCustomWeapon[110300] = {heatL, lavaR}-- Demon's Fists
+useCustomWeapon[161400] = {kingL, kingR}-- Valor Heart
+useCustomWeapon[22600] = {blacL, blacR} -- Gaels GS
+useCustomWeapon[210108] = {holyL, holyR}-- Lightning Lothric Shield
+useCustomWeapon[213000] = {holyL, holyR}-- Ethereal Oak Shield
+useCustomWeapon[41300] = {fireL, lavaR} -- Demon Scar
+useCustomWeapon[134100] = {darkL, darkR}-- pyro hand dlc
+useCustomWeapon[101800] = {crysL, crysR}-- Friede's Scythe
+
+--[[
+    INCREASE INTERVAL FOR BAD PC:
+--]]
+
+    local Interval = 200 -- (it's in ms)
+
+--[[
+    LOGIC START:
+--]]
+local EffectID = 44
+local vfxEdit = SpEffectParam:new("EffectVfxEdit", EffectID)
+      vfxEdit:effectSfx(-1)
+      vfxEdit:effectSfx1(-1)
+      vfxEdit:spCategory(0)
+      vfxEdit:effectEndurance(-1)
+      vfxEdit:patchBinary(0x016C,0,0)
+      vfxEdit:patchBinary(0x016C,0,1)
+      vfxEdit:patchBinary(0x016C,1,2)
+      vfxEdit:patchBinary(0x016C,0,3)
+      vfxEdit:patchBinary(0x016C,0,4)
+      vfxEdit:patchBinary(0x016C,0,5)
+      vfxEdit:patchBinary(0x016C,0,6)
+      vfxEdit:patchBinary(0x016C,0,7)
+
+local WepBase = "[[GameDataMan]+10]"
+local ArmStyle = "[[GameDataMan]+10]+2B8"
+local currentLeftWep = "[[GameDataMan]+10]+2BC"
+local wepSlotsOffsetsLeft = {"+32C", "+334", "+33C"}
+local currentRightWep = "[[GameDataMan]+10]+2C0"
+local wepSlotsOffsetsRight = {"+330", "+338", "+340"}
+
+local infusionVFX = {
+  ["04"] = {mageL, mageR}, -- Magic
+  ["05"] = {mageL, mageR}, -- Magic
+  ["06"] = {fireL, fireR}, -- Fire
+  ["07"] = {fireL, fireR}, -- Fire
+  ["08"] = {thunL, thunR}, -- Lightning
+  ["09"] = {darkL, darkR}, -- Dark
+  ["10"] = {darkL, darkR}, -- Dark
+  ["11"] = {poisL, poisR}, -- Poison
+  ["12"] = {bludL, bludR}, -- Blood
+  ["14"] = {holyL, holyR} -- Blessed
 }
 
-{$lua}
+local function setRightVfx(input)
+  local RightWeaponAd = WepBase..wepSlotsOffsetsRight[1+readByte(input)]
+  local RightWeaponId = string.format("%d" ,readInteger(RightWeaponAd))
+  local InfusionRight = string.sub(RightWeaponId, -4, -3)
+  local BaseWepId = tonumber(string.sub(RightWeaponId, 1, -3))
+  local IsCustomWep = useCustomWeapon[BaseWepId]
 
-[enable]
--- Globals... should be unique in the whole Table :)
-simpleEffectR = 60
-crystalEffectR = 90013120
-fireEffectR = 62
-lightningEffectR = 151
-darkEffectR = 5150
-poisonEffectR = 152
-bloodEffectR = 5160
-blessedEffectR = 90037600
-
--- can add more Effects listed on Param Infos for EffectVisuals
-
-simpleEffectL = 5840
-crystalEffectL = 91011261
-fireEffectL = 5562
-lightningEffectL = 5651
-darkEffectL = 5850
-poisonEffectL = 5652
-bloodEffectL = 5860
-blessedEffectL = 91062751
-
--- Appeand here
-weapEffectStruct = {}
-weapEffectStruct["92200"] = {lightningEffectR,lightningEffectL}
-weapEffectStruct["60403"] = {lightningEffectR,lightningEffectL}
-weapEffectStruct["60702"] = {lightningEffectR,lightningEffectL}
-weapEffectStruct["41203"] = {lightningEffectR,lightningEffectL}
-weapEffectStruct["30002"] = {lightningEffectR,lightningEffectL}
-weapEffectStruct["160303"] = {lightningEffectR,lightningEffectL}
-weapEffectStruct["101701"] = {lightningEffectR,lightningEffectL}
-weapEffectStruct["10602"] = {lightningEffectR,lightningEffectL}
-weapEffectStruct["40700"] = {fireEffectR,fireEffectL}
-weapEffectStruct["161600"] = {fireEffectR,fireEffectL}
-weapEffectStruct["63500"] = {fireEffectR,fireEffectL}
-weapEffectStruct["62300"] = {fireEffectR,fireEffectL}
-weapEffectStruct["10903"] = {fireEffectR,fireEffectL}
-weapEffectStruct["101403"] = {fireEffectR,fireEffectL}
-weapEffectStruct["22600"] = {fireEffectR,fireEffectL}
-weapEffectStruct["22500"] = {fireEffectR,fireEffectL}
-weapEffectStruct["50600"] = {darkEffectR,darkEffectL}
-weapEffectStruct["100500"] = {lightningEffectR,lightningEffectL}
-weapEffectStruct["62000"] = {fireEffectR,fireEffectL}
-weapEffectStruct["101000"] = {lightningEffectR,lightningEffectL}
-weapEffectStruct["10403"] = {fireEffectR,fireEffectL}
-weapEffectStruct["213000"] = {darkEffectR,darkEffectL}
-weapEffectStruct["160703"] = {lightningEffectR,lightningEffectL}
-weapEffectStruct["211000"] = {darkEffectR,darkEffectL}
-weapEffectStruct["140500"] = {darkEffectR,darkEffectL}
-weapEffectStruct["200800"] = {blessedEffectR,darkEffectL}
-weapEffectStruct["91300"] = {blessedEffectR,darkEffectL}
-weapEffectStruct["90903"] = {blessedEffectR,darkEffectL}
-weapEffectStruct["141000"] = {blessedEffectR,darkEffectL}
-weapEffectStruct["110103"] = {blessedEffectR,blessedEffectL}
-weapEffectStruct["202800"] = {blessedEffectR,darkEffectL}
-weapEffectStruct["71100"] = {lightningEffectR,lightningEffectL}
-weapEffectStruct["83200"] = {lightningEffectR,lightningEffectL}
-weapEffectStruct["10000"] = {simpleEffectR,simpleEffectL} --test Dagger R-L-Effekt
-weapEffectStruct["61300"] = {fireEffectR,fireEffectL} -- Black Knight GS
---iEffect["WeaponID"]={EffectForRighthand,EffectForLefthand}-----
--- Add more WeaponIds, but remove the last two ID-Numbers (these are for the Upgrade Level)!!
--- ^ Must be a Decimal ID for it to Work btw
--- check for the Hero -&gt; Equipped Gear for equipped Weapons and Double click on the name
--- to find the correct Id
--- OR Check the Docs for Weapon Ids and convert the HexID into Decimal ID with Windows Calc
--- Can even take an Infused Item from the List and give it a Unique Effect!
-
-{$asm}
-// initial Apply Effect; Author: inuNorii
-
-aobscanmodule(ApplyEffect_AOB,DarksoulsIII.exe,C6 40 B0 00 C7) // alt: 44 88 40 B0 C7) //
-define(ApplyEffect_Call_Dima,ApplyEffect_AOB-1D)
-alloc(ApplyEffect_Dima,$100,DarkSoulsIII.exe)
-alloc(PlayerSlot,12,DarkSoulsIII.exe)
-label(EffectID_Dima)
-//registerSymbol(ApplyEffect_Call_Dima)
-registerSymbol(ApplyEffect_Dima)
-registerSymbol(EffectID_Dima)
-//registerSymbol(PlayerSlot)
-
-/*
-  Help Function for Automatic Apply Effect
-*/
-PlayerSlot:
-dd #0
-
-ApplyEffect_Dima:
-sub rsp,48
-lea r12,[EffectID_Dima]
-mov rbx,[WorldChrMan]
-effect_loop:
-test rbx,rbx
-je short end
-mov rcx,[rbx+40]
-
-mov esi,[PlayerSlot]
-mov eax,38
-imul esi
-
-mov rcx,[rcx+eax]
-
-test rcx,rcx
-je short end
-
-mov edx,[r12]
-mov r8,rcx
-call ApplyEffect_Call_Dima
-add r12,4
-cmp dword ptr [r12],00000000
-jne short effect_loop
-end:
-add rsp,48
-ret
-
-EffectID_Dima:
-dd #3040
-dd 00000000   // end
-
-{$lua}
-if syntaxcheck then return end
-
-local intervall = 300 -- Change this if it eats a lot of ressources
-
-local E1 = SpEffectParam:new("OK", 43)
-E1:effectEndurance(-1)
-E1:effectSfx(-1) --90037800 alternate 40005
-E1:spCategory(0)
-E1:effectSfx1(-1)
-E1:patchBinary(0x016C,0,0)
-E1:patchBinary(0x016C,0,1)
-E1:patchBinary(0x016C,1,2)
-E1:patchBinary(0x016C,0,3)
-E1:patchBinary(0x016C,0,4)
-E1:patchBinary(0x016C,0,5)
-E1:patchBinary(0x016C,0,6)
-E1:patchBinary(0x016C,0,7)
-
---E1:cycleOccurrenceSpEffectId(44)
-
---local E2 = SpEffectParam:new("OK", 44)
---E2:effectEndurance(0)
---E2:effectSfx(90037800)
---E2:spCategory(0)
---E2:effectSfx1(91022210)
-
-local currentLeftWepS = "[[GameDataMan] + 10] + 2BC"
-local currentRightWepS = "[[GameDataMan] + 10] + 2C0"
-local currentArmStyle = "[[GameDataMan] + 10] + 2B8"
-
-local function setVisualEffectIdRight(currentWeapSlot)
-
-   if ( readByte(currentArmStyle) == 2) then
-      E1:effectSfx(-1)
-      return
-   end
-
-   local currentRightWeapon = "[[GameDataMan] + 10] "
-
-   if (currentWeapSlot == 0) then
-      currentRightWeapon = currentRightWeapon.."+ 330"
-   elseif (currentWeapSlot == 1) then
-      currentRightWeapon = currentRightWeapon.."+ 338"
-   elseif (currentWeapSlot == 2) then
-      currentRightWeapon = currentRightWeapon.."+ 340"
-   else
-      return
-   end
-
-   local weaponId = string.format("%d" ,readInteger(currentRightWeapon))
-
-   local specialWeaponEffect = weapEffectStruct[string.sub(weaponId,0, -3)]
-   if ( specialWeaponEffect ~= nil ) then
-      E1:effectSfx(specialWeaponEffect[1])
-      return
-   end
-
-
-   local infusionRight = string.sub(weaponId, -4, -3)
-
-   if ( infusionRight == "04" ) then
-      E1:effectSfx(simpleEffectR) -- Simple
-      return
-   elseif ( infusionRight == "05" ) then
-      E1:effectSfx(crystalEffectR) -- Crystel
-      return
-   elseif ( infusionRight == "06" or infusionRight == "07") then
-      E1:effectSfx(fireEffectR) -- Fire
-      return
-   elseif ( infusionRight == "08" ) then
-      E1:effectSfx(lightningEffectR) -- Lightning
-      return
-   elseif ( infusionRight == "09" or infusionRight == "10") then
-      E1:effectSfx(darkEffectR) --Dark
-      return
-   elseif ( infusionRight == "11" ) then
-      E1:effectSfx(poisonEffectR) -- Poison
-      return
-   elseif ( infusionRight == "12" ) then
-      E1:effectSfx(bloodEffectR) -- Blood
-      return
-   elseif ( infusionRight == "14" ) then
-      E1:effectSfx(blessedEffectR) --Blessed
-      return
-   else
-      E1:effectSfx(-1)
-   end
+  if readByte(ArmStyle) == 2 then
+    vfxEdit:effectSfx(-1)
+  elseif IsCustomWep ~= nil then
+    vfxEdit:effectSfx(IsCustomWep[2])
+  elseif infusionVFX[InfusionRight] ~= nil then
+    vfxEdit:effectSfx(infusionVFX[InfusionRight][2])
+  else
+    vfxEdit:effectSfx(-1)
+  end
 end
 
-local function setVisualEffectIdLeft(currentWeapSlot)
+local function setLeftVfx(input)
+  local LeftWeaponAd = WepBase..wepSlotsOffsetsLeft[1+readByte(input)]
+  local LeftWeaponId = string.format("%d" ,readInteger(LeftWeaponAd))
+  local InfusionLeft = string.sub(LeftWeaponId, -4, -3)
+  local BaseWepId = tonumber(string.sub(LeftWeaponId, 1, -3))
+  local IsCustomWep = useCustomWeapon[BaseWepId]
 
-   local currentLeftWeapon = "[[GameDataMan] + 10] "
+  if IsCustomWep ~= nil then
+    vfxEdit:effectSfx1(IsCustomWep[1])
+  elseif infusionVFX[InfusionLeft] ~= nil then
+    vfxEdit:effectSfx1(infusionVFX[InfusionLeft][1])
+  else
+    vfxEdit:effectSfx1(-1)
+  end
+end
+updatedVfxTimer = createTimer(getMainForm())
+updatedVfxTimer.Interval = Interval
+updatedVfxTimer.OnTimer = function()
+   if readQword("[[WorldChrMan]+40]+0*38") ~= nil and readQword("[[WorldChrMan]+40]+0*38") ~=0 then
 
-   if (currentWeapSlot == 0) then
-      currentLeftWeapon = currentLeftWeapon.."+ 32C"
-   elseif (currentWeapSlot == 1) then
-      currentLeftWeapon = currentLeftWeapon.."+ 334"
-   elseif (currentWeapSlot == 2) then
-      currentLeftWeapon = currentLeftWeapon.."+ 33C"
-   else
-      return
-   end
+      setRightVfx(currentRightWep)
+      setLeftVfx(currentLeftWep)
 
-
-   local weaponId = string.format("%d" ,readInteger(currentLeftWeapon))
-
-   local specialWeaponEffect = weapEffectStruct[string.sub(weaponId,0, -3)]
-   if ( specialWeaponEffect ~= nil ) then
-      E1:effectSfx1(specialWeaponEffect[2])
-      return
-   end
-
-   local infusionLeft = string.sub(weaponId, -4, -3)
-
-   if ( infusionLeft == "04" ) then
-      E1:effectSfx1(simpleEffectL) -- Simple
-      return
-   elseif ( infusionLeft == "05" ) then
-      E1:effectSfx1(crystalEffectL) -- Crystel
-      return
-   elseif ( infusionLeft == "06" or infusionLeft == "07") then
-      E1:effectSfx1(fireEffectL) -- Fire
-      return
-   elseif ( infusionLeft == "08" ) then
-      E1:effectSfx1(lightningEffectL) -- Lightning
-      return
-   elseif ( infusionLeft == "09" or infusionLeft == "10") then
-      E1:effectSfx1(darkEffectL) --Dark
-      return
-   elseif ( infusionLeft == "11" ) then
-      E1:effectSfx1(poisonEffectL) -- Poison
-      return
-   elseif ( infusionLeft == "12" ) then
-      E1:effectSfx1(bloodEffectL) -- Blood
-      return
-   elseif ( infusionLeft == "14" ) then
-      E1:effectSfx1(blessedEffectL) --Blessed
-      return
-   else
-      E1:effectSfx1(-1)
+      if readQword("[WorldChrMan]") ~= nil and readQword("[WorldChrMan]") then
+         applyEffect(EffectID)
+      end
    end
 end
-
-visualsTimer = createTimer(getMainForm())
-visualsTimer.Interval = intervall
-visualsTimer.OnTimer = function(timer)
-
-   if ( readQword("[[WorldChrMan]+40]+0*38") ~=nil and readQword("[[WorldChrMan]+40]+0*38") ~=0 ) then
-
-   setVisualEffectIdRight(readByte(currentRightWepS))
-
-   setVisualEffectIdLeft(readByte(currentLeftWepS))
-
-   --executeCodeEx(ApplyEffect_Dima)
-   if ( readQword("[WorldChrMan]") ~=nil and readQword("[WorldChrMan]" )) then
-      autoAssemble([[
-EffectID_Dima:
-dd #43
-dd 00000000
-
-PlayerSlot:
-dd #0
-
-createthread(ApplyEffect_Dima)
-]])
-   end
-
-   end -- if clause upper
-
-
-end -- timer
-
-visualsTimer.Enabled = true
-
-
-
 [DISABLE]
-if syntaxcheck then return end
-visualsTimer.Enabled = false
-paramUtils:restore("OK")
-
-{$asm}
-dealloc(ApplyEffect_Dima)
-dealloc(PlayerSlot)
-unregisterSymbol(ApplyEffect_Dima)
-unregisterSymbol(EffectID_Dima)
-//unregisterSymbol(PlayerSlot)
-
+updatedVfxTimer.destroy()
+paramUtils:restore("EffectVfxEdit")
+removeEffect(41)
 </AssemblerScript>
             </CheatEntry>
             <CheatEntry>
               <ID>1337305462</ID>
-              <Description>"Untrue Dark Ring"</Description>
+              <Description>"Untrue Dark Ring Effect"</Description>
               <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
               <Color>80FF00</Color>
               <VariableType>Auto Assembler Script</VariableType>
@@ -25868,20 +25703,19 @@ autoDisable(memrec)
                         <Key>96</Key>
                       </Keys>
                       <ID>0</ID>
-                      <ActivateSound TTS="EN">Disconnected</ActivateSound>
                     </Hotkey>
                   </Hotkeys>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337305692</ID>
-                  <Description>"Numpad [1] - Invade"</Description>
+                  <Description>"Numpad [1] - No Gravity"</Description>
                   <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 [ENABLE]
-applyEffect(11)
-autoDisable(memrec)
+writeBit(noGravityPtr, 6, 1)
 [DISABLE]
+writeBit(noGravityPtr, 6, 0)
 </AssemblerScript>
                   <Hotkeys>
                     <Hotkey>
@@ -25890,8 +25724,6 @@ autoDisable(memrec)
                         <Key>97</Key>
                       </Keys>
                       <ID>0</ID>
-                      <ActivateSound TTS="EN">Gravity Disabled</ActivateSound>
-                      <DeactivateSound TTS="EN">Gravity Enabled</DeactivateSound>
                     </Hotkey>
                   </Hotkeys>
                 </CheatEntry>
@@ -25925,14 +25757,10 @@ autoDisable(memrec)
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
 [ENABLE]
-if not syntaxcheck then
 playAnimation('W_BackStepNomal')
 writeInteger(idleAnimPtr,90700)
-end
 [DISABLE]
-if not syntaxcheck then
 writeInteger(idleAnimPtr,0)
-end
 
 							
 </AssemblerScript>
@@ -25954,7 +25782,8 @@ end
                   <AssemblerScript>[ENABLE]
 {$lua}
 if not syntaxcheck then
-playAnimation('W_DeathStart')
+applyEffect(33)
+--playAnimation('W_DeathStart')
 end
 autoDisable(memrec)
 [DISABLE]
@@ -25994,7 +25823,6 @@ autoDisable(memrec)
                         <Key>101</Key>
                       </Keys>
                       <ID>0</ID>
-                      <ActivateSound TTS="EN">PvE Killed</ActivateSound>
                     </Hotkey>
                   </Hotkeys>
                 </CheatEntry>
@@ -26361,7 +26189,10 @@ paramUtils:restore("UnlockAllBonfires")
                       <Description>"Level Up"</Description>
                       <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
-                      <AssemblerScript>[ENABLE]
+                      <AssemblerScript>{$lua}
+if syntaxcheck then return end
+{$asm}
+[ENABLE]
 aobscanmodule(LU_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 0a 00 00 00)
 alloc(FirekeeperMenu,100,DarkSoulsIII.exe)
 createthread(FirekeeperMenu)
@@ -27391,6 +27222,7 @@ dealloc(HandmaidSellItem)
             <CheatEntry>
               <ID>1337291867</ID>
               <Description>"Bonfire Warp "</Description>
+              <Options moHideChildren="1"/>
               <Color>FFFF00</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>//BonfireWarp
@@ -28492,6 +28324,57 @@ autoDisable(memrec)
               <Color>FFFF00</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
+                <CheatEntry>
+                  <ID>1337305775</ID>
+                  <Description>"Print Current Held Weapons"</Description>
+                  <Color>FFFF80</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[enable]
+
+local WepBase = "[[GameDataMan]+10]"
+local ArmStyle = "[[GameDataMan]+10]+2B8"
+local currentLeftWep = "[[GameDataMan]+10]+2BC"
+local wepSlotsOffsetsLeft = {"+32C", "+334", "+33C"}
+local currentRightWep = "[[GameDataMan]+10]+2C0"
+local wepSlotsOffsetsRight = {"+330", "+338", "+340"}
+
+local RightWeaponAd = WepBase..wepSlotsOffsetsRight[1+readByte(currentRightWep)]
+local RightWeaponId = string.format("%d" ,readInteger(RightWeaponAd))
+local InfusionRight = string.sub(RightWeaponId, -4, -3)
+local BaseWepIdR = tonumber(string.sub(RightWeaponId, 1, -3))
+
+local LeftWeaponAd = WepBase..wepSlotsOffsetsLeft[1+readByte(currentLeftWep)]
+local LeftWeaponId = string.format("%d" ,readInteger(LeftWeaponAd))
+local InfusionLeft = string.sub(LeftWeaponId, -4, -3)
+local BaseWepIdL = tonumber(string.sub(LeftWeaponId, 1, -3))
+
+local text = ([[
+Here are the weapon ID's to edit the Updated Infusion Visuals Script:
+
+Current Held Right Hand Weapon ID: ]]..BaseWepIdR..[[
+To add this weapon to Custom Infusion Visuals, just add the line:
+
+useCustomWeapon[]]..BaseWepIdR..[[] = {mageL, mageR}
+
+To the script under the line with "useCustomWeapon = {}"
+
+Current Held Left Hand Weapon ID: ]]..BaseWepIdL..[[
+To add this weapon to Custom Infusion Visuals, just add the line:
+
+useCustomWeapon[]]..BaseWepIdL..[[] = {mageL, mageR}
+
+To the script under the line with "useCustomWeapon = {}"
+
+You can switch out mageL and mageR with any of the other vfx types which you see in the script.]])
+print(text)
+autoDisable(memrec)
+[disable]
+
+
+</AssemblerScript>
+                </CheatEntry>
                 <CheatEntry>
                   <ID>1337305229</ID>
                   <Description>"Infinite Warmth"</Description>
