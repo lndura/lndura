@@ -6,14 +6,20 @@
       <Description>"&lt;-- Attach Indura's Table"</Description>
       <Color>FF8080</Color>
       <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>//Base Table Created By DiamondEnderman
-//Some Ideas and Addresses Taken from AgRuN and TGA Tables
-//Master Pointer Sheet By The-Raid-Boss
-//Some Functions from inuNorii
-//Customized by Indura.
-//DiamondTable Framework v1.0.6
-//Many thanks to everyone in the ds3 community that made this possible.
+      <AssemblerScript>{$lua}
+if syntaxcheck then return end
 [enable]
+
+--==]]  LAUNCH SETTINGS  [[==--
+
+
+TTS = false   -- Text To Speech on launch.
+MSG = true   -- Message pop up on launch.
+TUD = true   -- Check version on launch.
+WRN = true   -- Warnings on some headers.
+
+
+--==]]                   [[==--
 {$asm}
 //BASES
 define(XA,1F90)    //Incompatible with TGA
@@ -95,14 +101,88 @@ registerSymbol(DamageMan)
 define(MsgRepository,DarkSoulsIII.exe+47972A0) //Incompatible with AgRuN tables
 registersymbol(MsgRepository)
 {$lua}
-if syntaxcheck then return end
-                    --MASTER POINTER SHEET START--
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓--
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
 
+--Attach to game
+OpenProcess("DarkSoulsIII.exe")
+
+if readQword("DarkSoulsIII.exe+47572B8") == nil then
+   showMessage("Launch Game First")
+   local function autoDisable(memrec, delay)
+      delay = math.max(delay or 100, 100)
+
+      if not memrec then end
+
+      local t = createTimer(nil)
+      t.Interval = delay
+      t.OnTimer = function()
+         memrec.active = false
+         t.destroy()
+      end
+   end
+   MSG = false
+   TTS = false
+   autoDisable(memrec, 200)
+end
+
+local TableVersion = "2.5.0"
+local VersionCode = 2.050
+
+local Repository = "https://raw.githubusercontent.com/lndura/lndura/main/getversion"
+local grabLink = getInternet()
+local CurrVers =  grabLink.getURL(Repository)
+local Outdated = [[
+Your Cheat Table is outdated. (]]..TableVersion..[[)
+Check the Github for the latest version.
+
+This Table version code: ]]..VersionCode..[[
+
+Current version code is: ]]..tonumber(CurrVers)..[[
+
+
+The Github link has been copied to clipboard.
+]]
+local Message = [[
+Table Attached To Game.
+Indura's Table v]]..TableVersion..[[
+
+Should the table be updated you will be notified.
+
+Have fun with this dead game.
+-- Indura.
+]]
+local Speech = string.format("Indura's Table Attached To Game "..TableVersion)
+
+-- Check for update if you have the settings for it turned on.
+if TUD then
+   if VersionCode ~= tonumber(CurrVers) then
+      showMessage(Outdated)
+      writeToClipboard([[https://github.com/lndura/lndura/]])
+      --Function for AutoDisabling
+      local function autoDisable(memrec, delay)
+         delay = math.max(delay or 100, 100)
+
+         if not memrec then end
+
+         local t = createTimer(nil)
+         t.Interval = delay
+         t.OnTimer = function()
+            memrec.active = false
+            t.destroy()
+         end
+      end
+      MSG = false
+      TTS = false
+      autoDisable(memrec, 200)
+   end
+end
+grabLink.destroy()
+
+control_setCaption(getMainForm(),"Indura's Table v"..TableVersion)
+if TTS then speak(Speech) end -- Text to speech
+if MSG then showMessage(Message) end -- Message pop up
+
+
+                    --MASTER POINTER SHEET START--
 -------------------------------------------------------------------------------- Built In Game Function Pointers
 hudPtr = "[[GameDataMan]+60]+F91"
 SpeedPtr = "[[[[WorldChrMan]+80]+1F90]+28]+A58"
@@ -298,100 +378,7 @@ doYouOwnDLC1Ptr = "[CsDlc]+11"
 doYouOwnDLC2Ptr = "[CsDlc]+12"
 
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------
---↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑--
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
                       --MASTER POINTER SHEET END--
-
-
---Attach to game
-OpenProcess("DarkSoulsIII.exe")
-
-if readQword("DarkSoulsIII.exe+47572B8") == nil then
-   showMessage("Launch Game First")
-   local function autoDisable(memrec, delay)
-      delay = math.max(delay or 100, 100)
-
-      if not memrec then end
-
-      local t = createTimer(nil)
-      t.Interval = delay
-      t.OnTimer = function()
-         memrec.active = false
-         t.destroy()
-      end
-   end
-   MSG = false
-   TTS = false
-   autoDisable(memrec, 200)
-end
-
---==]]  CHECK VERSION AND LAUNCH SETTINGS  [[==--
-
-TTS = false   -- Text To Speech on launch.
-MSG = true   -- Message pop up on launch.
-TUD = true   -- Check version on launch.
-
-
-local TableVersion = "2.4.1"
-local VersionCode = 2.041
-
---==]]                                     [[==--
-
-local Repository = "https://raw.githubusercontent.com/lndura/lndura/main/getversion"
-local grabLink = getInternet()
-local CurrVers =  grabLink.getURL(Repository)
-local Outdated = [[
-Your Cheat Table is outdated. (]]..TableVersion..[[)
-Check the Github for the latest version.
-
-This Table version code: ]]..VersionCode..[[
-
-Current version code is: ]]..tonumber(CurrVers)..[[
-
-
-The Github link has been copied to clipboard.
-]]
-local Message = [[
-Table Attached To Game.
-Indura's Table v]]..TableVersion..[[
-
-Should the table be updated you will be notified.
-
-Have fun with this dead game.
--- Indura.
-]]
-local Speech = string.format("Indura's Table Attached To Game "..TableVersion)
-
--- Check for update if you have the settings for it turned on.
-if TUD then
-   if VersionCode ~= tonumber(CurrVers) then
-      showMessage(Outdated)
-      writeToClipboard([[https://github.com/lndura/lndura/]])
-      --Function for AutoDisabling
-      local function autoDisable(memrec, delay)
-         delay = math.max(delay or 100, 100)
-
-         if not memrec then end
-
-         local t = createTimer(nil)
-         t.Interval = delay
-         t.OnTimer = function()
-            memrec.active = false
-            t.destroy()
-         end
-      end
-      MSG = false
-      TTS = false
-      autoDisable(memrec, 200)
-   end
-end
-grabLink.destroy()
-
-control_setCaption(getMainForm(),"Indura's Table v"..TableVersion)
-if TTS then speak(Speech) end -- Text to speech
-if MSG then showMessage(Message) end -- Message pop up
 
 --Disable and Enable Records (By ID)
 function enableRecord(ID)
@@ -437,16 +424,13 @@ end
 
 --readbit Function
 function readBit(addr_str, bit)
-    local addr = getAddress(addr_str)
-    if readQword(addr) == nil then
-        return nil
-    end
-    local byteValue = readBytes(addr + (bit &gt;&gt; 3), 1)
-    if byteValue == nil then
-       return nil
-    end
-    local bitValue = (byteValue &gt;&gt; (bit &amp; 7)) &amp; 1
-    return bitValue
+   local addr = getAddress(addr_str)
+   if readQword(addr) == nil or readBytes(addr + (bit &gt;&gt; 3), 1) == nil then
+      return nil
+   else
+      local bitValue = (readBytes(addr + (bit &gt;&gt; 3), 1) &gt;&gt; (bit &amp; 7)) &amp; 1
+      return bitValue
+   end
 end
 
 --inArray Function
@@ -562,33 +546,81 @@ function bonfireWarp(id)
   end
 end
 
--- TeleportPlayer
 function teleportPlayer(x, z, y, a)
-   if readInteger(lvlPtr) ~= nil then
-      if readBit(noDeadPtr, 2) == 1 then
-         createThread(function()
-            writeFloat(player0xCoordPtr, x)
-            writeFloat(player0zCoordPtr, z)
-            writeFloat(player0yCoordPtr, y)
-            writeFloat(player0AnglePtr, a)
-            sleep(50)
-            writeInteger(allDeathCamPtr, 0)
-         end)
-      else
-         createThread(function()
-            writeBit(noDeadPtr, 2, 1)
-            sleep(25)
-            writeFloat(player0xCoordPtr, x)
-            writeFloat(player0zCoordPtr, z)
-            writeFloat(player0yCoordPtr, y)
-            writeFloat(player0AnglePtr, a)
-            sleep(50)
-            writeBit(noDeadPtr, 2, 0)
-            writeInteger(allDeathCamPtr, 0)
-         end)
+   local pos = {x,z,y,a}
+   local base = "[[[WorldChrMan]+40]+28]+"
+   local offs = {"80","84","88","74"}
+
+   if readFloat(base..offs[1]) ~= nil then
+      local initHealth = readInteger(player0HealthPtr)
+      local initGravity = readBit(noGravityPtr, 6)
+      local initNoDead = readBit(noDeadPtr, 2)
+      local initSpeed = readFloat(SpeedPtr)
+
+      writeBit(noGravityPtr, 6, 1)
+      writeBit(noDeadPtr, 2, 1)
+      writeFloat(SpeedPtr, 0)
+      for i = 1,4,1 do
+         for c = 1,4,1 do
+            writeFloat(base..offs[c], pos[c])
+         end
       end
+      writeInteger(player0HealthPtr,initHealth)
+      writeBit(noGravityPtr, 6, initGravity)
+      writeBit(noDeadPtr, 2, initNoDead)
+      writeFloat(SpeedPtr, initSpeed)
+      writeInteger(allDeathCamPtr, 0)
+   else
+      return print("Error Fetching Addresses")
    end
 end
+
+-- Kills All Mobs
+-- Made by InuNorii
+-- Big Thanks for making the LUA vers.
+-- Saves a headache from the ASM one.
+function killAllMobs()
+   local WorldChrMan = readPointer("WorldChrMan")
+   local SprjSessionManager = readPointer("SprjSessionManager")
+
+   local kill_list = {
+	  '1300', '1360', '1370', '1446', '1441', '2020', '2270', '2271', '1032', '1100', '2021', '1105', '1280',
+      '1282', '1240', '1200', '1230', '1260', '3090', '2110', '2280', '1440', '1250', '1340', '2190', '1102',
+      '3020', '5226', '5227', '5225', '1390', '1391', '1410', '3220', '1170', '1070', '1180', '2130', '2030',
+      '1350', '5240', '2100', '3070', '2132', '1211', '1310', '3230', '2140', '1470', '1430', '2210', '1210',
+      '3170', '1445', '5223', '1281', '1190', '6000', '6090', '6050', '6060', '6100', '6080', '6040', '6130',
+      '6081', '6070', '6230', '6231', '6320', '6250', '1283', '6240', '1201', '1071', '6280', '6260', '6070',
+      '6290', '6330', '6331', '3210', '2290', '1130', '3120', '2150', '3100', '1220', '2131', '2180', '2060',
+      '2230', '2070', '1241', '2191', '2040', '1442', '1090', '1101', '1106', '3141', '1380', '2080', '6270',
+      }
+
+   local function kill(ptr)
+	  local chr_count = readInteger(ptr)
+	  local ChrSet = readPointer(ptr + 0x8)
+	  for i=1, chr_count do
+		 local EnemyIns = readPointer(ChrSet + i * 0x38)
+		 if EnemyIns ~= nil then
+			local ChrModules = readPointer(EnemyIns + 0x1F90)
+			if ChrModules ~= nil then
+			   local SprjChrDataModule = readPointer(ChrModules + 0x18)
+			   if SprjChrDataModule ~= nil then
+			      local id = readString(SprjChrDataModule + 0x132, 8, true)
+				  local hp = SprjChrDataModule + 0xD8
+				  if inArray(kill_list, id) then
+				     writeInteger(hp, 0)
+				  end
+			   end
+		    end
+		 end
+	  end
+   end
+
+   if readInteger(SprjSessionManager + 0x16C) &lt; 4 then
+	  kill(readPointer(WorldChrMan + 0x1D0))
+	  kill(readPointer(WorldChrMan + 0x1E8))
+   end
+end
+--]]
 
 local DependencyList = {
 1337305355, -- Param Patcher Initializer
@@ -962,6 +994,19 @@ for i,bullet in ipairs(UnusedBullets) do
 end
 [disable]
 paramUtils:restore("UMB")
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1337305879</ID>
+              <Description>"Remove Low Framerate Offline Protection"</Description>
+              <Color>FFD5AA</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[enable]
+setAssemblyFlag(FramerateDisconnect, 1)
+[disable]
+setAssemblyFlag(FramerateDisconnect, 0)
 </AssemblerScript>
             </CheatEntry>
           </CheatEntries>
@@ -1568,7 +1613,6 @@ end
 -- destoy all timers
 DetectWexEffect.destroy()
 WexItemTimer.destroy()
-wexInvasionTimer.destroy()
 paramUtils:restore("WexDust") -- unpatch
 if readInteger(lvlPtr) ~= nil and readByte("[SprjSessionManager]-1040") ~= 0 then -- Prevents Loading screen crash
    applyEffect(11)
@@ -1644,24 +1688,28 @@ killAllMobs()
                   <Description>"Automatically Host At Pontiff"</Description>
                   <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
-                  <AssemblerScript>{$lua}
+                  <AssemblerScript>{
+    Example Host At Pontiff Script
+    You can change this for any area you want.
+}
+{$lua}
 if syntaxcheck then return end
 [ENABLE]
 local Bonfire = 3702951  -- You can Change this to the bonfire you need
-local Areas = { -- You can Change these
-370006,
-370010
-}
+local Areas = { -- You can Change these to the area's you need.
+   370006,
+   370010
+   }
 local Coords = { -- You can Change these to any other coords you need
-x = 557,
-z = -183.2,
-y = -1115
-}
+   x = 557,
+   z = -183.2,
+   y = -1115
+   }
 local Effects = { -- You can Change these to whatever you want
-103520000, -- Tears ; this should be the right one.
-9400,      -- Moundmaker VFX
-28,        -- Dry Finger
-}
+   103520000, -- Tears ; If this one doesn't work for you then fuck u ig.
+   9400,      -- Moundmaker VFX
+   28,        -- Dry Finger
+   }
 
 
 if readInteger(areaForOnlinePlayPtr) ~= nil
@@ -1670,8 +1718,8 @@ and readInteger(areaForOnlinePlayPtr) ~= Areas[1]
 and readInteger(areaForOnlinePlayPtr) ~= Areas[2] then -- Checks Area
    bonfireWarp(Bonfire) -- if youre not at pontiff, warp there
 elseif readInteger(lvlPtr) ~= nil then
-playAnimation('W_DeathStart') -- Force a random anim
-writeInteger(idleAnimPtr,63000) -- Play Anim
+   playAnimation('W_DeathStart') -- Force a random anim
+   writeInteger(idleAnimPtr,63000) -- Play Anim
 end
 
 HostingPontiffTimer = createTimer(getMainForm())
@@ -1683,7 +1731,7 @@ HostingPontiffTimer.OnTimer = function()
          ItemGib:new() -- Create New Itemgib Thread
          ItemGib:spawnMultiItems(customRestockedItems) -- Spawn Said Items
          killAllMobs() -- Kills all non-unique enemies
-         teleportPlayer(Coords.x, Coords.z, Coords.y) -- Teleports Player
+         teleportPlayer(Coords.x, Coords.z, Coords.y,readFloat(player0AnglePtr)) -- Teleports Player
          writeByte(emberPtr, 1) -- Enable Ember
          applyEffect(Effects)   -- Apply Effects
       end
@@ -2071,7 +2119,7 @@ by Indura
 [enable]
 if syntaxcheck then return end
 autoDisable(memrec)
-teleportPlayer(557, -183.2, -1115)
+teleportPlayer(557, -183.2, -1115,readFloat(player0AnglePtr))
 [disable]
 
 
@@ -2089,7 +2137,7 @@ Indura's TP
 [enable]
 if syntaxcheck then return end
 autoDisable(memrec)
-teleportPlayer(459, -218.55, -1185.63)
+teleportPlayer(459, -218.55, -1185.63,readFloat(player0AnglePtr))
 [disable]
 
 </AssemblerScript>
@@ -2106,7 +2154,7 @@ Indura's TP
 [enable]
 if syntaxcheck then return end
 autoDisable(memrec)
-teleportPlayer(400, -221.75, -1236)
+teleportPlayer(400, -221.75, -1236,readFloat(player0AnglePtr))
 [disable]
 
 
@@ -2124,7 +2172,7 @@ Indura's TP
 [enable]
 if syntaxcheck then return end
 autoDisable(memrec)
-teleportPlayer(127.69, -169.11, -313.54)
+teleportPlayer(127.69, -169.11, -313.54,readFloat(player0AnglePtr))
 [disable]
 
 </AssemblerScript>
@@ -2140,6 +2188,208 @@ teleportPlayer(127.69, -169.11, -313.54)
           <Color>FF40FF</Color>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
+            <CheatEntry>
+              <ID>1337305875</ID>
+              <Description>"Session Info UI"</Description>
+              <Color>FF80FF</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+    A shitty session info window by Indura.
+
+}
+{$lua}
+if syntaxcheck then return end
+[enable]
+local Theme = 0x000000
+
+f = createForm(true)
+f.Caption = "Session Info"
+f.Width = 1060
+f.Height = 407
+f.Color = Theme
+f.centerScreen()
+
+local teamDescs = {"None","Host","Phantom","Black Phantom","Hollow","","Enemy","Boss (giants, big lizard)","Friend","AngryFriend","DecoyEnemy","BloodChild","BattleFriend","Dragon","","","Dark Spirit","Watchdog of Farron","Aldrich Faithful","","","","","","Darkwraiths","","NPC","Hostile NPC","","Arena","","Mad Phantom","Mad Spirit","Giant Crabs &amp; Dragons"}
+local charDescs = {"Host","White Phantom","Dark Spirit","Ghost","Ghost","","","","Hollow","","","Transparent","Invisible","Dragon","Arena"}
+local coveDescs = {"None","Darkmoon Blade","Warrior of Sunlight","Mound Maker","Spear of the Church","Rosaria's Finger","Watchdog of Farron","Aldrich Faithful","Way of Blue","Blue Sentinel"}
+local buttDescs = {"Copy Steam Profile","Show Player Camera"}
+local buttMemrs = {{1337291628,1337286784},{1337291629,1337286785},{1337291630,1337286786},{1337291631,1337286783},{1337291632,1337286782},}
+local panelArray = {{((f.Width-60)/5),(f.Height-20),010,10},{((f.Width-60)/5),(f.Height-20),220,10},{((f.Width-60)/5),(f.Height-20),430,10},{((f.Width-60)/5),(f.Height-20),640,10},{((f.Width-60)/5),(f.Height-20),850,10}}
+local statsArray = {{"NAME",0xFFFFFF},{"Health:",0xFFFFFF},{"Team:",0xFFFFFF},{"Type:",0xFFFFFF},{"Cov:",0xFFFFFF},{"Level:",0xFFFFFF},{"VIG:",0x6666FF},{"ATT:",0xFF6666},{"END:",0x66FF66},{"VIT:",0xF0F0F0},{"STR:",0xF0F0F0},{"DEX:",0xF0F0F0},{"INT:",0xFFF176},{"FTH:",0x0080FF},{"LCK:",0xD4A4C8}}
+
+local mpOffs = {"38","70","A8","E0","118"}
+local addr = "[[[WorldChrMan]+40]+"
+local pre = "["
+local single = "]+"
+local double = "]+1FA0]+"
+local stOffs = {Name = "88",Health = "18",Oath = "F7",Stats = {"70","44","48","4C","6C","50","54","58","5C","60"},Steam = "7D8",Char = "70",Team = "74"}
+
+local function controlForm(panel,settings)
+   panel.Width = settings[1]
+   panel.Height = settings[2]
+   panel.Left = settings[3]
+   panel.Top = settings[4]
+end
+
+local function controlText(text,left,top,capt,color, size)
+   text.Left = left
+   text.Top = top
+   text.Caption = capt
+   text.Font.Color = color
+   text.Font.Size = size
+end
+
+local function sBase(slot, arg)
+   local address = addr .. mpOffs[slot] .. single .. arg
+   return tostring(address)
+end
+
+local function dBase(slot, arg)
+   local address = pre .. addr .. mpOffs[slot] .. double .. arg
+   return tostring(address)
+end
+
+local function getName(slot)
+   local records = {1337202769,1337202825,1337202882,1337202939,1337202996,}
+   local record = getAddressList().getMemoryRecordByID(records[slot])
+   if record ~= nil then
+      local name = record.Value
+      return name
+   else
+      local name = "Slot "..slot.." Empty"
+      return name
+   end
+end
+
+local function isExist(slot)
+   local check = readString(dBase(slot,stOffs.Name))
+   if check == nil then
+      return false
+   else
+      return true
+   end
+end
+
+local function getData(slot)
+   local data = {}
+   data[1] = getName(slot)
+   data[2] = readInteger(dBase(slot,stOffs.Health))
+   data[3] = charDescs[readInteger(sBase(slot,stOffs.Char))+1]
+   data[4] = teamDescs[readInteger(sBase(slot,stOffs.Team))+1]
+   data[5] = coveDescs[readInteger(dBase(slot,stOffs.Oath))+1]
+   for i = 6,15,1 do
+      data[i] = readInteger(dBase(slot,stOffs.Stats[(i-5)]))
+   end
+   return data
+end
+
+local function disMem(arg)
+   for i = 1,5 do
+      local record = getAddressList().getMemoryRecordByID(buttMemrs[i][arg])
+      record.active = false
+   end
+end
+
+local teamtype = {}
+for i = 1,#teamDescs,1 do
+   teamtype[(i-1)] = teamDescs[i]
+end
+local character = {}
+for i = 1,#charDescs,1 do
+   character[(i-1)] = charDescs[i]
+end
+local covenants = {}
+for i = 1,#coveDescs,1 do
+   covenants[(i-1)] = coveDescs[i]
+end
+
+local panel = {}
+local distext = {}
+local playerinfo = {}
+local playertext = {{},{},{},{},{}}
+
+for p = 1,#panelArray do
+   panel[p] = createPanel(f);
+   panel[p].color = Theme
+   controlForm(panel[p],panelArray[p])
+
+   playertext[p][1] = createLabel(panel[p]);
+   controlText(playertext[p][1],10,2,"Slot "..p.." Empty",statsArray[1][2],16)
+
+   for d = 2,6 do
+      distext[d] = createLabel(panel[p]);
+      controlText(distext[d],10,22+(17*(d-1)),statsArray[d][1],statsArray[d][2],10)
+
+      playertext[p][d] = createLabel(panel[p]);
+      controlText(playertext[p][d],60,22+(17*(d-1)),"Slot "..p.." Empty",statsArray[d][2],10)
+   end
+
+   for d = 7,15 do
+      distext[d] = createLabel(panel[p]);
+      controlText(distext[d],10,30+(17*(d-1)),statsArray[d][1],statsArray[d][2],10)
+
+      playertext[p][d] = createLabel(panel[p]);
+      controlText(playertext[p][d],60,30+(17*(d-1)),"Slot "..p.." Empty",statsArray[d][2],10)
+   end
+
+   for e = 1,2 do
+      playerinfo[e] = createButton(panel[p]);
+      controlForm(playerinfo[e],{180,40,10,(f.Height-30)-(e*40)})
+      playerinfo[e].Font.Size = 12
+      playerinfo[e].Caption = buttDescs[e]
+      playerinfo[e].OnClick = function()
+         if isExist(p) then
+            local record = getAddressList().getMemoryRecordByID(buttMemrs[p][e])
+            if not record.active then
+               disMem(e)
+               record.active = true
+            else
+               record.active = false
+            end
+         else
+            disMem(e)
+         end
+      end
+   end
+end
+
+updateUI = createTimer(getMainForm())
+updateUI.Interval = 200
+updateUI.OnTimer = function()
+   for p = 1,5 do
+      if isExist(p) then
+         local data = getData(p)
+         for v = 1,15,1 do
+            playertext[p][v].Caption = data[v]
+         end
+      else
+         for v = 1,15,1 do
+            playertext[p][v].Caption = "Slot "..p.." Empty"
+         end
+         local record = getAddressList().getMemoryRecordByID(buttMemrs[p][2])
+         if record.active then record.active = false end
+      end
+   end
+end
+
+f.OnClose = function()
+   local function autoDisable(memrec, delay)
+      delay = math.max(delay or 100, 100)
+      if not memrec then end
+         local t = createTimer(nil)
+         t.Interval = delay
+         t.OnTimer = function()
+         memrec.active = false
+         t.destroy()
+      end
+   end
+   autoDisable(memrec,150)
+end
+[disable]
+f.destroy()
+updateUI.destroy()
+</AssemblerScript>
+            </CheatEntry>
             <CheatEntry>
               <ID>1009</ID>
               <Description>"Player Camera "</Description>
@@ -2576,7 +2826,7 @@ autoDisable(memrec)
                     <CheatEntry>
                       <ID>1337202781</ID>
                       <Description>"Covenant"</Description>
-                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:None
+                      <DropDownList ReadOnly="1" DisplayValueAsItem="1">0:None
 1:Blade of the Darkmoon
 2:Warriors of sunlight
 3:Mound Makers
@@ -13077,7 +13327,8 @@ autoDisable(memrec)
           <AssemblerScript>{$lua}
 if syntaxcheck then return end
 [ENABLE]
-showMessage("Only edit these values if you know what you are doing.")
+local text = "Only edit these values if you know what you are doing."
+if WRN then showMessage(text) else end
 [DISABLE]
 
 
@@ -13180,7 +13431,8 @@ showMessage("Only edit these values if you know what you are doing.")
             <CheatEntry>
               <ID>1337256687</ID>
               <Description>"Team Type"</Description>
-              <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">1:Host
+              <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">0:None
+1:Host
 2:Phantom
 3:Black Phantom
 4:Hollow
@@ -13202,7 +13454,6 @@ showMessage("Only edit these values if you know what you are doing.")
 31:Mad Phantom
 32:Mad Spirit
 33:Giant crabs,Dragons from Lothric castle
-0:None
 </DropDownList>
               <Color>A28DF1</Color>
               <VariableType>4 Bytes</VariableType>
@@ -21644,7 +21895,7 @@ NoCostLevelup:stop()
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337305436</ID>
-                  <Description>"No Upgrade Materials Use"</Description>
+                  <Description>"No Upgrade Materials Consume"</Description>
                   <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{
@@ -21713,6 +21964,42 @@ if not syntaxcheck then autoDisable(memrec) end
 {$asm}
 [DISABLE]
 dealloc(BonfireAttuneSpell)
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305881</ID>
+                  <Description>"Reinforce Weapon Menu"</Description>
+                  <Color>80FFFF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+aobscanmodule(RWLoop_Call,$process,81 f9 f3 01 00 00 77 ?? 48 8b ?? ?? ?? ?? ?? 48 63 c9)
+aobscanmodule(RW_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 09 00 00 00)
+alloc(BsmReinforceWeapon,100,DarkSoulsIII.exe)
+createthread(BsmReinforceWeapon)
+
+BsmReinforceWeapon:
+mov ebx,E8
+loop:
+mov edx,1
+mov ecx,ebx
+call RWLoop_Call
+inc ebx
+cmp ebx,EB
+jle loop
+sub rsp,48
+mov rcx,RW_Call_Call
+movsxd rcx,dword ptr [rcx]
+mov rax,RW_Call_Call+4
+add rax,rcx
+lea rcx,[rsp+28]
+call rax
+add rsp,48
+ret
+{$lua}
+if not syntaxcheck then autoDisable(memrec) end
+{$asm}
+[DISABLE]
+dealloc(BsmReinforceWeapon)
 </AssemblerScript>
                 </CheatEntry>
                 <CheatEntry>
@@ -21910,24 +22197,25 @@ local EquipInventoryData = getAddress(PlayerGameData + 0x3D0)
 local removeItemAOB = AOBScanModuleUnique(process,"?? 83 ec ?? 8b f2 ?? 8b e9 ?? 85 c0 74")-8
 local slotCount = readInteger(EquipInventoryData + 0x20)
 
-local items = {
-0x40000067,
-0x40000077,
-0x40000075,
-0x40000096,
-0x400000BE,
-}
+local items = {0x40000067,0x40000077,0x40000075,0x40000096,0x400000BE,}
 
 createThread(function()
+   print("Thread Start")
+   playAnimation('W_BackStepNomal')
+   writeInteger(idleAnimPtr,90700)
    for idx = 0,slotCount do
       local tailDataIdx = EquipInventoryData + 0x24
       local invSlot = idx + readInteger(tailDataIdx)
       executeCodeEx(0, 100, removeItemAOB, EquipInventoryData, invSlot, 1)
    end
+   print("Inventory Removed")
    sleep(5000)
    ItemGib:new()
    ItemGib:quantity(1)
    ItemGib:spawnMultiItems(items)
+   print("Key Items Spawned")
+   writeInteger(idleAnimPtr,0)
+   print("Thread End")
 end)
 autoDisable(memrec)
 [DISABLE]
@@ -21984,145 +22272,62 @@ dw 0041 001F //Stretch out
 dw 0043 0020 //Path of the Dragon
 ]])
 
-autoAssemble(assembly)
+local single = { -- Featuring Key Items, Rings and Covenants.
+0x40000067,0x40000077,0x40000075,0x400000AB,0x400000D3,0x20004E23,0x20004FBA,
+0x20004E2D,0x20004E37,0x20004E41,0x20005046,0x20004E4B,0x20004E68,0x20004E54,
+0x20004E5E,0x20004E72,0x20005082,0x20004F4C,0x20004EE8,0x20004F9C,0x20005000,
+0x20004ECA,0x20004ED4,0x200050B4,0x200050BE,0x20004FC4,0x20004FC4,0x200050DC,
+0x20005064,0x20004EC0,0x20004F42,0x20002710,0x20002724,0x2000272E,0x20002738,
+0x20002742,0x2000274C,0x20002756,0x20002760,0x2000276A,0x40000064,0x40000065,
+0x40000066,0x4000013B}
 
-local single = {
--- Black crystal etc
-0x40000067, -- Black Crystal
-0x40000077, -- Way of White Circlet
-0x40000075, -- Dark Sign
-0x400000AB, -- Estus +10
-0x400000D3, -- Ashen +10
--- Rings
-0x20004E23, -- Life Ring+3
-0x20004FBA, -- Sun Princess Ring
-0x20004E2D, -- Chloranthy Ring +3
-0x20004E37, -- Havel's Ring +3
-0x20004E41, -- Ring of Favor +3
-0x20005046, -- Prisoner's Chain
-0x20004E4B, -- Ring of Steel Protection +3
-0x20004E68, -- Magic Stoneplate Ring+2
-0x20004E54, -- Flame Stoneplate Ring+2
-0x20004E5E, -- Thunder Stoneplate Ring+2
-0x20004E72, -- Dark Stoneplate Ring+2
-0x20005082, -- Farron Ring
-0x20004F4C, -- Dusk Crown Ring
-0x20004EE8, -- Leo Ring
-0x20004F9C, -- Hornet Ring
-0x20005000, -- Knight Slayer's Ring
-0x20004ECA, -- Red Tearstone Ring
-0x20004ED4, -- Blue Tearstone Ring
-0x200050B4, -- Lloyd's Sword Ring
-0x200050BE, -- Lloyd's Shield Ring
-0x20004FC4, -- Silvercat Ring
-0x20004FC4, -- Silvercat Ring 2
-0x200050DC, -- Estus Ring
-0x20005064, -- Obscuring Ring
-0x20004EC0, -- Priestess Ring
-0x20004F42, -- Slumbering Dragoncrest Ring
--- Covenants
-0x20002710, -- Blade of the Darkmoon
-0x20002724, -- Watchdogs of Farron
-0x2000272E, -- Aldrich Faithful
-0x20002738, -- Warrior of Sunlight
-0x20002742, -- Mound-makers
-0x2000274C, -- Way of Blue
-0x20002756, -- Blue Sentinels
-0x20002760, -- Rosaria's Fingers
-0x2000276A, -- Spear of the Church
--- Other
-0x40000066, -- Red Eye Orb
-0x4000013B, -- Church Guardian Shiv
-}
-
-local multi = {
--- consumables
-0x400000F0,--Divine Blessing
-0x400000F1,--Hidden Blessing
-0x40000104,--Green Blossom
-0x40000106,--Budding Green Blossom (Sirris Questline)
-0x40000105,--Budding Green Blossom
-0x4000010E,--Bloodred Moss Clump
-0x4000010F,--Purple Moss Clump
-0x40000110,--Blooming Purple Moss Clump
-0x40000114,--Rime-blue Moss Clump
-0x40000118,--Repair Powder
-0x40000122,--Kukri
-0x40000124,--Firebomb
-0x40000125,--Dung Pie
-0x40000128,--Undead Hunter Charm
-0x40000129,--Black Firebomb
-0x4000012B,--Rope Firebomb
-0x4000012C,--Lightning Urn
-0x4000012E,--Rope Black Firebomb
-0x4000012F,--Stalk Dung Pie
-0x40000130,--Duel Charm
-0x40000136,--Throwing Knife
-0x40000137,--Poison Throwing Knife
-0x4000014A,--Charcoal Pine Resin
-0x4000014B,--Gold Pine Resin
-0x4000014E,--Human Pine Resin
-0x4000014F,--Carthus Rouge
-0x40000150,--Pale Pine Resin
-0x40000154,--Charcoal Pine Bundle
-0x40000155,--Gold Pine Bundle
-0x40000157,--Rotten Pine Resin
-0x40000172,--Prism Stone
-0x400001A4,--Soul of a Great Champion
-0x400001C4,--Mossfruit
-0x400001CF,--Young White Branch
-0x400001C6,--Young White Branch
-0x400001C8,--Siegbräu
-0x400001CA,--Blue Bug Pellet
-0x400001CB,--Red Bug Pellet
-0x400001CC,--Yellow Bug Pellet
-0x400001CD,--Black Bug Pellet
-0x00061A80,--Standard Arrow
-0x00061AE4,--Fire Arrow
-0x00061B48,--Poison Arrow
-0x00061BAC,--Large Arrow
-0x00061C10,--Feather Arrow
-0x00061C74,--Moonlight Arrow
-0x00061CD8,--Wood Arrow
-0x00061D3C,--Dark Arrow
-0x00062250,--Dragonslayer Greatarrow
-0x00062318,--Dragonslayer Lightning Arrow
-0x0006237C,--Onislayer Greatarrow
-0x000623E0,--Millwood Greatarrow
-0x00062A20,--Standard Bolt
-0x00062A84,--Heavy Bolt
-0x00062AE8,--Sniper Bolt
-0x00062B4C,--Wood Bolt
-0x00062BB0,--Lightning Bolt
-0x00062C14,--Splintering Bolt
-0x00062C78,--Exploding Bolt
-}
+local multi = { -- Featuring Consumables
+0x400000F0,0x400000F1,0x40000104,0x40000106,0x40000105,0x4000010E,0x4000010F,
+0x40000110,0x40000114,0x40000118,0x40000122,0x40000124,0x40000125,0x40000128,
+0x40000129,0x4000012B,0x4000012C,0x4000012E,0x4000012F,0x40000130,0x40000136,
+0x40000137,0x4000014A,0x4000014B,0x4000014E,0x4000014F,0x40000150,0x40000154,
+0x40000155,0x40000157,0x40000172,0x400001A4,0x400001C4,0x400001CF,0x400001C6,
+0x400001C8,0x400001CA,0x400001CB,0x400001CC,0x400001CD,0x00061A80,0x00061AE4,
+0x00061B48,0x00061BAC,0x00061C10,0x00061C74,0x00061CD8,0x00061D3C,0x00062250,
+0x00062318,0x0006237C,0x000623E0,0x00062A20,0x00062A84,0x00062AE8,0x00062B4C,
+0x00062BB0,0x00062C14,0x00062C78,0x40000181}
 
 createThread(function()
+   print("Thread Start")
    playAnimation('W_BackStepNomal')
    writeInteger(idleAnimPtr,90700)
    executeCodeEx(0, 100, "DarkSoulsIII.exe+5A5410", readPointer("[[WorldChrMan]+80]+XB"), 999999999)
+   print("Souls Given")
    sleep(200)
    autoAssemble(assembly)
-   for idx = 0,slotCount do
+   print("Emotes Unlocked")
+   sleep(200)
+   for i = 0,slotCount do
       local tailDataIdx = EquipInventoryData + 0x24
-      local invSlot = idx + readInteger(tailDataIdx)
+      local invSlot = i + readInteger(tailDataIdx)
       executeCodeEx(0, 100, removeItemAOB, EquipInventoryData, invSlot, 1)
    end
+   print("Inventory Removed")
    sleep(5000)
    ItemGib:new()
    ItemGib:quantity(1)
    ItemGib:spawnMultiItems(single)
+   print("All Single Items Spawned")
    sleep(200)
    ItemGib:new()
    ItemGib:spawnMultiItems(multi)
+   print("All Multi Items Spawned")
    sleep(200)
    writeInteger(estusMaxPtr, 12)
    writeInteger(ashenEstusMaxPtr, 3)
+   print("Estus Set To Max Level")
    sleep(200)
    executeCode(AOBScanModuleUnique(process,"?? 89 5c ?? ?? 57 ?? 83 ec ?? ?? 8b 05 ?? ?? ?? ?? 0f b6 da 8b f9"))
+   print("Game Saved")
    sleep(3000)
    bonfireWarp(4002950)
+   print("Warping to Firelink Shrine")
+   print("Thread End")
 end)
 autoDisable(memrec)
 [DISABLE]
@@ -22408,18 +22613,16 @@ removeEffect(11920)
               <Options moHideChildren="1"/>
               <Color>00D500</Color>
               <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-{
-I have not made any of these and all credits go to the original makers.
-- Indura
-}
+              <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[ENABLE]
+local text = [[
+While these didn't ban me personally, some people have reported getting banned after using these.
+
+So be carefull and don't hold me responsible for any bans.
+]]
+if WRN then showMessage(text) else end
 [DISABLE]
-
-
-
-
-
-
 </AssemblerScript>
               <CheatEntries>
                 <CheatEntry>
@@ -22453,23 +22656,10 @@ paramUtils:restore("LodEdit")
 </AssemblerScript>
                 </CheatEntry>
                 <CheatEntry>
-                  <ID>1337305528</ID>
+                  <ID>1337305876</ID>
                   <Description>"Grid Maps"</Description>
-                  <Options moHideChildren="1"/>
-                  <Color>80FF00</Color>
-                  <VariableType>Auto Assembler Script</VariableType>
-                  <AssemblerScript>{$lua}
-if syntaxcheck then return end
-[ENABLE]
-showMessage("While these didn't ban me personally, some people have reported getting banned after using these. So be carefull and don't hold me responsible for any bans.")
-[DISABLE]
-
-
-
-
-
-
-</AssemblerScript>
+                  <Color>00D500</Color>
+                  <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337305529</ID>
@@ -24972,9 +25162,9 @@ dd (float)2.0 (float)2.0 (float)2.0 // Normally 1.0 | 1.0 | 1.0
                   <Description>"Mask Current Armor"</Description>
                   <Color>80FF00</Color>
                   <VariableType>Auto Assembler Script</VariableType>
-                  <AssemblerScript>// By Indura
+                  <AssemblerScript>{
+By Indura
 
-{
 If you want a list of the model ID's, you can find them here:
 
 https://gist.github.com/MaxTheMiracle/8a55333ebaf454b97195aecb0563ebd8
@@ -25013,6 +25203,82 @@ for i= 1,4,1 do
 end
 [DISABLE]
 paramUtils:restore("CustomMasks")
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1337305877</ID>
+                  <Description>"Custom Masks (See Script)"</Description>
+                  <Color>80FF00</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>// By Indura
+
+{
+If you want a list of the model ID's, you can find them here:
+
+https://gist.github.com/MaxTheMiracle/8a55333ebaf454b97195aecb0563ebd8
+
+Grab the entire string and only take the ID at the end.
+Put it in the masks array and it will be visually changed to it.
+
+ID List:
+https://gist.github.com/MaxTheMiracle/8a55333ebaf454b97195aecb0563ebd8
+}
+{$lua}
+if syntaxcheck then return end
+[ENABLE]
+--[[
+      Masks are formatted as:
+      {ITEMHEXID,MASKID}
+      Example:
+      {0xAB01CD23,1234}
+      This would put Model ID 1234 on item 0xAB01CD23
+      You can change the mask here:
+
+--]]
+local weps = { -- Change Weapon Models
+{0x007EF400,0605}, -- Change Ledo's to Gugs
+
+-- All infusions have different ID's
+{0x005BDBA0,0634}, -- Claymore to Firelink GS
+{0x005BDC04,0634}, -- Claymore to Firelink GS
+{0x005BDC68,0634}, -- Claymore to Firelink GS
+{0x005BDCCC,0634}, -- Claymore to Firelink GS
+{0x005BDD30,0634}, -- Claymore to Firelink GS
+{0x005BDD94,0634}, -- Claymore to Firelink GS
+{0x005BDDF8,0634}, -- Claymore to Firelink GS
+{0x005BDE5C,0630}, -- Claymore to Firelink GS
+{0x005BDEC0,0634}, -- Claymore to Firelink GS
+{0x005BDF24,0634}, -- Claymore to Firelink GS
+{0x005BDF88,0634}, -- Claymore to Firelink GS
+{0x005BDFEC,0634}, -- Claymore to Firelink GS
+{0x005BE050,0634}, -- Claymore to Firelink GS
+{0x005BE0B4,0634}, -- Claymore to Firelink GS
+{0x005BE118,0634}, -- Claymore to Firelink GS
+{0x005BE17C,0634}, -- Claymore to Firelink GS
+
+{0x00609690,0115}, -- Drakeblood GS to Murky (For DrakeBlood NPC)
+}
+
+local prot = { -- Change Armor Models
+{0x153EC600,3200}, -- DrakeBlood Helmet to Lapp Helmet
+{0x153EC9E8,3200}, -- DrakeBlood Armor to Lapp Armor
+{0x153ECDD0,3200}, -- DrakeBlood Gauntlets to Lapp Gauntlets
+{0x153ED1B8,3200}, -- DrakeBlood Leggings to Lapp Leggings
+}
+
+--[[
+      Dont touch below unless you know what you are doing.
+--]]
+for i = 1,#weps do
+   local weaponEdit = EquipParamWeapon:new("CustomInputMasks",weps[i][1])
+   weaponEdit:equipModelId(weps[i][2])
+end
+for i = 1,#prot do
+   local protectorEdit = EquipParamProtector:new("CustomInputMasks",prot[i][1])
+   protectorEdit:equipModelId(prot[i][2])
+end
+[DISABLE]
+paramUtils:restore("CustomInputMasks")
 </AssemblerScript>
                 </CheatEntry>
                 <CheatEntry>
@@ -25620,7 +25886,7 @@ removeEffect(41)
             </CheatEntry>
             <CheatEntry>
               <ID>1337305462</ID>
-              <Description>"Untrue Dark Ring Effect"</Description>
+              <Description>"Untrue Dark Ring"</Description>
               <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
               <Color>80FF00</Color>
               <VariableType>Auto Assembler Script</VariableType>
@@ -25687,9 +25953,9 @@ QuickAccessFunctions.getMemoryRecordByDescription("Numpad Hotkeys Scripts ↓").
 if syntaxcheck then return end
 [enable]
 createThread(function()
-writeByte(severConnectionsPtr, 1)
-sleep(100)
-writeByte(severConnectionsPtr, 0)
+   writeByte(severConnectionsPtr,1)
+   sleep(100)
+   writeByte(severConnectionsPtr,0)
 end)
 autoDisable(memrec)
 [disable]
@@ -25741,7 +26007,7 @@ autoDisable(memrec)
 </AssemblerScript>
                   <Hotkeys>
                     <Hotkey>
-                      <Action>Activate</Action>
+                      <Action>Toggle Activation</Action>
                       <Keys>
                         <Key>98</Key>
                       </Keys>
@@ -25782,8 +26048,9 @@ writeInteger(idleAnimPtr,0)
                   <AssemblerScript>[ENABLE]
 {$lua}
 if not syntaxcheck then
+playAnimation('W_BackStepOverweight')
+writeInteger(idleAnimPtr,0)
 applyEffect(33)
---playAnimation('W_DeathStart')
 end
 autoDisable(memrec)
 [DISABLE]
@@ -28377,7 +28644,7 @@ autoDisable(memrec)
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337305229</ID>
-                  <Description>"Infinite Warmth"</Description>
+                  <Description>"Infinite Warmth Moss"</Description>
                   <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{Author: The-Raid-Boss
@@ -28414,7 +28681,7 @@ paramUtils:restore("HealingStation")
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
 [enable]
---[[KEEPS PLAYER UNEMBERED]]--
+--==]]  KEEPS PLAYER UNEMBERED   [[==--
 emberCheck = createTimer(getMainForm())
 emberCheck.Interval = 1000
 emberCheck.OnTimer = function()
@@ -39029,7 +39296,7 @@ unregistersymbol(MassGibDone)
                           <AssemblerScript>{$lua}
 if not syntaxcheck then end
 [ENABLE]
-RemoveFPSDisconnect = {
+FramerateDisconnect = {
    enable = [[
       define(FpsDisconnect,DarkSoulsIII.exe+DEDD00)
       registerSymbol(FpsDisconnect)
@@ -39134,86 +39401,6 @@ EquipDurability = {
    ]]
 }
 
---Kill All Mobs ASM
-killAllMobsStart = [[
-   alloc(KillAllMobs,$1000,DarkSoulsIII.exe)
-   createthread(KillAllMobs)
-
-   KillAllMobs:
-   mov rdx,[WorldChrMan]
-   mov rdx,[rdx+000001D0]
-   mov ebx,[rdx]
-   mov rdx,[rdx+08]
-   mov rsi,[SprjSessionManager]
-   lea r8,[KillList]
-   xor r9,r9
-   loopcode:
-   xor r10,r10
-   cmp dword ptr [rsi+0000016C],4
-   jnl short end
-   test ebx,ebx
-   je short end
-   dec ebx
-   imul eax,r9d,38
-   inc r9
-   mov rcx,[rax+rdx]
-   test rcx,rcx
-   je short end
-   mov rcx,[rcx+00001F90]
-   test rcx,rcx
-   je short end
-   mov rcx,[rcx+18]
-   test rcx,rcx
-   je short end
-   testcode:
-   mov rdi,[r8+r10*8]
-   test rdi,rdi
-   je short loopcode
-   inc r10
-   cmp [rcx+00000132],rdi
-   jne short testcode
-   mov dword ptr [rcx+000000D8],00000000
-   jmp short loopcode
-   end:
-   mov byte ptr [kill_all_mobs_finished],1
-   ret
-
-   KillList:
-   dw '1300' '1360' '1370' '1446' '1441' '2020' '2270' '2271' '1032' '1100' '2021'
-   dw '1105' '1280' '1282' '1240' '1200' '1230' '1260' '3090' '2110' '2280' '1440'
-   dw '1250' '1340' '2190' '1102' '3020' '5226' '5227' '5225' '1390' '1391' '1410'
-   dw '3220' '1170' '1070' '1180' '2130' '2030' '1350' '5240' '2100' '3070' '2132'
-   dw '1211' '1310' '3230' '2140' '1470' '1430' '2210' '1210' '3170' '1445' '5223'
-   dw '1281' '1190' '6000' '6090' '6050' '6060' '6100' '6080' '6040' '6130' '6081'
-   dw '6070' '6230' '6231' '6320' '6250' '1283' '6240' '1201' '1071' '6280' '6260'
-   dw '6070' '6290' '6330' '6331' '3210' '2290' '1130' '3120' '2150' '3100' '1220'
-   dw '2131' '2180' '2060' '2230' '2070' '1241' '2191' '2040' '1442' '1090' '1101'
-   dw '1106' '3141' '1380' '2080' '6270'
-   kill_all_mobs_finished:
-   registerSymbol(kill_all_mobs_finished)
-   db 00
-]]
-
-killAllMobsFinished = [[
-   dealloc(KillAllMobs)
-   unregisterSymbol(kill_all_mobs_finished)
-]]
-
---Kill All Mobs LUA Function
-function killAllMobs()
-   autoAssemble(killAllMobsStart)
-   if syntaxcheck then return end
-   local checktimer = createTimer(getMainForm())
-   checktimer.interval = 100
-   checktimer.OnTimer = function()
-      if readByte("kill_all_mobs_finished") == 1 then
-         checktimer.destroy()
-         sleep(100)
-         autoAssemble(killAllMobsFinished)
-      end
-   end
-end
-
 -- ASM Function
 function setAssemblyFlag(AssemblyScript, Flag)
    if Flag == 1 then
@@ -39246,7 +39433,7 @@ end
 if syntaxcheck then return end
 local fileName = "InduraPublic.CT" -- FileName For Your Table
 --Function for AutoDisabling
-function autoDisable(memrec, delay)
+local function autoDisable(memrec, delay)
   delay = math.max(delay or 100, 100)
   if not memrec then end
   local t = createTimer(nil)
@@ -39266,6 +39453,125 @@ saveTable(fileName)
           </CheatEntries>
         </CheatEntry>
       </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1337305880</ID>
+      <Description>"&lt;-- Table Info"</Description>
+      <Color>FF8080</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$lua}
+if syntaxcheck then return end
+[enable]
+
+tablefaq = createForm(true)
+tablefaq.Caption = "Table Info"
+tablefaq.Width = 250
+tablefaq.Height = 220
+tablefaq.Color = 0x000000
+tablefaq.centerScreen()
+
+local buttDescs = {"How to change table settings","Fetch Table Info","Copy Github Link","Open Github Link","Close This Window"}
+local githubLink = "https://github.com/lndura/lndura"
+local tableMessage = [[
+The link to the tables Github page has been copied to clipboard.
+
+On the Github page you can install newer versions, find credited people and more general information about the table.
+
+The Link: ]]..githubLink..[[
+]]
+local tableSettings = [[
+You can easily change table settings like version check, warning messages and other stuff in the open script.
+If you double click the "&lt;script&gt;" part of the main header you will see for example:
+
+--==]].."]]  LAUNCH SETTINGS  [["..[[==--
+
+TTS = false   -- Text To Speech on launch.
+MSG = false   -- Message pop up on launch.
+TUD = true   -- Check version on launch.
+WRN = true   -- Warnings on some headers.
+
+--==]].."]]                   [["..[[==--
+
+To change these settings you can set the options to true or false.
+if the setting is set to true then it will be used, but if theyre set to false then they won't be used.
+]]
+local tableInfo = [[
+
+Quality Of Life contains scripts which only contain stuff that improve the game, save time and effort and patches stuff against malicious cheats.
+
+Online Functions contains four more headers:
+   Invading, this contains a few scripts mainly related to invading
+   Hosting, this contains a few scripts for hosting.
+   Fightclub, All these scripts already do everything for you. No need to tick on other scripts everything you need is included.
+   Frequent Warps + Teleports, contains bonfire warps and Teleports yada yada.
+
+Session Info contains a session info UI displaying info of current players in the world. Furthermore it has headers that show even more data if you really want to nitpick that information.
+
+Character Info shows all relevant data your character has.
+
+Build Creation contains very self explanatory scripts to create builds with.
+(Yes sometimes spawning items with "Reset Inventory" or "Setup Char For Meta" will have items being equipped in slots they normally can't. This doesn't flag you, looks weird and does nothing.)
+
+Visual Mods contains a lot of scripts to make the game look better, worse or more to your own liking. It also contains a few example scripts you can customize with a bit of english and reading comprehension if you open the script code.
+
+Quick Access has the scripts tied to Numpad Hotkeys, NPC Menus, Manual Bonfire Warp, Boss Flag list and some other scripts such as "Print Current Held Weapons" which you can use for a visual mod called "Infusion Visuals".
+
+At last Quick Access also has Table Management, which contains some stuff people with programming or CE knowledge maybe would like to take a look at.
+
+I hope this information helps.
+- Indura.
+
+(pssst, for more questions you can also reach out to me through my Github page.)
+]]
+
+local function autoDisable(memrec, delay)
+   delay = math.max(delay or 100, 100)
+   if not memrec then end
+   local t = createTimer(nil)
+   t.Interval = delay
+   t.OnTimer = function()
+      memrec.active = false
+      t.destroy()
+   end
+end
+
+local function controlForm(panel,settings)
+   panel.Width = settings[1]
+   panel.Height = settings[2]
+   panel.Left = settings[3]
+   panel.Top = settings[4]
+end
+
+local button = {}
+for i = 1,#buttDescs,1 do
+   button[i] = createButton(tablefaq);
+   controlForm(button[i],{230,40,10,10+(40*(i-1))})
+   button[i].Caption = buttDescs[i]
+end
+
+button[1].OnClick = function()
+   showMessage(tableSettings)
+end
+button[2].OnClick = function()
+   print(tableInfo)
+end
+button[3].OnClick = function()
+   showMessage(tableMessage)
+   writeToClipboard(githubLink)
+end
+button[4].OnClick = function()
+   shellExecute(githubLink)
+end
+button[5].OnClick = function()
+   autoDisable(memrec)
+end
+
+tablefaq.OnClose = function()
+   autoDisable(memrec)
+end
+[disable]
+tablefaq.destroy()
+</AssemblerScript>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols>
