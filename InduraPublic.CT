@@ -125,8 +125,8 @@ if readQword("DarkSoulsIII.exe+47572B8") == nil then
    autoDisable(memrec, 200)
 end
 
-local TableVersion = "2.5.0"
-local VersionCode = 2.050
+local TableVersion = "2.5.1"
+local VersionCode = 2.051
 
 local Repository = "https://raw.githubusercontent.com/lndura/lndura/main/getversion"
 local grabLink = getInternet()
