@@ -5,7 +5,6 @@
       <ID>0</ID>
       <Description>"&lt;-- Attach Indura's Table"</Description>
       <Options moHideChildren="1"/>
-      <Color>FF8080</Color>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -125,8 +124,8 @@ if readQword("DarkSoulsIII.exe+47572B8") == nil then
    autoDisable(memrec, 200)
 end
 
-local TableVersion = "2.5.0"
-local VersionCode = 2.050
+local TableVersion = "2.5.1"
+local VersionCode = 2.051
 
 local Repository = "https://raw.githubusercontent.com/lndura/lndura/main/getversion"
 local grabLink = getInternet()
@@ -693,13 +692,11 @@ unregistersymbol("MsgRepository")
           <ID>1337305770</ID>
           <Description>"Quality Of Life"</Description>
           <Options moHideChildren="1"/>
-          <Color>FF9933</Color>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
               <ID>1337305768</ID>
               <Description>"Access All Bonfires"</Description>
-              <Color>FFD5AA</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -714,7 +711,6 @@ paramUtils:restore("UnlockAllBonfires")
             <CheatEntry>
               <ID>1337305769</ID>
               <Description>"Discardable Items"</Description>
-              <Color>FFD5AA</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -735,7 +731,6 @@ paramUtils:restore("discardableItems")
             <CheatEntry>
               <ID>1337305767</ID>
               <Description>"Improve Invasions"</Description>
-              <Color>FFD5AA</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -762,7 +757,6 @@ paramUtils:restore("BetterInvasions")
             <CheatEntry>
               <ID>1337305764</ID>
               <Description>"Patch Flasks Againts Kick"</Description>
-              <Color>FFD5AA</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -830,7 +824,6 @@ paramUtils:restore("NoBS")
             <CheatEntry>
               <ID>1337305765</ID>
               <Description>"Unpatch Unused Bullets"</Description>
-              <Color>FFD5AA</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -952,7 +945,6 @@ paramUtils:restore("UUD")
             <CheatEntry>
               <ID>1337305766</ID>
               <Description>"Unpatch Malicious Bullets"</Description>
-              <Color>FFD5AA</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -1000,7 +992,6 @@ paramUtils:restore("UMB")
             <CheatEntry>
               <ID>1337305879</ID>
               <Description>"Remove Low Framerate Offline Protection"</Description>
-              <Color>FFD5AA</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -1016,20 +1007,17 @@ setAssemblyFlag(FramerateDisconnect, 0)
           <ID>1337305771</ID>
           <Description>"Online Functions"</Description>
           <Options moHideChildren="1"/>
-          <Color>F03EBF</Color>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
               <ID>1337305757</ID>
               <Description>"Invading"</Description>
               <Options moHideChildren="1"/>
-              <Color>FF80BF</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337305686</ID>
                   <Description>"Black Crystal Leave Session"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if not syntaxcheck then end
@@ -1045,7 +1033,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337291781</ID>
                   <Description>"Keep Player Unembered"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Automatically Unembers while activated.
 //To simplify the process behind it even more.
@@ -1067,7 +1054,6 @@ UnEmber.destroy()
                 <CheatEntry>
                   <ID>1337305739</ID>
                   <Description>"Auto Invade Current Area"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -1134,7 +1120,6 @@ end
                   <ID>1337305516</ID>
                   <Description>"WexDust"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FF80BF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//  Wex Dust Invader
 //  Original WexDust by DiamondEnderman
@@ -1160,7 +1145,6 @@ end
                       <ID>1337305521</ID>
                       <Description>"WexDust Locations"</Description>
                       <Options moAlwaysHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
-                      <Color>FF8080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>//Edit this shit here
 
@@ -1431,14 +1415,12 @@ unregisterSymbol(KeepWexDustInvade)
 *:Enable WexDust Locations First
 </DropDownList>
                       <ShowAsSigned>0</ShowAsSigned>
-                      <Color>FF8080</Color>
                       <VariableType>Byte</VariableType>
                       <Address>KeepWexDustInvade</Address>
                     </CheatEntry>
                     <CheatEntry>
                       <ID>1337305523</ID>
                       <Description>"Wex Dust Invade"</Description>
-                      <Color>FF8080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>//Wex Dust
 //Made by DiamondEnderman
@@ -1524,7 +1506,6 @@ end
                     <CheatEntry>
                       <ID>1337305524</ID>
                       <Description>"Regular WexDust Mod"</Description>
-                      <Color>FF8080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -1628,13 +1609,11 @@ end
               <ID>1337305756</ID>
               <Description>"Hosting"</Description>
               <Options moHideChildren="1"/>
-              <Color>FF80BF</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337305684</ID>
                   <Description>"Ember Status"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -1652,7 +1631,6 @@ autoDisable(memrec)
                   <ID>1337291771</ID>
                   <Description>"Allow Invaders With Dead Boss"</Description>
                   <Options moActivateChildrenAsWell="1"/>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -1669,7 +1647,6 @@ paramUtils:restore("better_hosting")
                 <CheatEntry>
                   <ID>1337291772</ID>
                   <Description>"Clear All Mobs"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Call Kill All Mobs
 //You can now use a function for it to call it easier,
@@ -1687,7 +1664,6 @@ killAllMobs()
                 <CheatEntry>
                   <ID>1337292100</ID>
                   <Description>"Automatically Host At Pontiff"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{
     Example Host At Pontiff Script
@@ -1749,7 +1725,6 @@ HostingPontiffTimer.destroy()
               <ID>1006</ID>
               <Description>"Fightclub"</Description>
               <Options moHideChildren="1"/>
-              <Color>FF80BF</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>[ENABLE]
 
@@ -1765,7 +1740,6 @@ HostingPontiffTimer.destroy()
                 <CheatEntry>
                   <ID>1337305511</ID>
                   <Description>"Ember HP"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -1783,7 +1757,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337305683</ID>
                   <Description>"Auto Revive"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>// Original NoDead revive by DiamondEnderman
 // Customized by Indura.
@@ -1903,7 +1876,6 @@ end
                 <CheatEntry>
                   <ID>1337305271</ID>
                   <Description>"Host Fight Club"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -1940,7 +1912,6 @@ setAssemblyFlag(AutoSummon, 0) -- AutoSummon Off
                 <CheatEntry>
                   <ID>1337305760</ID>
                   <Description>"Restock Items"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Restocks All Goods/Arrows
 //Made by DiamondEnderman
@@ -1960,20 +1931,17 @@ ItemGib:spawnMultiItems(customRestockedItems)
               <ID>1337305758</ID>
               <Description>"Frequent Warps + Teleports"</Description>
               <Options moHideChildren="1"/>
-              <Color>FF80BF</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337291599</ID>
                   <Description>"Frequent Bonfire Warps"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FF80BF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337291600</ID>
                       <Description>"Firelink"</Description>
-                      <Color>FF8080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -1986,7 +1954,6 @@ bonfireWarp(4002950)
                     <CheatEntry>
                       <ID>1337291603</ID>
                       <Description>"Woods"</Description>
-                      <Color>FF8080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -1999,7 +1966,6 @@ bonfireWarp(3302957)
                     <CheatEntry>
                       <ID>1337291601</ID>
                       <Description>"Old Wolf"</Description>
-                      <Color>FF8080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -2012,7 +1978,6 @@ bonfireWarp(3302955)
                     <CheatEntry>
                       <ID>1337291602</ID>
                       <Description>"Pontiff"</Description>
-                      <Color>FF8080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -2025,7 +1990,6 @@ bonfireWarp(3702951)
                     <CheatEntry>
                       <ID>1337291604</ID>
                       <Description>"Ringed City"</Description>
-                      <Color>FF8080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -2050,13 +2014,11 @@ autoDisable(memrec)
                   <ID>1337291605</ID>
                   <Description>"Undead Arena Warps"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FF80BF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337291606</ID>
                       <Description>"Grand Rooftops"</Description>
-                      <Color>FF8080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -2069,7 +2031,6 @@ bonfireWarp(4602950)
                     <CheatEntry>
                       <ID>1337291607</ID>
                       <Description>"Dragon Ruins"</Description>
-                      <Color>FF8080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -2082,7 +2043,6 @@ bonfireWarp(5302950)
                     <CheatEntry>
                       <ID>1337291608</ID>
                       <Description>"Small Circle"</Description>
-                      <Color>FF8080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -2095,7 +2055,6 @@ bonfireWarp(5402950)
                     <CheatEntry>
                       <ID>1337291609</ID>
                       <Description>"Kiln Of Flame"</Description>
-                      <Color>FF8080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -2110,7 +2069,6 @@ bonfireWarp(4702950)
                 <CheatEntry>
                   <ID>1337291595</ID>
                   <Description>"Teleport Pontiff Silver Knights"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{
 tp to top of pontiff
@@ -2129,7 +2087,6 @@ teleportPlayer(557, -183.2, -1115,readFloat(player0AnglePtr))
                 <CheatEntry>
                   <ID>1337291596</ID>
                   <Description>"Teleport Pontiff Giant Head"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{
 Indura's TP
@@ -2146,7 +2103,6 @@ teleportPlayer(459, -218.55, -1185.63,readFloat(player0AnglePtr))
                 <CheatEntry>
                   <ID>1337291597</ID>
                   <Description>"Teleport Pontiff Arena"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{
 Indura's TP
@@ -2164,7 +2120,6 @@ teleportPlayer(400, -221.75, -1236,readFloat(player0AnglePtr))
                 <CheatEntry>
                   <ID>1337291598</ID>
                   <Description>"Teleport Old Wolf Arena"</Description>
-                  <Color>FF8080</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{
 Indura's TP
@@ -2186,13 +2141,11 @@ teleportPlayer(127.69, -169.11, -313.54,readFloat(player0AnglePtr))
           <ID>1337305772</ID>
           <Description>"Session Info"</Description>
           <Options moHideChildren="1"/>
-          <Color>FF40FF</Color>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
               <ID>1337305875</ID>
               <Description>"Session Info UI"</Description>
-              <Color>FF80FF</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{
     A shitty session info window by Indura.
@@ -2395,7 +2348,6 @@ updateUI.destroy()
               <ID>1009</ID>
               <Description>"Player Camera "</Description>
               <Options moHideChildren="1"/>
-              <Color>FF80FF</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>[ENABLE]
 [DISABLE]
@@ -2410,7 +2362,6 @@ updateUI.destroy()
                 <CheatEntry>
                   <ID>1337286784</ID>
                   <Description>"Camera P1"</Description>
-                  <Color>FF95FF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>[ENABLE]
 aobscanmodule(camrttn,$process,0F 29 86 E0 00 00 00 F3)
@@ -2443,7 +2394,6 @@ unregistersymbol(camrttn)
                 <CheatEntry>
                   <ID>1337286785</ID>
                   <Description>"Camera P2"</Description>
-                  <Color>FF95FF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>[ENABLE]
 
@@ -2481,7 +2431,6 @@ unregistersymbol(camrttn)
                 <CheatEntry>
                   <ID>1337286786</ID>
                   <Description>"Camera P3"</Description>
-                  <Color>FF95FF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>[ENABLE]
 
@@ -2518,7 +2467,6 @@ unregistersymbol(camrttn)
                 <CheatEntry>
                   <ID>1337286783</ID>
                   <Description>"Camera P4"</Description>
-                  <Color>FF95FF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>[ENABLE]
 
@@ -2556,7 +2504,6 @@ unregistersymbol(camrttn)
                 <CheatEntry>
                   <ID>1337286782</ID>
                   <Description>"Camera P5"</Description>
-                  <Color>FF95FF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>[ENABLE]
 
@@ -2596,7 +2543,6 @@ unregistersymbol(camrttn)
               <ID>1010</ID>
               <Description>"Current Session "</Description>
               <Options moHideChildren="1"/>
-              <Color>FF80FF</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>[ENABLE]
 [DISABLE]
@@ -2612,7 +2558,6 @@ unregistersymbol(camrttn)
                   <ID>1337202768</ID>
                   <Description>"Player 1"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FF95FF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -4940,7 +4885,6 @@ autoDisable(memrec)
                   <ID>1337202824</ID>
                   <Description>"Player 2"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FF95FF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -7264,7 +7208,6 @@ autoDisable(memrec)
                   <ID>1337202881</ID>
                   <Description>"Player 3"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FF95FF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -9588,7 +9531,6 @@ autoDisable(memrec)
                   <ID>1337202938</ID>
                   <Description>"Player 4"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FF95FF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -10276,7 +10218,6 @@ autoDisable(memrec)
                   <ID>1337202995</ID>
                   <Description>"Player 5"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FF95FF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -10966,7 +10907,6 @@ autoDisable(memrec)
               <ID>1011</ID>
               <Description>"Last Session "</Description>
               <Options moHideChildren="1"/>
-              <Color>FF80FF</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>[ENABLE]
 [DISABLE]
@@ -10982,7 +10922,6 @@ autoDisable(memrec)
                   <ID>1337203053</ID>
                   <Description>"Player 1"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FF95FF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -11451,7 +11390,6 @@ autoDisable(memrec)
                   <ID>1337203093</ID>
                   <Description>"Player 2"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FF95FF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -11918,7 +11856,6 @@ autoDisable(memrec)
                   <ID>1337203133</ID>
                   <Description>"Player 3"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FF95FF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -12385,7 +12322,6 @@ autoDisable(memrec)
                   <ID>1337203173</ID>
                   <Description>"Player 4"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FF95FF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -12852,7 +12788,6 @@ autoDisable(memrec)
                   <ID>1337203213</ID>
                   <Description>"Player 5"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FF95FF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -13323,7 +13258,6 @@ autoDisable(memrec)
           <ID>1012</ID>
           <Description>"Character Info"</Description>
           <Options moHideChildren="1"/>
-          <Color>431BE4</Color>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -13346,7 +13280,6 @@ if WRN then showMessage(text) else end
 0:Disabled
 1:Enabled
 </DropDownList>
-              <Color>A28DF1</Color>
               <VariableType>Byte</VariableType>
               <Address>GameDataMan</Address>
               <Offsets>
@@ -13358,7 +13291,6 @@ if WRN then showMessage(text) else end
               <ID>1337291470</ID>
               <Description>"Character Name"</Description>
               <Options moHideChildren="1" moRecursiveSetValue="1"/>
-              <Color>A28DF1</Color>
               <VariableType>String</VariableType>
               <Length>48</Length>
               <Unicode>1</Unicode>
@@ -13421,7 +13353,6 @@ if WRN then showMessage(text) else end
 13:Arena
 </DropDownList>
               <ShowAsSigned>0</ShowAsSigned>
-              <Color>A28DF1</Color>
               <VariableType>4 Bytes</VariableType>
               <Address>WorldChrMan</Address>
               <Offsets>
@@ -13456,7 +13387,6 @@ if WRN then showMessage(text) else end
 32:Mad Spirit
 33:Giant crabs,Dragons from Lothric castle
 </DropDownList>
-              <Color>A28DF1</Color>
               <VariableType>4 Bytes</VariableType>
               <Address>WorldChrMan</Address>
               <Offsets>
@@ -13479,7 +13409,6 @@ A0002760:Rosaria's Fingers
 A000276A:Spears of the Church
 </DropDownList>
               <ShowAsHex>1</ShowAsHex>
-              <Color>A28DF1</Color>
               <VariableType>4 Bytes</VariableType>
               <Address>GameDataMan</Address>
               <Offsets>
@@ -13491,14 +13420,12 @@ A000276A:Spears of the Church
               <ID>1337305761</ID>
               <Description>"Character Values"</Description>
               <Options moHideChildren="1"/>
-              <Color>6341E9</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337097679</ID>
                   <Description>"HP"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>WorldChrMan</Address>
                   <Offsets>
@@ -13512,7 +13439,6 @@ A000276A:Spears of the Church
                   <ID>1337046598</ID>
                   <Description>"MaxHP"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>WorldChrMan</Address>
                   <Offsets>
@@ -13526,7 +13452,6 @@ A000276A:Spears of the Church
                   <ID>1337046599</ID>
                   <Description>"BaseMaxHP"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>WorldChrMan</Address>
                   <Offsets>
@@ -13540,14 +13465,12 @@ A000276A:Spears of the Church
                   <ID>1337305762</ID>
                   <Description>""</Description>
                   <Options moHideChildren="1"/>
-                  <Color>A28DF1</Color>
                   <GroupHeader>1</GroupHeader>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337046600</ID>
                   <Description>"MP"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>WorldChrMan</Address>
                   <Offsets>
@@ -13561,7 +13484,6 @@ A000276A:Spears of the Church
                   <ID>1337046601</ID>
                   <Description>"MaxMP"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>WorldChrMan</Address>
                   <Offsets>
@@ -13575,7 +13497,6 @@ A000276A:Spears of the Church
                   <ID>1337046602</ID>
                   <Description>"BaseMaxMP"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>WorldChrMan</Address>
                   <Offsets>
@@ -13589,14 +13510,12 @@ A000276A:Spears of the Church
                   <ID>1337046596</ID>
                   <Description>""</Description>
                   <Options moHideChildren="1"/>
-                  <Color>A28DF1</Color>
                   <GroupHeader>1</GroupHeader>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337046603</ID>
                   <Description>"SP"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>WorldChrMan</Address>
                   <Offsets>
@@ -13610,7 +13529,6 @@ A000276A:Spears of the Church
                   <ID>1337046604</ID>
                   <Description>"MaxSP"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>WorldChrMan</Address>
                   <Offsets>
@@ -13624,7 +13542,6 @@ A000276A:Spears of the Church
                   <ID>1337046605</ID>
                   <Description>"BaseMaxSP"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>WorldChrMan</Address>
                   <Offsets>
@@ -13640,7 +13557,6 @@ A000276A:Spears of the Church
               <ID>1337078866</ID>
               <Description>"Equipped Items"</Description>
               <Options moHideChildren="1"/>
-              <Color>6341E9</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
@@ -14005,7 +13921,6 @@ A000276A:Spears of the Church
 </DropDownList>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -14375,7 +14290,6 @@ A000276A:Spears of the Church
 </DropDownList>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -14746,7 +14660,6 @@ A000276A:Spears of the Church
 </DropDownList>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15116,7 +15029,6 @@ A000276A:Spears of the Church
 </DropDownList>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15130,7 +15042,6 @@ A000276A:Spears of the Church
                   <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">110000:Bare Fist
 </DropDownList>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15142,7 +15053,6 @@ A000276A:Spears of the Church
                   <ID>1337078870</ID>
                   <Description>"Weapon Slot 2 (Right-Hand)"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15154,7 +15064,6 @@ A000276A:Spears of the Church
                   <ID>1337078872</ID>
                   <Description>"Weapon Slot 3 (Right-Hand)"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15166,7 +15075,6 @@ A000276A:Spears of the Church
                   <ID>1337078867</ID>
                   <Description>"Weapon Slot 1 (Left-Hand)"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15178,7 +15086,6 @@ A000276A:Spears of the Church
                   <ID>1337078869</ID>
                   <Description>"Weapon Slot 2 (Left-Hand)"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15190,7 +15097,6 @@ A000276A:Spears of the Church
                   <ID>1337078871</ID>
                   <Description>"Weapon Slot 3 (Left-Hand)"</Description>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15324,7 +15230,6 @@ A000276A:Spears of the Church
 </DropDownList>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15458,7 +15363,6 @@ A000276A:Spears of the Church
 </DropDownList>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15592,7 +15496,6 @@ A000276A:Spears of the Church
 </DropDownList>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15726,7 +15629,6 @@ A000276A:Spears of the Church
 </DropDownList>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15739,7 +15641,6 @@ A000276A:Spears of the Church
                   <Description>"Arrow Slot 1"</Description>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15752,7 +15653,6 @@ A000276A:Spears of the Church
                   <Description>"Arrow Slot 2"</Description>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15765,7 +15665,6 @@ A000276A:Spears of the Church
                   <Description>"Bolt Slot 1"</Description>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15778,7 +15677,6 @@ A000276A:Spears of the Church
                   <Description>"Bolt Slot 1"</Description>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15792,13 +15690,11 @@ A000276A:Spears of the Church
               <ID>1337305442</ID>
               <Description>"Game Data"</Description>
               <Options moHideChildren="1"/>
-              <Color>6341E9</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337291469</ID>
                   <Description>"New Game Count"</Description>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameDataMan</Address>
                   <Offsets>
@@ -15817,7 +15713,6 @@ A000276A:Spears of the Church
 6:6
 </DropDownList>
                   <ShowAsSigned>0</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>GameMan</Address>
                   <Offsets>
@@ -15831,7 +15726,6 @@ A000276A:Spears of the Church
 0:Enabled
 </DropDownList>
                   <ShowAsSigned>0</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>Byte</VariableType>
                   <Address>FrpgNetMan</Address>
                   <Offsets>
@@ -15967,7 +15861,6 @@ A000276A:Spears of the Church
 540000:Arena - Round Plaza
 </DropDownList>
                   <ShowAsSigned>0</ShowAsSigned>
-                  <Color>A28DF1</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>WorldChrMan</Address>
                   <Offsets>
@@ -15983,20 +15876,17 @@ A000276A:Spears of the Church
           <ID>1337305420</ID>
           <Description>"Build Creation"</Description>
           <Options moHideChildren="1"/>
-          <Color>0080FF</Color>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
               <ID>1337305421</ID>
               <Description>"ItemGib"</Description>
               <Options moHideChildren="1"/>
-              <Color>55AAFF</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337258593</ID>
                   <Description>"← Spawn Item"</Description>
-                  <Color>00FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -17238,7 +17128,6 @@ end
 </DropDownList>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
-                      <Color>80FFFF</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>BetterItemGibData+04</Address>
                     </CheatEntry>
@@ -17263,7 +17152,6 @@ end
 1500:Hollow
 </DropDownList>
                       <ShowAsSigned>0</ShowAsSigned>
-                      <Color>80FFFF</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>BetterItemGibData+0C</Address>
                     </CheatEntry>
@@ -17284,7 +17172,6 @@ end
 10:+10
 </DropDownList>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>80FFFF</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>BetterItemGibData+10</Address>
                     </CheatEntry>
@@ -17294,7 +17181,6 @@ end
                       <DropDownList DescriptionOnly="1" DisplayValueAsItem="1">-1:Max
 </DropDownList>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>80FFFF</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>BetterItemGibData</Address>
                     </CheatEntry>
@@ -17305,7 +17191,6 @@ end
 0:Broken
 </DropDownList>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>80FFFF</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>BetterItemGibData+08</Address>
                     </CheatEntry>
@@ -17317,13 +17202,11 @@ end
               <ID>1337305422</ID>
               <Description>"Mass ItemGib"</Description>
               <Options moHideChildren="1"/>
-              <Color>55AAFF</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337258600</ID>
                   <Description>"Weapons"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if not syntaxcheck then autoDisable(memrec) end
@@ -17785,7 +17668,6 @@ createWindow()
                 <CheatEntry>
                   <ID>1337258601</ID>
                   <Description>"Armors"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if not syntaxcheck then autoDisable(memrec) end
@@ -18255,7 +18137,6 @@ createWindow()
                 <CheatEntry>
                   <ID>1337258602</ID>
                   <Description>"Rings"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if not syntaxcheck then autoDisable(memrec) end
@@ -18435,7 +18316,6 @@ createWindow()
                 <CheatEntry>
                   <ID>1337258603</ID>
                   <Description>"Magic"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if not syntaxcheck then autoDisable(memrec) end
@@ -18628,7 +18508,6 @@ createWindow()
                 <CheatEntry>
                   <ID>1337258604</ID>
                   <Description>"Consumables"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if not syntaxcheck then autoDisable(memrec) end
@@ -18980,7 +18859,6 @@ createWindow()
                 <CheatEntry>
                   <ID>1337258605</ID>
                   <Description>"Select weapons"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 function InitializeForm()
@@ -19392,27 +19270,23 @@ spawnB.onClick = Spawn
               <ID>1337305423</ID>
               <Description>"Custom ItemGib"</Description>
               <Options moHideChildren="1"/>
-              <Color>55AAFF</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337291743</ID>
                   <Description>"Armor Spawners"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>55AAFF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337291719</ID>
                       <Description>"Duelist"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>55AAFF</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291731</ID>
                           <Description>"Standart Abs Low Poise (38.79)"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19435,7 +19309,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291730</ID>
                           <Description>"Standart Abs High Poise (42.37)"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19458,7 +19331,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291724</ID>
                           <Description>"Slash Abs"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19481,7 +19353,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291728</ID>
                           <Description>"Strike Abs"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19504,7 +19375,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291729</ID>
                           <Description>"Thrust Abs"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19527,7 +19397,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291723</ID>
                           <Description>"Dark Abs"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19550,7 +19419,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291727</ID>
                           <Description>"Lightning Abs"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19573,7 +19441,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291726</ID>
                           <Description>"Magic Abs"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19596,7 +19463,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291725</ID>
                           <Description>"Fire Abs"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19622,13 +19488,11 @@ ItemGib:spawnMultiItems(ArmourSet)
                       <ID>1337291732</ID>
                       <Description>"Regular"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>55AAFF</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291740</ID>
                           <Description>"Brazil Net LightRoll"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19651,7 +19515,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291733</ID>
                           <Description>"RollPoise (34.04+)"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19674,7 +19537,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291734</ID>
                           <Description>"Millwood Lappa"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19697,7 +19559,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291736</ID>
                           <Description>"Nameless Knight Reg Poise (40.01)"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19720,7 +19581,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291735</ID>
                           <Description>"Exile Gundyr Regular (41.07)"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19743,7 +19603,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291739</ID>
                           <Description>"Cathedral Lapp (42.35)"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19766,7 +19625,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291738</ID>
                           <Description>"Exile Gundyr Lightest High Poise (44.87)"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19792,13 +19650,11 @@ ItemGib:spawnMultiItems(ArmourSet)
                       <ID>1337291720</ID>
                       <Description>"Fisher"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>55AAFF</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291741</ID>
                           <Description>"Karla Hat"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Spawns
 //Made by Indura
@@ -19821,7 +19677,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291744</ID>
                           <Description>"Demonmode Fish"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19843,7 +19698,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291742</ID>
                           <Description>"Firelink Ringed Knight"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -19869,14 +19723,12 @@ ItemGib:spawnMultiItems(ArmourSet)
                       <ID>1337291722</ID>
                       <Description>"Customize"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>55AAFF</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337287175</ID>
                           <Description>"Complete Armour List in Script"</Description>
                           <Options moHideChildren="1"/>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{
 MEGA ARMOUR LIST
@@ -20469,7 +20321,6 @@ GONNA KRILL MYSELF
                             <CheatEntry>
                               <ID>1337305424</ID>
                               <Description>"Copy to Clipboard"</Description>
-                              <Color>80FFFF</Color>
                               <VariableType>Auto Assembler Script</VariableType>
                               <AssemblerScript>[enable]
 {$lua}
@@ -21068,7 +20919,6 @@ writeToClipboard([[
                           <ID>1337291718</ID>
                           <Description>"Armour Set Spawn Template"</Description>
                           <Options moHideChildren="1"/>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Spawns
 //Made by Indura
@@ -21100,7 +20950,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                             <CheatEntry>
                               <ID>1337305426</ID>
                               <Description>"Copy to Clipboard"</Description>
-                              <Color>80FFFF</Color>
                               <VariableType>Auto Assembler Script</VariableType>
                               <AssemblerScript>[ENABLE]
 {$lua}
@@ -21146,7 +20995,6 @@ ItemGib:spawnMultiItems(ArmourSet)
                         <CheatEntry>
                           <ID>1337291737</ID>
                           <Description>"Spawn Black Knight Helm"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -21172,20 +21020,17 @@ ItemGib:spawnMultiItems(ArmourSet)
                   <ID>1337305427</ID>
                   <Description>"Weapon Spawners"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>55AAFF</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337305871</ID>
                       <Description>"Emillia's Buildplanner Weapons"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>55AAFF</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337305869</ID>
                           <Description>"Copy Emillia's Website Link To Clipboard"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -21199,7 +21044,6 @@ autoDisable(memrec)
                         <CheatEntry>
                           <ID>1337305429</ID>
                           <Description>"Upload Emillia's Planner Weapons"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{$lua}
 function InitializeForm()
@@ -21611,13 +21455,11 @@ spawnB.onClick = Spawn
                       <ID>1337305870</ID>
                       <Description>"Presets"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>55AAFF</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337305428</ID>
                           <Description>"Spawn All Dark Build Weapons Example Script"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{
     Get Weapon Hex ID's from:
@@ -21682,7 +21524,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337287176</ID>
                   <Description>"Spawn Custom Rings"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//My Custom Ring Spawns
 //Made by Indura
@@ -21728,7 +21569,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337305430</ID>
                   <Description>"Spawn Custom Consumables"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Restocks All Goods/Arrows
 //Made by DiamondEnderman
@@ -21748,13 +21588,11 @@ ItemGib:spawnMultiItems(customRestockedItems)
               <ID>1337305431</ID>
               <Description>"Buildmaking Scripts"</Description>
               <Options moHideChildren="1"/>
-              <Color>55AAFF</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337305432</ID>
                   <Description>"Add Souls"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Add Souls Directly to Player
 //Made By DiamondEnderman
@@ -21775,7 +21613,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337305435</ID>
                   <Description>"No cost level up"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{
 Dynamically adds souls required for leveling up while you are doing it.
@@ -21897,7 +21734,6 @@ NoCostLevelup:stop()
                 <CheatEntry>
                   <ID>1337305436</ID>
                   <Description>"No Upgrade Materials Consume"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{
 	Author: Gáté
@@ -21916,7 +21752,6 @@ paramUtils:restore("UpgradeCost")
                 <CheatEntry>
                   <ID>1337305873</ID>
                   <Description>"Level Up Menu"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -21946,7 +21781,6 @@ dealloc(FirekeeperMenu)
                 <CheatEntry>
                   <ID>1337305874</ID>
                   <Description>"Attune Spell Menu"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>[ENABLE]
 aobscanmodule(BAttune_AOB,$process,48 8D 45 0F 48 89 45 EF 48 8D 45 0F 48 89 45 F7 48 8D ?? ?? ?? ?? ?? 48 89 45 0F 48 8D ?? ?? ?? ?? ?? 48 89 45 0F 48 8D ?? ?? ?? ?? ?? 48 89 45 17)
@@ -21970,7 +21804,6 @@ dealloc(BonfireAttuneSpell)
                 <CheatEntry>
                   <ID>1337305881</ID>
                   <Description>"Reinforce Weapon Menu"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>[ENABLE]
 aobscanmodule(RWLoop_Call,$process,81 f9 f3 01 00 00 77 ?? 48 8b ?? ?? ?? ?? ?? 48 63 c9)
@@ -22006,7 +21839,6 @@ dealloc(BsmReinforceWeapon)
                 <CheatEntry>
                   <ID>1337305434</ID>
                   <Description>"Max Estus (Use After Picking Up Blue Flask)"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Maxes Out Estus
 //Uses Set Estus Level from TGA
@@ -22115,7 +21947,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337305433</ID>
                   <Description>"Unlock All Gestures"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>[ENABLE]
 [[[GameDataMan]+10]+7B8]+10:
@@ -22172,7 +22003,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337305437</ID>
                   <Description>"Access All Bonfires"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Author: inuNorii
 {$lua}
@@ -22187,7 +22017,6 @@ paramUtils:restore("UnlockAllBonfires")
                 <CheatEntry>
                   <ID>1337272731</ID>
                   <Description>"Reset Entire Inventory"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -22225,7 +22054,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337305864</ID>
                   <Description>"Setup Base Meta Char"</Description>
-                  <Color>80FFFF</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -22342,14 +22170,12 @@ autoDisable(memrec)
           <ID>1337305773</ID>
           <Description>"Visual Mods"</Description>
           <Options moHideChildren="1"/>
-          <Color>00AA00</Color>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
               <ID>1031</ID>
               <Description>"Enchanted Eyes"</Description>
               <Options moHideChildren="1"/>
-              <Color>00D500</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -22365,7 +22191,6 @@ if syntaxcheck then return end
                 <CheatEntry>
                   <ID>1337160519</ID>
                   <Description>"Red Eyes"</Description>
-                  <Color>0000C1</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -22400,7 +22225,6 @@ removeEffect(10800)
                 <CheatEntry>
                   <ID>1337181300</ID>
                   <Description>"Ice Blue Eyes"</Description>
-                  <Color>CCCC00</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -22435,7 +22259,6 @@ removeEffect(10900)
                 <CheatEntry>
                   <ID>1337181302</ID>
                   <Description>"Yellow Eyes"</Description>
-                  <Color>00D9D9</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -22504,7 +22327,6 @@ removeEffect(12155)
                 <CheatEntry>
                   <ID>1337181303</ID>
                   <Description>"Orange Eyes"</Description>
-                  <Color>0061C1</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -22539,7 +22361,6 @@ removeEffect(10653)
                 <CheatEntry>
                   <ID>1337181436</ID>
                   <Description>"Bright Purple Eyes"</Description>
-                  <Color>FF379B</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -22574,7 +22395,6 @@ removeEffect(12010)
                 <CheatEntry>
                   <ID>1337181437</ID>
                   <Description>"Vordt Aura (No Eyes)"</Description>
-                  <Color>E6E600</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -22612,7 +22432,6 @@ removeEffect(11920)
               <ID>1337305526</ID>
               <Description>"Map Loading Scripts"</Description>
               <Options moHideChildren="1"/>
-              <Color>00D500</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -22630,7 +22449,6 @@ if WRN then showMessage(text) else end
                   <ID>1337305527</ID>
                   <Description>"Reduced Rendering Distance"</Description>
                   <Options moActivateChildrenAsWell="1"/>
-                  <Color>80FF00</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{Gate 05/08/2019}
 {$lua}
@@ -22659,14 +22477,12 @@ paramUtils:restore("LodEdit")
                 <CheatEntry>
                   <ID>1337305876</ID>
                   <Description>"Grid Maps"</Description>
-                  <Color>00D500</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337305529</ID>
                       <Description>"Blue Grid Map"</Description>
                       <Options moActivateChildrenAsWell="1"/>
-                      <Color>AAFF55</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>[ENABLE]
 aobscanmodule(INJECT,DarkSoulsIII.exe,C6 83 BC 0C 00 00 FF) // should be unique
@@ -22700,7 +22516,6 @@ dealloc(newmem)
                       <ID>1337305530</ID>
                       <Description>"Green Grid Map"</Description>
                       <Options moActivateChildrenAsWell="1"/>
-                      <Color>AAFF55</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>[ENABLE]
 aobscanmodule(INJECT,DarkSoulsIII.exe,C6 83 BC 0C 00 00 FF) // should be unique
@@ -22734,7 +22549,6 @@ dealloc(newmem)
                       <ID>1337305531</ID>
                       <Description>"No Map Textures"</Description>
                       <Options moActivateChildrenAsWell="1"/>
-                      <Color>AAFF55</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>[ENABLE]
 aobscanmodule(INJECT,DarkSoulsIII.exe,C6 83 BC 0C 00 00 FF) // should be unique
@@ -22772,7 +22586,6 @@ dealloc(newmem)
               <ID>1337305532</ID>
               <Description>"Honest Helmet Stack"</Description>
               <Options moHideChildren="1"/>
-              <Color>00D500</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>[ENABLE]
 {$asm}
@@ -22829,7 +22642,6 @@ unregisterSymbol(helmId)
 139B2820:Millwood Knight Helm
 </DropDownList>
                   <ShowAsSigned>0</ShowAsSigned>
-                  <Color>80FF00</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>HelmID</Address>
                 </CheatEntry>
@@ -22837,7 +22649,6 @@ unregisterSymbol(helmId)
                   <ID>1337305534</ID>
                   <Description>"Set to Gundyr's Gauntlets Stats"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>80FF00</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>// By Indura
 {$lua}
@@ -22917,7 +22728,6 @@ paramUtils:restore("Gauntlet")
               <ID>1337305535</ID>
               <Description>"PhantomParam Player Colors"</Description>
               <Options moHideChildren="1"/>
-              <Color>00D500</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>[ENABLE]
 [DISABLE]
@@ -22933,7 +22743,6 @@ paramUtils:restore("Gauntlet")
                   <ID>1337305481</ID>
                   <Description>"PhantomParam by Player Slot"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>00D500</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -23048,7 +22857,6 @@ paramUtils:restore("Gauntlet")
 255:No Clientside Color Edit
 </DropDownList>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>80FF00</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>WorldChrMan</Address>
                       <Offsets>
@@ -23061,7 +22869,6 @@ paramUtils:restore("Gauntlet")
                           <ID>1337291893</ID>
                           <Description>"Rainbow (in development)"</Description>
                           <Options moHideChildren="1"/>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{$lua}
 [ENABLE]
@@ -23080,7 +22887,6 @@ paramUtils:restore("Gauntlet")
                       <ID>1337305536</ID>
                       <Description>"Player 1 Color"</Description>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>80FF00</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>WorldChrMan</Address>
                       <Offsets>
@@ -23093,7 +22899,6 @@ paramUtils:restore("Gauntlet")
                       <ID>1337305537</ID>
                       <Description>"Player 2 Color"</Description>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>80FF00</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>WorldChrMan</Address>
                       <Offsets>
@@ -23106,7 +22911,6 @@ paramUtils:restore("Gauntlet")
                       <ID>1337305538</ID>
                       <Description>"Player 3 Color"</Description>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>80FF00</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>WorldChrMan</Address>
                       <Offsets>
@@ -23119,7 +22923,6 @@ paramUtils:restore("Gauntlet")
                       <ID>1337305539</ID>
                       <Description>"Player 4 Color"</Description>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>80FF00</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>WorldChrMan</Address>
                       <Offsets>
@@ -23132,7 +22935,6 @@ paramUtils:restore("Gauntlet")
                       <ID>1337305540</ID>
                       <Description>"Player 5 Color"</Description>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>80FF00</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>WorldChrMan</Address>
                       <Offsets>
@@ -23147,7 +22949,6 @@ paramUtils:restore("Gauntlet")
                   <ID>1337305482</ID>
                   <Description>"PhantomParam by Team Type"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>00D500</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -23241,7 +23042,6 @@ paramUtils:restore("Gauntlet")
 97:Bright cyab, slight darker shade
 101:Translucent white
 </DropDownList>
-                      <Color>80FF00</Color>
                       <VariableType>Byte</VariableType>
                       <Address>SoloParamRepository</Address>
                       <Offsets>
@@ -23342,7 +23142,6 @@ paramUtils:restore("Gauntlet")
 97:Bright cyab, slight darker shade
 101:Translucent white
 </DropDownList>
-                      <Color>80FF00</Color>
                       <VariableType>Byte</VariableType>
                       <Address>SoloParamRepository</Address>
                       <Offsets>
@@ -23443,7 +23242,6 @@ paramUtils:restore("Gauntlet")
 97:Bright cyab, slight darker shade
 101:Translucent white
 </DropDownList>
-                      <Color>80FF00</Color>
                       <VariableType>Byte</VariableType>
                       <Address>SoloParamRepository</Address>
                       <Offsets>
@@ -23544,7 +23342,6 @@ paramUtils:restore("Gauntlet")
 97:Bright cyab, slight darker shade
 101:Translucent white
 </DropDownList>
-                      <Color>80FF00</Color>
                       <VariableType>Byte</VariableType>
                       <Address>SoloParamRepository</Address>
                       <Offsets>
@@ -23645,7 +23442,6 @@ paramUtils:restore("Gauntlet")
 97:Bright cyab, slight darker shade
 101:Translucent white
 </DropDownList>
-                      <Color>80FF00</Color>
                       <VariableType>Byte</VariableType>
                       <Address>SoloParamRepository</Address>
                       <Offsets>
@@ -23747,7 +23543,6 @@ paramUtils:restore("Gauntlet")
 97:Bright cyab, slight darker shade
 101:Translucent white
 </DropDownList>
-                      <Color>80FF00</Color>
                       <VariableType>Byte</VariableType>
                       <Address>SoloParamRepository</Address>
                       <Offsets>
@@ -23848,7 +23643,6 @@ paramUtils:restore("Gauntlet")
 97:Bright cyab, slight darker shade
 101:Translucent white
 </DropDownList>
-                      <Color>80FF00</Color>
                       <VariableType>Byte</VariableType>
                       <Address>SoloParamRepository</Address>
                       <Offsets>
@@ -23949,7 +23743,6 @@ paramUtils:restore("Gauntlet")
 97:Bright cyab, slight darker shade
 101:Translucent white
 </DropDownList>
-                      <Color>80FF00</Color>
                       <VariableType>Byte</VariableType>
                       <Address>SoloParamRepository</Address>
                       <Offsets>
@@ -24051,7 +23844,6 @@ paramUtils:restore("Gauntlet")
 101:Translucent white
 </DropDownList>
                       <ShowAsSigned>0</ShowAsSigned>
-                      <Color>80FF00</Color>
                       <VariableType>Byte</VariableType>
                       <Address>SoloParamRepository</Address>
                       <Offsets>
@@ -24069,7 +23861,6 @@ paramUtils:restore("Gauntlet")
               <ID>1337305549</ID>
               <Description>"Phantom Colors Mod"</Description>
               <Options moHideChildren="1"/>
-              <Color>00D500</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{$lua}
 [ENABLE]
@@ -24124,7 +23915,6 @@ deAlloc(CharBrightness)
 *:Mod Off
 </DropDownList>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>80FF00</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>WorldChrMan</Address>
                   <Offsets>
@@ -24136,7 +23926,6 @@ deAlloc(CharBrightness)
                 <CheatEntry>
                   <ID>1337305551</ID>
                   <Description>"Rainbow Color"</Description>
-                  <Color>80FF00</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -24234,7 +24023,6 @@ paramUtils:restore("PhantomParamRainbowEdit")
                 <CheatEntry>
                   <ID>1337305552</ID>
                   <Description>"Trans Flag"</Description>
-                  <Color>80FF00</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -24315,13 +24103,11 @@ paramUtils:restore("PhantomParamTransEdit")
                   <ID>1337305553</ID>
                   <Description>"Customize RGB Color"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>00D500</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337305554</ID>
                       <Description>"← Apply Custom RGB Color"</Description>
-                      <Color>80FF00</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -24370,14 +24156,12 @@ paramUtils:restore("PhantomParamEdit")
                       <ID>1337305567</ID>
                       <Description>"Presets"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>00D500</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337305568</ID>
                           <Description>"Black Spirit"</Description>
                           <Options moActivateChildrenAsWell="1"/>
-                          <Color>80FF00</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{$lua}
 
@@ -24402,7 +24186,6 @@ writeFloat(CharBrightness, 1.0)
                           <ID>1337305569</ID>
                           <Description>"White Spirit"</Description>
                           <Options moActivateChildrenAsWell="1"/>
-                          <Color>80FF00</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{$lua}
 
@@ -24426,7 +24209,6 @@ writeFloat(CharBrightness, 0.5)
                           <ID>1337305570</ID>
                           <Description>"Red Spirit"</Description>
                           <Options moActivateChildrenAsWell="1"/>
-                          <Color>80FF00</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{$lua}
 
@@ -24451,7 +24233,6 @@ writeFloat(CharBrightness, 0.5)
                           <ID>1337305571</ID>
                           <Description>"Red Phantom"</Description>
                           <Options moActivateChildrenAsWell="1"/>
-                          <Color>80FF00</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{$lua}
 
@@ -24502,7 +24283,6 @@ writeFloat(CharBrightness, 0.1)
                       <ID>1337305559</ID>
                       <Description>"Red Color"</Description>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>0000FF</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>RedColourAddr</Address>
                     </CheatEntry>
@@ -24510,7 +24290,6 @@ writeFloat(CharBrightness, 0.1)
                       <ID>1337305560</ID>
                       <Description>"Green Color"</Description>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>00FF00</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>GreenColourAddr</Address>
                     </CheatEntry>
@@ -24518,7 +24297,6 @@ writeFloat(CharBrightness, 0.1)
                       <ID>1337305561</ID>
                       <Description>"Blue Color"</Description>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>EAEA00</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>BlueColourAddr</Address>
                     </CheatEntry>
@@ -24531,7 +24309,6 @@ writeFloat(CharBrightness, 0.1)
                       <ID>1337305563</ID>
                       <Description>"Red Shade"</Description>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>0000FF</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>RedShadeAddr</Address>
                     </CheatEntry>
@@ -24539,7 +24316,6 @@ writeFloat(CharBrightness, 0.1)
                       <ID>1337305564</ID>
                       <Description>"Green Shade"</Description>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>00FF00</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>GreenShadeAddr</Address>
                     </CheatEntry>
@@ -24547,7 +24323,6 @@ writeFloat(CharBrightness, 0.1)
                       <ID>1337305565</ID>
                       <Description>"Blue Shade"</Description>
                       <ShowAsSigned>1</ShowAsSigned>
-                      <Color>EAEA00</Color>
                       <VariableType>4 Bytes</VariableType>
                       <Address>BlueShadeAddr</Address>
                     </CheatEntry>
@@ -24559,7 +24334,6 @@ writeFloat(CharBrightness, 0.1)
               <ID>1337305702</ID>
               <Description>"Dark Souls III Reshader &amp; Lighting Mod"</Description>
               <Options moHideChildren="1"/>
-              <Color>00D500</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>//Author: Seriouz, inuNorii, original findings by Zullie the Witch
 //Lets you mess with the lighting
@@ -24730,14 +24504,12 @@ unregisterSymbol(The_Fire_FadesTM_Edition)
 0:Off
 </DropDownList>
                   <ShowAsSigned>0</ShowAsSigned>
-                  <Color>80FF80</Color>
                   <VariableType>Byte</VariableType>
                   <Address>DarkSoulsIII.exe+479BA08</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337305579</ID>
                   <Description>"Game Brightness"</Description>
-                  <Color>80FF80</Color>
                   <VariableType>Float</VariableType>
                   <Address>BrightnessMod</Address>
                 </CheatEntry>
@@ -24746,7 +24518,6 @@ unregisterSymbol(The_Fire_FadesTM_Edition)
                   <Description>"Sun Light Value"</Description>
                   <DropDownList DisplayValueAsItem="1">600:HELL
 </DropDownList>
-                  <Color>80FF80</Color>
                   <VariableType>Float</VariableType>
                   <Address>Nlightvalue</Address>
                 </CheatEntry>
@@ -24756,7 +24527,6 @@ unregisterSymbol(The_Fire_FadesTM_Edition)
                   <DropDownList DisplayValueAsItem="1">600:HELL
 </DropDownList>
                   <ShowAsSigned>0</ShowAsSigned>
-                  <Color>80FF80</Color>
                   <VariableType>Float</VariableType>
                   <Address>Nlightvalue2</Address>
                 </CheatEntry>
@@ -24764,7 +24534,6 @@ unregisterSymbol(The_Fire_FadesTM_Edition)
                   <ID>1337305584</ID>
                   <Description>"Map"</Description>
                   <ShowAsSigned>0</ShowAsSigned>
-                  <Color>80FF80</Color>
                   <VariableType>Float</VariableType>
                   <Address>DarkSoulsIII.exe+1725AF8</Address>
                 </CheatEntry>
@@ -24772,7 +24541,6 @@ unregisterSymbol(The_Fire_FadesTM_Edition)
                   <ID>1337305585</ID>
                   <Description>"Vfx"</Description>
                   <ShowAsSigned>0</ShowAsSigned>
-                  <Color>80FF80</Color>
                   <VariableType>Float</VariableType>
                   <Address>DarkSoulsIII.exe+473E778</Address>
                 </CheatEntry>
@@ -24780,7 +24548,6 @@ unregisterSymbol(The_Fire_FadesTM_Edition)
                   <ID>1337305586</ID>
                   <Description>"Glow"</Description>
                   <ShowAsSigned>0</ShowAsSigned>
-                  <Color>80FF80</Color>
                   <VariableType>Float</VariableType>
                   <Address>DarkSoulsIII.exe+2124D0</Address>
                 </CheatEntry>
@@ -24790,7 +24557,6 @@ unregisterSymbol(The_Fire_FadesTM_Edition)
                   <Options moRecursiveSetValue="1"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
-                  <Color>80FF80</Color>
                   <VariableType>Array of byte</VariableType>
                   <ByteLength>12</ByteLength>
                   <Address>Vfx_RGB</Address>
@@ -24798,21 +24564,18 @@ unregisterSymbol(The_Fire_FadesTM_Edition)
                     <CheatEntry>
                       <ID>1337305581</ID>
                       <Description>"Red"</Description>
-                      <Color>0000FF</Color>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
                     </CheatEntry>
                     <CheatEntry>
                       <ID>1337305582</ID>
                       <Description>"Green"</Description>
-                      <Color>40FF00</Color>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
                     </CheatEntry>
                     <CheatEntry>
                       <ID>1337305583</ID>
                       <Description>"Blue"</Description>
-                      <Color>FF8000</Color>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
                     </CheatEntry>
@@ -24822,7 +24585,6 @@ unregisterSymbol(The_Fire_FadesTM_Edition)
                   <ID>1337305633</ID>
                   <Description>"SFX Color override RGBA"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>00D500</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{ Game   : DarkSoulsIII.exe
   Version: 
@@ -24889,7 +24651,6 @@ unregistersymbol(sfxrgba)
                       <ID>1337305856</ID>
                       <Description>"Rainbow VFX"</Description>
                       <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
-                      <Color>80FF00</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{
    Made by indura.
@@ -24944,7 +24705,6 @@ end
                       <ID>1337305857</ID>
                       <Description>"Pink VFX"</Description>
                       <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
-                      <Color>80FF00</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{
    Made by indura.
@@ -24969,7 +24729,6 @@ autoDisable(memrec)
                       <ID>1337305866</ID>
                       <Description>"Blue VFX"</Description>
                       <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
-                      <Color>80FF00</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{
    Made by indura.
@@ -24994,7 +24753,6 @@ autoDisable(memrec)
                       <ID>1337305865</ID>
                       <Description>"Reset"</Description>
                       <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
-                      <Color>80FF00</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{
    Made by indura.
@@ -25021,7 +24779,6 @@ autoDisable(memrec)
 205 204 76 62 51 51 179 63 102 102 166 63 0 0 160 66:bright spooky halloween
 </DropDownList>
                       <ShowAsSigned>0</ShowAsSigned>
-                      <Color>80FF80</Color>
                       <VariableType>Array of byte</VariableType>
                       <ByteLength>21</ByteLength>
                       <Address>sfxrgba</Address>
@@ -25029,21 +24786,18 @@ autoDisable(memrec)
                         <CheatEntry>
                           <ID>1337305635</ID>
                           <Description>"red"</Description>
-                          <Color>0000FF</Color>
                           <VariableType>Float</VariableType>
                           <Address>+0</Address>
                         </CheatEntry>
                         <CheatEntry>
                           <ID>1337305636</ID>
                           <Description>"green"</Description>
-                          <Color>00FF00</Color>
                           <VariableType>Float</VariableType>
                           <Address>+4</Address>
                         </CheatEntry>
                         <CheatEntry>
                           <ID>1337305637</ID>
                           <Description>"blue"</Description>
-                          <Color>FF8000</Color>
                           <VariableType>Float</VariableType>
                           <Address>+8</Address>
                         </CheatEntry>
@@ -25061,13 +24815,11 @@ autoDisable(memrec)
                   <ID>1337305723</ID>
                   <Description>"Reshader Presets"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>00D500</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337305678</ID>
                       <Description>"Default Game Settings"</Description>
-                      <Color>AAFF55</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -25112,7 +24864,6 @@ dd (float)1.0
                     <CheatEntry>
                       <ID>1337305724</ID>
                       <Description>"Indura's Custom Settings"</Description>
-                      <Color>AAFF55</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -25155,13 +24906,11 @@ dd (float)2.0 (float)2.0 (float)2.0 // Normally 1.0 | 1.0 | 1.0
               <ID>1337305726</ID>
               <Description>"Model Masks"</Description>
               <Options moHideChildren="1"/>
-              <Color>00D500</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337305848</ID>
                   <Description>"Mask Current Armor"</Description>
-                  <Color>80FF00</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{
 By Indura
@@ -25209,7 +24958,6 @@ paramUtils:restore("CustomMasks")
                 <CheatEntry>
                   <ID>1337305877</ID>
                   <Description>"Custom Masks (See Script)"</Description>
-                  <Color>80FF00</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>// By Indura
 
@@ -25285,7 +25033,6 @@ paramUtils:restore("CustomInputMasks")
                 <CheatEntry>
                   <ID>1337256152</ID>
                   <Description>"Everyone is Lapp"</Description>
-                  <Color>80FF00</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>// Everyone is G9
 // Players (including you) will have to re-equip armor pieces for changes to be visible
@@ -25362,7 +25109,6 @@ end
                 <CheatEntry>
                   <ID>1337305725</ID>
                   <Description>"Everyone is PvE'r"</Description>
-                  <Color>80FF00</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>// Everyone is G9
 // Players (including you) will have to re-equip armor pieces for changes to be visible
@@ -25441,7 +25187,6 @@ end
               <ID>1337305794</ID>
               <Description>"Body Visuals Mod"</Description>
               <Options moHideChildren="1"/>
-              <Color>00D500</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -25565,7 +25310,6 @@ unregisterSymbol(VFXID4)
 50501:Ember On Body
 </DropDownList>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>80FF00</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>VFXID1</Address>
                 </CheatEntry>
@@ -25596,7 +25340,6 @@ unregisterSymbol(VFXID4)
 50501:Ember On Body
 </DropDownList>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>80FF00</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>VFXID2</Address>
                 </CheatEntry>
@@ -25627,7 +25370,6 @@ unregisterSymbol(VFXID4)
 50501:Ember On Body
 </DropDownList>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>80FF00</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>VFXID3</Address>
                 </CheatEntry>
@@ -25658,7 +25400,6 @@ unregisterSymbol(VFXID4)
 50501:Ember On Body
 </DropDownList>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>80FF00</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>VFXID4</Address>
                 </CheatEntry>
@@ -25668,7 +25409,6 @@ unregisterSymbol(VFXID4)
               <ID>1337305774</ID>
               <Description>"Infusion Visuals Mod"</Description>
               <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
-              <Color>80FF00</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{  Credits to Jacky Dima for original script.
    Updated by Indura.
@@ -25889,7 +25629,6 @@ removeEffect(41)
               <ID>1337305462</ID>
               <Description>"Untrue Dark Ring"</Description>
               <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
-              <Color>80FF00</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -25906,7 +25645,6 @@ paramUtils:restore("Untruef")
           <ID>1337291794</ID>
           <Description>"Quick Access"</Description>
           <Options moHideChildren="1"/>
-          <Color>D5D500</Color>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>//All Online usefull functions seperated in  3 Headers
 //Headers used being Hosting, Invading and Duelling.
@@ -25933,7 +25671,6 @@ QuickAccessFunctions.getMemoryRecordByDescription("Numpad Hotkeys Scripts ↓").
               <ID>1337305690</ID>
               <Description>"Numpad Hotkeys Scripts ↓"</Description>
               <Options moHideChildren="1"/>
-              <Color>FFFF00</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>[ENABLE]
 [DISABLE]
@@ -25948,7 +25685,6 @@ QuickAccessFunctions.getMemoryRecordByDescription("Numpad Hotkeys Scripts ↓").
                 <CheatEntry>
                   <ID>1337305691</ID>
                   <Description>"Numpad [0] - Disconnect"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -25976,7 +25712,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337305692</ID>
                   <Description>"Numpad [1] - No Gravity"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 [ENABLE]
@@ -25997,7 +25732,6 @@ writeBit(noGravityPtr, 6, 0)
                 <CheatEntry>
                   <ID>1337305693</ID>
                   <Description>"Numpad [2] - Parried By God"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -26019,7 +25753,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337305694</ID>
                   <Description>"Numpad [3] - Away From Keyboard"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -26044,7 +25777,6 @@ writeInteger(idleAnimPtr,0)
                 <CheatEntry>
                   <ID>1337305695</ID>
                   <Description>"Numpad [4] - Suicide"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>[ENABLE]
 {$lua}
@@ -26069,7 +25801,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337305696</ID>
                   <Description>"Numpad [5] - Clear PvE"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Call Kill All Mobs
 //You can now use a function for it to call it easier,
@@ -26097,7 +25828,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337305697</ID>
                   <Description>"Numpad [6] - White Sign"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 [ENABLE]
@@ -26118,7 +25848,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337305698</ID>
                   <Description>"Numpad [7] - Red Sign"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 [ENABLE]
@@ -26139,7 +25868,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337305699</ID>
                   <Description>"Numpad [8] - Reset Consumables"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Restocks All Goods/Arrows
 //Made by DiamondEnderman
@@ -26165,7 +25893,6 @@ ItemGib:spawnMultiItems(customRestockedItems)
                 <CheatEntry>
                   <ID>1337305700</ID>
                   <Description>"Numpad [9] - Reset Character + Tears Of Denial"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Resets Character for duels.
 //Made by Indura
@@ -26205,20 +25932,17 @@ autoDisable(memrec)
               <ID>1337291812</ID>
               <Description>"Npc Menus"</Description>
               <Options moHideChildren="1"/>
-              <Color>FFFF00</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337291813</ID>
                   <Description>"Rosaria"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337291814</ID>
                       <Description>"Reallocate stats"</Description>
-                      <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>//Author: ametalon
 [ENABLE]
@@ -26248,7 +25972,6 @@ dealloc(free_stats_realloc)
                     <CheatEntry>
                       <ID>1337291815</ID>
                       <Description>"Alter Appearance"</Description>
-                      <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>[ENABLE]
 aobscanmodule(AA_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 10 00 00 00)
@@ -26279,13 +26002,11 @@ dealloc(alter_appearance)
                   <ID>1337291816</ID>
                   <Description>"Bonfire"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337291817</ID>
                       <Description>"Travel"</Description>
-                      <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>//Thanks to Luke_Yui for message box
 [ENABLE]
@@ -26330,7 +26051,6 @@ dealloc(ErrorText)
                     <CheatEntry>
                       <ID>1337291818</ID>
                       <Description>"Attune Spell"</Description>
-                      <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>[ENABLE]
 aobscanmodule(BAttune_AOB,$process,48 8D 45 0F 48 89 45 EF 48 8D 45 0F 48 89 45 F7 48 8D ?? ?? ?? ?? ?? 48 89 45 0F 48 8D ?? ?? ?? ?? ?? 48 89 45 0F 48 8D ?? ?? ?? ?? ?? 48 89 45 17)
@@ -26354,7 +26074,6 @@ dealloc(BonfireAttuneSpell)
                     <CheatEntry>
                       <ID>1337291819</ID>
                       <Description>"Organize Storage Box"</Description>
-                      <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>[ENABLE]
 aobscanmodule(BSB_Call_Call,$process,?? ?? ?? ?? 90 48 8B 50 08 48 89 53 08 48 8B 40 10 48 89 43 10 48 8D ?? ?? ?? ?? ?? 48 89 44 24 28 C7 43 18 03 00 00 00)
@@ -26381,7 +26100,6 @@ dealloc(BonfireStorageBox)
                     <CheatEntry>
                       <ID>1337291820</ID>
                       <Description>"Undead Match"</Description>
-                      <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>//Thanks to Luke_Yui for message box
 [ENABLE]
@@ -26430,7 +26148,6 @@ dealloc(ErrorText)
                     <CheatEntry>
                       <ID>1337291821</ID>
                       <Description>"Access All Bonfires"</Description>
-                      <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>//Author: inuNorii
 {$lua}
@@ -26449,13 +26166,11 @@ paramUtils:restore("UnlockAllBonfires")
                   <ID>1337291822</ID>
                   <Description>"Firekeeper"</Description>
                   <Options moAlwaysHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337291823</ID>
                       <Description>"Level Up"</Description>
-                      <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -26488,13 +26203,11 @@ dealloc(FirekeeperMenu)
                   <ID>1337291824</ID>
                   <Description>"Blacksmith Andre"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337291825</ID>
                       <Description>"Reinforce Weapon"</Description>
-                      <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>[ENABLE]
 aobscanmodule(RWLoop_Call,$process,81 f9 f3 01 00 00 77 ?? 48 8b ?? ?? ?? ?? ?? 48 63 c9)
@@ -26530,7 +26243,6 @@ dealloc(BsmReinforceWeapon)
                     <CheatEntry>
                       <ID>1337291826</ID>
                       <Description>"Infuse Weapon"</Description>
-                      <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>//Author: ametalon
 [ENABLE]
@@ -26566,7 +26278,6 @@ dealloc(infuse_weapon_menu)
                     <CheatEntry>
                       <ID>1337291827</ID>
                       <Description>"Repair Equipment"</Description>
-                      <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>[ENABLE]
 aobscanmodule(RE_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 08 00 00 00)
@@ -26593,7 +26304,6 @@ dealloc(BsmRepair)
                     <CheatEntry>
                       <ID>1337291828</ID>
                       <Description>"Allot Estus"</Description>
-                      <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>[ENABLE]
 aobscanmodule(AE_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 0e 00 00 00)
@@ -26621,7 +26331,6 @@ dealloc(BsmAllotEstus)
                       <ID>1337291829</ID>
                       <Description>"Reinforce Estus Flask (WIP)"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>80FFFF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>//Author: inuNorii
 //Upgrades Estus Flask number once
@@ -26678,20 +26387,17 @@ dealloc(ErrorText)
                   <ID>1337291830</ID>
                   <Description>"Other Vendors"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF00</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337291831</ID>
                       <Description>"Shrine Handmaid"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>FFFF80</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291832</ID>
                           <Description>"Purchase Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(HSBuy_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 05 00 00 00)
@@ -26721,7 +26427,6 @@ dealloc(HandmaidShop)
                         <CheatEntry>
                           <ID>1337291833</ID>
                           <Description>"Sell Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(HSSell_Call_Call,$process,?? ?? ?? ?? 90 48 8b 48 08 48 89 4b 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 06 00 00 00)
@@ -26748,7 +26453,6 @@ dealloc(HandmaidSellItem)
                         <CheatEntry>
                           <ID>1337291834</ID>
                           <Description>"Access All Shop Inventory"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 {$lua}
@@ -26766,7 +26470,6 @@ paramUtils:restore("AccessAllShopInventory")
                         <CheatEntry>
                           <ID>1337291835</ID>
                           <Description>"Free Shop (slow)"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -26807,13 +26510,11 @@ paramUtils:restore("FreeShop")
                       <ID>1337291836</ID>
                       <Description>"Shrine Handmaid (Alternate)"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>FFFF80</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291837</ID>
                           <Description>"Purchase Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(AHSBuy_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 05 00 00 00)
@@ -26843,7 +26544,6 @@ dealloc(HandmaidAltShop)
                         <CheatEntry>
                           <ID>1337291838</ID>
                           <Description>"Sell Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(AHSSell_Call_Call,$process,?? ?? ?? ?? 90 48 8b 48 08 48 89 4b 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 06 00 00 00)
@@ -26873,13 +26573,11 @@ dealloc(HandmaidSellItem)
                       <ID>1337291839</ID>
                       <Description>"Ludleth of Courland"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>FFFF80</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291840</ID>
                           <Description>"Begin Transposition"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(LT_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 12 00 00 00)
@@ -26908,7 +26606,6 @@ dealloc(LudlethTranspose)
                         <CheatEntry>
                           <ID>1337291841</ID>
                           <Description>"Free Transpose"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 {$lua}
@@ -26940,13 +26637,11 @@ paramUtils:restore("FreeTranspose")
                       <ID>1337291842</ID>
                       <Description>"Yoel of Londor"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>FFFF80</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291843</ID>
                           <Description>"Draw Out True Strength"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(YL_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 11 00 00 00)
@@ -26973,7 +26668,6 @@ dealloc(YoelLevelUp)
                         <CheatEntry>
                           <ID>1337291844</ID>
                           <Description>"Purchase Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(YBuy_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 05 00 00 00)
@@ -27006,13 +26700,11 @@ dealloc(YoelShop)
                       <ID>1337291845</ID>
                       <Description>"Yuria of Londor"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>FFFF80</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291846</ID>
                           <Description>"Purchase Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(YuBuy_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 05 00 00 00)
@@ -27045,13 +26737,11 @@ dealloc(YuriaShop)
                       <ID>1337291847</ID>
                       <Description>"Greirat of the Undead Settlement"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>FFFF80</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291848</ID>
                           <Description>"Purchase Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(GBuy_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 05 00 00 00)
@@ -27081,7 +26771,6 @@ dealloc(GreiratShop)
                         <CheatEntry>
                           <ID>1337291849</ID>
                           <Description>"Sell Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(GSell_Call_Call,$process,?? ?? ?? ?? 90 48 8b 48 08 48 89 4b 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 06 00 00 00)
@@ -27111,13 +26800,11 @@ dealloc(HandmaidSellItem)
                       <ID>1337291850</ID>
                       <Description>"Unbreakable Patches"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>FFFF80</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291851</ID>
                           <Description>"Purchase Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(PBuy_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 05 00 00 00)
@@ -27147,7 +26834,6 @@ dealloc(PatchesShop)
                         <CheatEntry>
                           <ID>1337291852</ID>
                           <Description>"Sell Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(PSell_Call_Call,$process,?? ?? ?? ?? 90 48 8b 48 08 48 89 4b 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 06 00 00 00)
@@ -27177,13 +26863,11 @@ dealloc(HandmaidSellItem)
                       <ID>1337291853</ID>
                       <Description>"Irina of Carim"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>FFFF80</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291854</ID>
                           <Description>"Level Up"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(LU_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 0a 00 00 00)
@@ -27210,7 +26894,6 @@ dealloc(FirekeeperMenu)
                         <CheatEntry>
                           <ID>1337291855</ID>
                           <Description>"Learn Miracles"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(ILearn_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 05 00 00 00)
@@ -27240,7 +26923,6 @@ dealloc(IrinaMiracles)
                         <CheatEntry>
                           <ID>1337291856</ID>
                           <Description>"Purchase Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(IBuy_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 05 00 00 00)
@@ -27273,13 +26955,11 @@ dealloc(IrinaShop)
                       <ID>1337291857</ID>
                       <Description>"Orbeck of Vinheim"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>FFFF80</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291858</ID>
                           <Description>"Learn Sorceries"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(OLearn_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 05 00 00 00)
@@ -27312,13 +26992,11 @@ dealloc(OrbeckShop)
                       <ID>1337291859</ID>
                       <Description>"Cornyx of the Great Swamp"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>FFFF80</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291860</ID>
                           <Description>"Learn Pyromancies"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(CLearn_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 05 00 00 00)
@@ -27348,7 +27026,6 @@ dealloc(CornyxPyromancies)
                         <CheatEntry>
                           <ID>1337291861</ID>
                           <Description>"Purchase Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(CBuy_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 05 00 00 00)
@@ -27381,13 +27058,11 @@ dealloc(CornyxShop)
                       <ID>1337291862</ID>
                       <Description>"Karla"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>FFFF80</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291863</ID>
                           <Description>"Learn Dark Sorceries"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(KLearn_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 05 00 00 00)
@@ -27420,13 +27095,11 @@ dealloc(KarlaShop)
                       <ID>1337291864</ID>
                       <Description>"Stone-humped Hag (The Ringed City)"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>FFFF80</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337291865</ID>
                           <Description>"Purchase Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(Dlc2Buy_Call_Call,$process,?? ?? ?? ?? 90 48 8b 50 08 48 89 53 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 05 00 00 00)
@@ -27457,7 +27130,6 @@ dealloc(Dlc2Shop)
                         <CheatEntry>
                           <ID>1337291866</ID>
                           <Description>"Sell Item"</Description>
-                          <Color>80FFFF</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 aobscanmodule(SHHSell_Call_Call,$process,?? ?? ?? ?? 90 48 8b 48 08 48 89 4b 08 48 8b 40 10 48 89 43 10 48 8d ?? ?? ?? ?? ?? 48 89 44 24 28 c7 43 18 06 00 00 00)
@@ -27491,7 +27163,6 @@ dealloc(HandmaidSellItem)
               <ID>1337291867</ID>
               <Description>"Bonfire Warp "</Description>
               <Options moHideChildren="1"/>
-              <Color>FFFF00</Color>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>//BonfireWarp
 //Made by DiamondEnderman
@@ -27553,7 +27224,6 @@ unregisterSymbol(TargetBonfireId)
                 <CheatEntry>
                   <ID>1337291868</ID>
                   <Description>"Warp &lt;--"</Description>
-                  <Color>FFFF00</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Warps Player
 {$lua}
@@ -27655,14 +27325,12 @@ bonfireWarp(readInteger("TargetBonfireId"))
 5402950:Arena: Round Plaza
 </DropDownList>
                   <ShowAsSigned>1</ShowAsSigned>
-                  <Color>FFFF80</Color>
                   <VariableType>4 Bytes</VariableType>
                   <Address>TargetBonfireId</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337291870</ID>
                   <Description>"Bonfire Warp Menu"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Thanks to Luke_Yui for message box
 [ENABLE]
@@ -27713,13 +27381,11 @@ dealloc(ErrorText)
                   <ID>1337291871</ID>
                   <Description>"Popular ↓"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF00</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337291872</ID>
                       <Description>"Firelink"</Description>
-                      <Color>FFFF80</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -27732,7 +27398,6 @@ bonfireWarp(4002950)
                     <CheatEntry>
                       <ID>1337291873</ID>
                       <Description>"Old Wolf"</Description>
-                      <Color>FFFF80</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -27745,7 +27410,6 @@ bonfireWarp(3302955)
                     <CheatEntry>
                       <ID>1337291874</ID>
                       <Description>"Pontiff"</Description>
-                      <Color>FFFF80</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -27758,7 +27422,6 @@ bonfireWarp(3702951)
                     <CheatEntry>
                       <ID>1337291875</ID>
                       <Description>"Woods"</Description>
-                      <Color>FFFF80</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -27771,7 +27434,6 @@ bonfireWarp(3302957)
                     <CheatEntry>
                       <ID>1337291876</ID>
                       <Description>"Ringed City"</Description>
-                      <Color>FFFF80</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -27798,14 +27460,12 @@ autoDisable(memrec)
               <ID>1337286197</ID>
               <Description>"Boss status list"</Description>
               <Options moHideChildren="1"/>
-              <Color>FFFF00</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337286198</ID>
                   <Description>"Iudex Gundyr"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -27853,7 +27513,6 @@ autoDisable(memrec)
                   <ID>1337286202</ID>
                   <Description>"Vordt of the Boreal Valley"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -27888,7 +27547,6 @@ autoDisable(memrec)
                   <ID>1337286205</ID>
                   <Description>"Curse-Rotted Greatwood"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -27923,7 +27581,6 @@ autoDisable(memrec)
                   <ID>1337286208</ID>
                   <Description>"Crystal Sage"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -27959,7 +27616,6 @@ autoDisable(memrec)
                   <ID>1337286211</ID>
                   <Description>"Deacons of the Deep"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -27994,7 +27650,6 @@ autoDisable(memrec)
                   <ID>1337286214</ID>
                   <Description>"Abyss Watchers"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28029,7 +27684,6 @@ autoDisable(memrec)
                   <ID>1337286217</ID>
                   <Description>"High Lord Wolnir"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28064,7 +27718,6 @@ autoDisable(memrec)
                   <ID>1337286220</ID>
                   <Description>"Old Demon King"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28086,7 +27739,6 @@ autoDisable(memrec)
                   <ID>1337286222</ID>
                   <Description>"Yhorm the Giant"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28121,7 +27773,6 @@ autoDisable(memrec)
                   <ID>1337286225</ID>
                   <Description>"Pontiff Sulyvahn"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28143,7 +27794,6 @@ autoDisable(memrec)
                   <ID>1337286227</ID>
                   <Description>"Aldrich, Devourer of Gods"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28166,7 +27816,6 @@ autoDisable(memrec)
                   <ID>1337286229</ID>
                   <Description>"Dancer of the Boreal Valley"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28188,7 +27837,6 @@ autoDisable(memrec)
                   <ID>1337286231</ID>
                   <Description>"Oceiros, the Consumed King"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28223,7 +27871,6 @@ autoDisable(memrec)
                   <ID>1337286234</ID>
                   <Description>"Champion Gundyr"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28258,7 +27905,6 @@ autoDisable(memrec)
                   <ID>1337286237</ID>
                   <Description>"Nameless King"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28293,7 +27939,6 @@ autoDisable(memrec)
                   <ID>1337286240</ID>
                   <Description>"Dragonslayer Armour"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28315,7 +27960,6 @@ autoDisable(memrec)
                   <ID>1337286242</ID>
                   <Description>"Twin Princes"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28350,7 +27994,6 @@ autoDisable(memrec)
                   <ID>1337286245</ID>
                   <Description>"Soul of Cinder"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28385,7 +28028,6 @@ autoDisable(memrec)
                   <ID>1337286248</ID>
                   <Description>"Champion's Gravetender"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28420,7 +28062,6 @@ autoDisable(memrec)
                   <ID>1337286251</ID>
                   <Description>"Father Ariandel and Sister Friede"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28468,7 +28109,6 @@ autoDisable(memrec)
                   <ID>1337286255</ID>
                   <Description>"Halflight, Spear of the Church"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28503,7 +28143,6 @@ autoDisable(memrec)
                   <ID>1337286258</ID>
                   <Description>"Darkeater Midir"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28538,7 +28177,6 @@ autoDisable(memrec)
                   <ID>1337286261</ID>
                   <Description>"Slave Knight Gael"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
@@ -28572,7 +28210,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337286264</ID>
                   <Description>"Demon Prince"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>1</BitLength>
@@ -28589,13 +28226,11 @@ autoDisable(memrec)
               <ID>1337305224</ID>
               <Description>"Other Scripts"</Description>
               <Options moHideChildren="1"/>
-              <Color>FFFF00</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337305775</ID>
                   <Description>"Print Current Held Weapons"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -28646,7 +28281,6 @@ autoDisable(memrec)
                 <CheatEntry>
                   <ID>1337305229</ID>
                   <Description>"Infinite Warmth Moss"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{Author: The-Raid-Boss
 Description: Makes A Blue Sentinal Approved Heal Station For FightClubs
@@ -28677,7 +28311,6 @@ paramUtils:restore("HealingStation")
                 <CheatEntry>
                   <ID>1337305230</ID>
                   <Description>"Keep Player Unembered"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -28698,7 +28331,6 @@ emberCheck.destroy()
                 <CheatEntry>
                   <ID>1337305231</ID>
                   <Description>"Kill All Mobs"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Call Kill All Mobs
 //You can now use a function for it to call it easier,
@@ -28717,7 +28349,6 @@ killAllMobs()
                 <CheatEntry>
                   <ID>1337305232</ID>
                   <Description>"No Arrow Consume"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -28730,7 +28361,6 @@ setAssemblyFlag(EquipDurability, 0)
                 <CheatEntry>
                   <ID>1337305685</ID>
                   <Description>"No Durability Consume"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -28743,7 +28373,6 @@ setAssemblyFlag(EquipDurability, 0)
                 <CheatEntry>
                   <ID>1337305233</ID>
                   <Description>"No Goods Consume"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{  no goods consume
    by diamondenderman
@@ -28760,7 +28389,6 @@ writeBit(noGoodsPtr, 3, 0)
                 <CheatEntry>
                   <ID>1337305234</ID>
                   <Description>"Recycling Tears"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{better recycling tears}
 {$lua}
@@ -28794,7 +28422,6 @@ removeEffect({103520000, 103520100, 41})
                 <CheatEntry>
                   <ID>1337305235</ID>
                   <Description>"Restock Items"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>//Restocks All Goods/Arrows
 //Made by DiamondEnderman
@@ -28814,13 +28441,11 @@ ItemGib:spawnMultiItems(customRestockedItems)
               <ID>1337291877</ID>
               <Description>"Table Management"</Description>
               <Options moHideChildren="1"/>
-              <Color>FFFF00</Color>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
                   <ID>1337291879</ID>
                   <Description>"View all hotkeys"</Description>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>[ENABLE]
 //code from here to '[DISABLE]' will be used to enable the cheat
@@ -28853,7 +28478,6 @@ autoDisable(memrec)
 1:Enable
 </DropDownList>
                   <ShowAsSigned>0</ShowAsSigned>
-                  <Color>FFFF80</Color>
                   <VariableType>Byte</VariableType>
                   <Address>DamageMan</Address>
                   <Offsets>
@@ -28864,7 +28488,6 @@ autoDisable(memrec)
                   <ID>1337305759</ID>
                   <Description>"Delete all Hotkeys"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF80</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{$lua}
 if not syntaxcheck then end
@@ -28876,7 +28499,6 @@ showMessage("Are you sure you wish to remove ALL hotkeys?")
                     <CheatEntry>
                       <ID>1337291883</ID>
                       <Description>"Delete all Hotkeys"</Description>
-                      <Color>0000FF</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>[ENABLE]
 
@@ -28906,7 +28528,6 @@ print('All Hotkeys Removed')
                 <CheatEntry>
                   <ID>1337291569</ID>
                   <Description>"Record ID viewer menu"</Description>
-                  <Color>FFFF00</Color>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>[enable]
 {$lua}
@@ -29015,14 +28636,12 @@ DontDisableMeYouIdiot
                   <ID>1337305353</ID>
                   <Description>"Dependencies"</Description>
                   <Options moHideChildren="1"/>
-                  <Color>FFFF00</Color>
                   <GroupHeader>1</GroupHeader>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>1337305354</ID>
                       <Description>"Param Patchers"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>808080</Color>
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -29036,7 +28655,6 @@ if syntaxcheck then return end
                           <ID>1337305355</ID>
                           <Description>"Param Patcher Initializer"</Description>
                           <Options moHideChildren="1"/>
-                          <Color>808080</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 {$lua}
@@ -29246,7 +28864,6 @@ unregistersymbol(ParamPatchAOB)
                         <CheatEntry>
                           <ID>1337305356</ID>
                           <Description>"Param Patcher"</Description>
-                          <Color>808080</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 {$lua}
@@ -29807,13 +29424,11 @@ disableRecord(1337305359)
                               <ID>1337305357</ID>
                               <Description>"Classes"</Description>
                               <Options moHideChildren="1"/>
-                              <Color>808080</Color>
                               <GroupHeader>1</GroupHeader>
                               <CheatEntries>
                                 <CheatEntry>
                                   <ID>1337305358</ID>
                                   <Description>"Don't disable Param Patcher classes"</Description>
-                                  <Color>FF0000</Color>
                                   <GroupHeader>1</GroupHeader>
                                 </CheatEntry>
                                 <CheatEntry>
@@ -38401,19 +38016,16 @@ end
                       <ID>1337305396</ID>
                       <Description>"Function List"</Description>
                       <Options moHideChildren="1"/>
-                      <Color>808080</Color>
                       <GroupHeader>1</GroupHeader>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>1337305704</ID>
                           <Description>"Don't Disable Custom Functions"</Description>
-                          <Color>FF0000</Color>
                           <GroupHeader>1</GroupHeader>
                         </CheatEntry>
                         <CheatEntry>
                           <ID>1337305398</ID>
                           <Description>"Gaming Mode + Ctrl F"</Description>
-                          <Color>808080</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{$lua}
 if not syntaxcheck then autoDisable(memrec) end
@@ -38608,7 +38220,6 @@ autoDisable(memrec, 1000)
                         <CheatEntry>
                           <ID>1337305400</ID>
                           <Description>"Custom Restock"</Description>
-                          <Color>808080</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>//Items To Restock
 //Change, Remove, or add IDS to Change what is restocked
@@ -38694,7 +38305,6 @@ customRestockedItems = {
                           <ID>1337305399</ID>
                           <Description>"Improved ItemGib"</Description>
                           <Options moHideChildren="1"/>
-                          <Color>808080</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{
 Adds item to inventory
@@ -39101,7 +38711,6 @@ dealloc(Data)
                         <CheatEntry>
                           <ID>1337258599</ID>
                           <Description>"Mass ItemGib"</Description>
-                          <Color>808080</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>[ENABLE]
 alloc(MassItemGib,128,DarkSoulsIII.exe)
@@ -39292,7 +38901,6 @@ unregistersymbol(MassGibDone)
                           <ID>1337305746</ID>
                           <Description>"ASM flag list"</Description>
                           <Options moHideChildren="1"/>
-                          <Color>808080</Color>
                           <VariableType>Auto Assembler Script</VariableType>
                           <AssemblerScript>{$lua}
 if not syntaxcheck then end
@@ -39421,8 +39029,7 @@ end
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1337291884</ID>
-                  <Description>"Save Table Edits"</Description>
-                  <Color>FFFF00</Color>
+                  <Description>"Save Table"</Description>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{
     Quick Table Save
@@ -39432,7 +39039,7 @@ end
 [ENABLE]
 {$lua}
 if syntaxcheck then return end
-local fileName = "InduraPublic.CT" -- FileName For Your Table
+local fileName = "InduraPublicNoColors.CT" -- FileName For Your Table
 --Function for AutoDisabling
 local function autoDisable(memrec, delay)
   delay = math.max(delay or 100, 100)
@@ -39458,7 +39065,6 @@ saveTable(fileName)
     <CheatEntry>
       <ID>1337305880</ID>
       <Description>"&lt;-- Table Info"</Description>
-      <Color>FF8080</Color>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>{$lua}
 if syntaxcheck then return end
@@ -39468,7 +39074,6 @@ tablefaq = createForm(true)
 tablefaq.Caption = "Table Info"
 tablefaq.Width = 250
 tablefaq.Height = 220
---tablefaq.Color = 0x000000
 tablefaq.centerScreen()
 
 local buttDescs = {"How to change table settings","Fetch Table Info","Copy Github Link","Open Github Link","Close This Window"}
@@ -39577,7 +39182,6 @@ tablefaq.destroy()
     <CheatEntry>
       <ID>1337305882</ID>
       <Description>"&lt;-- Save Table"</Description>
-      <Color>FF8080</Color>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>{
     Quick Table Save
